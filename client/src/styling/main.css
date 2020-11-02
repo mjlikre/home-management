@@ -1,0 +1,71 @@
+.primary-button{ 
+    color: #fff;
+    background-color: #1976d2;
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.75;
+}
+
+.secondary-button {
+    color: #333;
+    background-color: #e0e0e0;
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.75;
+}
+
+.cancel-button {
+    color: #fff;
+    background-color: red;
+    padding: 6px;
+    font-size: 0.875rem;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 30px;
+    font-weight: 500;
+    line-height: 0.75;
+}
+
+.inactive-button {
+    color: #333;
+    background-color: #e0e0e0;
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.75;
+}
+
+.kjga-display-block {
+    display: block;
+    top: 80px;
+}
+
+
+.kjga-input-box {
+    border: 1px solid black
+}
+
+.name-box {
+    width: 120px;
+    height: 38px;
+    border: 1px black solid;
+    padding-left: 10px;
+    font-size: 25px;
+}
+
+.dropdown-container {
+    display: grid;
+    grid-template-columns: 120px 50px 50px 50px;
+    grid-template-rows: auto;
+}
+
+.red {
+    background-color: red;
+}
