@@ -1,5 +1,4 @@
 import { AUTH_USER, AUTH_ERROR } from "../actions/types";
-import { StaticRouter } from "react-router-dom";
 
 const INITIAL_STATE = {
   authenticated: '',

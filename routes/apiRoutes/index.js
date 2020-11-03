@@ -1,6 +1,7 @@
 const router      = require('express').Router();
 const authRoutes  = require('./authRoutes');
 const authMiddleware = require('./../../middlewares/authMiddlewares');
+const operationsRoutes = require("./operationsRoutes")
 // / api prepended to these routes
 
 router.route('/test')
@@ -10,6 +11,7 @@ router.route('/test')
   });
 
 router.use('/auth', authRoutes);
+router.use("/operations", operationsRoutes)
 
 
 module.exports = router;

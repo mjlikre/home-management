@@ -10,7 +10,7 @@ var connection
         port: '3306',
         user: "root",
         password: "password",
-        database: "importnica"
+        database: "home_management"
     });
       
   }

@@ -53,7 +53,7 @@
 }
 
 .name-box {
-    width: 120px;
+    width: 220px;
     height: 38px;
     border: 1px black solid;
     padding-left: 10px;
@@ -62,7 +62,7 @@
 
 .dropdown-container {
     display: grid;
-    grid-template-columns: 120px 50px 50px 50px;
+    grid-template-columns: 220px 50px 50px 50px;
     grid-template-rows: auto;
 }
 

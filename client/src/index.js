@@ -11,7 +11,10 @@ import App from './containers/App';
 
 import SignOut from "./containers/Signout";
 import SignIn from "./containers/Login";
-import Welcome from "./containers/WelcomePage";
+import Daily from "./containers/Daily"
+import Client from "./containers/Client"
+import Specifics from "./containers/Specifics"
+import Main from "./containers/Main";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import reducers from './reducers';
@@ -32,10 +35,12 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
         <Route path="/" render = {App}/>
-
-        <Route path='/home' component={Welcome}/>
         <Route path='/signin' component={SignIn}/>
+        <Route path="/daily" component={Daily}/>
         <Route path='/signout' component={SignOut}/>
+        <Route path="/specifics" component={Specifics}/>
+        <Route path="/client" component={Client}/>
+        <Route path="/main" component={Main}/>
 
     </Router>
   </Provider>

@@ -16,22 +16,9 @@ class Login extends Component {
         }
 
     }
-    // undisable =  () => {
-    //     if (this.state.disabled){
-    //       this.setState({disabled: false})
-    //     }
-    //     document.getElementById("submit").style = {}; 
-    // }
-
-    // renderErrors = () => {
-    //     if (this.props.errorMessage){
-    //       return <div>{this.props.errorMessage}</div>
-    //     }
-      
-    // }
     renderRedirect = () => {
         if (this.state.redirect || this.props.auth) {  
-          return <Redirect to='/go' />
+          return <Redirect to='/daily' />
         }
     }
     signIn = () =>{
@@ -48,7 +35,7 @@ class Login extends Component {
     render(){
         return (
             <div>
-                <NavBar navItems = {[{name: "Home", href: "/home"}, {name: "Sign In", href: "/signin"}, "Sign In"]}/>
+                <NavBar navItems = {[{name: "登录", href: "/signin"}, "登录"]}/>
                 <div style = {{position: "relative"}}>
                     {this.renderRedirect()}
                     <img
@@ -70,22 +57,22 @@ class Login extends Component {
                             >
 <div className = "jumbotron">
                             <div style = {{textAlign: "center"}}>
-                                <h2>Sign In</h2>
+                                <h2>登录页面</h2>
                             </div>
                             
                             <Form>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>User Name</Form.Label>
-                                <Form.Control type="username" placeholder="Enter email" onChange ={(e) => { this.setState({ username : e.target.value }) }}/>
+                                <Form.Label>用户名</Form.Label>
+                                <Form.Control type="username" placeholder="输入用户名" onChange ={(e) => { this.setState({ username : e.target.value }) }}/>
 
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" onChange ={(e) => { this.setState({ password : e.target.value }) }}/>
+                                <Form.Label>密码</Form.Label>
+                                <Form.Control type="password" placeholder="输入密码" onChange ={(e) => { this.setState({ password : e.target.value }) }}/>
                             </Form.Group>
                             <Button variant="primary" onClick={()=>{this.signIn()}}>
-                                Sign In
+                                登录
                             </Button>
                             </Form>
                         </div>

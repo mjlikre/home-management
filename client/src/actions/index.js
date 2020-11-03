@@ -53,3 +53,12 @@ export const test = () => async (dispatch) => {
     console.log(e);
   }
 };
+
+export const getDailySummary = () => async (dispatch) => {
+  try{
+    await axios.get("/api/operations/daily")
+  }catch(e){
+    console.log(e);
+  }
+}
+

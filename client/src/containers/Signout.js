@@ -12,7 +12,7 @@ class Signout extends Component {
         return(
             <div className='container'>
                 <h1>Sorry to see you go.</h1>
-                <Redirect to='/home'/>
+                <Redirect to='/signin'/>
             </div>
 
         )
