@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getToday = (callback) => async (dispatch) => {
     try{
-        const res = await axios.get("/api/operations/thisday")
+        const res = await axios.post("/api/operations/thisday")
         dispatch({ type: GET_DAILY, payload: res.data})
         callback()
     }catch(e){
@@ -23,7 +23,7 @@ export const getDaily = (data, callback) => async (dispatch) => {
 
 export const getThisMonth = (callback) => async (dispatch) => {
     try{
-        const res = await axios.get("/api/operations/thismonth")
+        const res = await axios.post("/api/operations/thismonth")
         dispatch({ type: GET_MONTHLY, payload: res.data})
         callback()
     }catch(e){
@@ -61,7 +61,7 @@ export const inputTransaction = (data, callback) => async (dispatch) => {
 }
 export const getSummary = (callback) => async (dispatch) => {
     try{
-        const res = await axios.get("/api/operations/summary");  
+        const res = await axios.post("/api/operations/summary");  
         dispatch({ type: GET_SUMMARY, payload: res.data})
         callback()
     }catch(e){
