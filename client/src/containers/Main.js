@@ -25,9 +25,14 @@ class Main extends Component {
         this.newItemHandle = this.newItemHandle.bind(this)
     }
     componentDidMount () {
-        this.props.getSummary(()=>{this.setState({
-            data: this.props.summary
-        })})
+        if (!localStorage.getItem("token")) {
+            this.props.history.push("/signin");
+        }else{
+            this.props.getSummary(()=>{this.setState({
+                data: this.props.summary
+            })})
+        }
+        
     }
     newItemHandle () {
         const item = {
@@ -78,6 +83,20 @@ class Main extends Component {
               );
             });
           }
+    }
+    renderSalesSummary() {
+        if (this.state.data) {
+            return this.state.data.data[2].map((item, index) => {
+                return (
+                  <tr>
+                    <th></th>
+                    <th>{item.quantity}</th>
+                    <th>{item.cash}</th>
+                    <th>{new Date(item.date_sold).toLocaleDateString()}</th>
+                  </tr>
+                );
+              }); 
+        }
     }
     handleDelete(index) {
         const data = {
@@ -141,6 +160,7 @@ class Main extends Component {
                                             </div>
                                     </div>
                                 </div>
+                                
                                 <div className = "row">
                                     <div className = "col-md-2">
                                         <label className = "col-md-12">克数</label>
@@ -184,10 +204,34 @@ class Main extends Component {
                                         <th className="paymentTable">价格</th>
                                         <th className="paymentTable">金额</th>
                                         <th className="paymentTable">日期</th>
+                                        <th className="paymentTable">删除</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.renderSummaryBox()}
+                                    </tbody>
+                                </Table>
+                              
+                                    
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div
+                                className="col-lg-12"
+                                style={{ padding: "20px 0 20px 20px" }}
+                                >
+                                    <Table>
+                                    <thead>
+                                    <tr>
+                                        <th className="paymentTable">出售</th>
+                                        <th className="paymentTable">克数</th>
+                                        <th className="paymentTable">金额</th>
                                         <th className="paymentTable">日期</th>
                                     </tr>
                                     </thead>
-                                    <tbody>{this.renderSummaryBox()}</tbody>
+                                    <tbody>
+                                        {this.renderSalesSummary()}
+                                    </tbody>
                                 </Table>
                               
                                     

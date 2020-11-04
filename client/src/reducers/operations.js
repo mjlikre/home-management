@@ -1,3 +1,4 @@
+import { bindActionCreators } from "redux";
 import {
   GET_CLIENT,
   GET_CLIENT_ERROR,
@@ -9,6 +10,8 @@ import {
   INPUT_DATA_ERROR,
   GET_SUMMARY,
   GET_SUMMARY_ERROR,
+  GET_SALES,
+  GET_SALES_ERROR
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -22,6 +25,8 @@ const INITIAL_STATE = {
   inputError: null,
   summary: null,
   summaryError: null,
+  sales: null, 
+  salesError: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -46,6 +51,10 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, summary: action.payload };
     case GET_SUMMARY_ERROR:
       return { ...state, summaryError: action.payload };
+    case GET_SALES: 
+      return { ...state, sales: action.payload };
+    case GET_SALES_ERROR: 
+      return { ...state, salesError: action.payload };
     default:
       return state;
   }

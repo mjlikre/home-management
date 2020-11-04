@@ -19,5 +19,11 @@ router.route("/summary")
     .post(OperationsController.mainPageData)
 router.route("/delete")
     .post(OperationsController.deleteTransaction)
+router.route("/sales")
+    .post(OperationsController.salesSummary)
+router.route("/salesdel")
+    .post(OperationsController.deleteSales)
+router.route("/insertsales")
+    .post(OperationsController.insertSales)
 
 module.exports = router;

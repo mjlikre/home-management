@@ -1,4 +1,4 @@
-import {GET_CLIENT, GET_CLIENT_ERROR, GET_DAILY, GET_DAILY_ERROR, GET_MONTHLY, GET_MONTHLY_ERROR, INPUT_DATA, INPUT_DATA_ERROR, GET_SUMMARY, GET_SUMMARY_ERROR} from "./types"
+import {GET_CLIENT, GET_CLIENT_ERROR, GET_DAILY, GET_DAILY_ERROR, GET_MONTHLY, GET_MONTHLY_ERROR, INPUT_DATA, INPUT_DATA_ERROR, GET_SUMMARY, GET_SUMMARY_ERROR, GET_SALES, GET_SALES_ERROR} from "./types"
 import axios from "axios";
 
 export const getToday = (callback) => async (dispatch) => {
@@ -70,7 +70,33 @@ export const getSummary = (callback) => async (dispatch) => {
 }
 export const deleteTransaction = (data, callback) => async () => {
     try{
-        const res = await axios.post("/api/operations/delete", data)
+        await axios.post("/api/operations/delete", data)
+    }catch(e) {
+        console.log(e)
+    }
+}
+export const salesSummary = (callback) => async (dispatch) => {
+    try{
+        const res = await axios.post("/api/operations/sales")
+        dispatch({type: GET_SALES, payload: res.data})
+        callback()
+    }catch(e){ 
+        dispatch({type: GET_SALES_ERROR, payload: "err"})
+    }
+}
+export const insertSales = (data, callback) => async (dispatch) => {
+    try{
+        const res = await axios.post("/api/operations/insertsales", data)
+        dispatch({ type: INPUT_DATA, payload: res.data})
+        callback()
+    }catch(e){
+        dispatch({ type: INPUT_DATA_ERROR, payload: "err"})
+    }
+}
+export const deleteSales = (data, callback) => async () => {
+    try{
+        await axios.post("/api/operations/salesdel", data)
+        callback()
     }catch(e) {
         console.log(e)
     }

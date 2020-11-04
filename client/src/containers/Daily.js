@@ -2,31 +2,46 @@ import React, { Component } from "react";
 import { compose } from "redux"
 import { connect } from 'react-redux';
 import Navbar from "./../components/NavBar"
-import { getToday } from "./../actions/operations" 
+import { salesSummary, insertSales, deleteSales } from "./../actions/operations" 
 import { Table } from "react-bootstrap";
+import GeneralButton from "./../components/Button/GeneralButton"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import './../styling/main.css'
 
 class Daily extends Component {
     constructor(props){
         super(props)
         this.state={
-            data: null
+            data: null,
+            date: null,
+            quantity: null,
+            amount: null,
+            timestamp: null
         }
+        this.newItemHandle = this.newItemHandle.bind(this)
     }
     componentDidMount () {
-        this.props.getToday(()=>{this.setState({
-            data: this.props.today
-        }, ()=>{console.log(this.props.today)})})
+        if (!localStorage.getItem("token")) {
+            this.props.history.push("/signin");
+        }else{
+            this.props.salesSummary(()=>{this.setState({
+                data: this.props.sales
+            }, ()=>{console.log(this.state.data)})})
+        }
     }
     renderSummaryBox () {
         if (this.state.data) {
             return this.state.data.data.map((item, index) => {
               return (
                 <tr>
-                  <th>{item.client_name}</th>
+                    <th></th>
                   <th>{item.quantity}</th>
-                  <th>{item.price}</th>
-                  <th>{item.amount}</th>
+                  <th>{item.cash}</th>
+                  <th>{new Date(item.date_sold).toLocaleDateString()}</th>
+                  <th>
+                        <button className = "cancel-button" onClick = {()=>{this.handleDelete(index)}}>X</button>
+                    </th>
                 </tr>
               );
             });
@@ -45,10 +60,50 @@ class Daily extends Component {
         if (this.state.data) {
             let total = 0
             this.state.data.data.map((item, index) => {
-                total += item.amount
+                total += item.cash
             })
             return total
         }
+    }
+    handleDateChange = date => { 
+    
+        this.setState ({
+          date: date,
+          timestamp: Date.parse(date)
+        })
+    }
+    newItemHandle () {
+        const item = {
+            quantity: this.state.quantity,
+            amount: this.state.amount,
+            timestamp: this.state.timestamp
+        }
+        this.props.insertSales(item, ()=>{
+            this.setState({
+                date: null,
+                quantity: null,
+                amount: null,
+                timestamp: null
+            },()=>{
+                this.props.salesSummary(()=>{
+                    this.setState({
+                        data: this.props.sales
+                    })
+                })
+            })
+        })
+    }
+    handleDelete(index) {
+        const data = {
+            id: this.state.data.data[index].id
+        }
+        this.props.deleteSales(data, () => {
+            this.props.salesSummary(()=>{
+                this.setState({
+                    data: this.props.sales
+                })
+            })
+        })
     }
     render() {
         if (this.state.data){
@@ -58,6 +113,32 @@ class Daily extends Component {
                     <div className="row">
                         <div className = "col-lg-1"></div>
                         <div className="kjga-display-block col-lg-10">
+                            <div className = "row">
+                                    <div className = "col-md-2">
+                                        <label className = "col-md-12">克数</label>
+                                        <input className = "col-md-12 kjga-input-box" type = "number" value = {this.state.quantity} onChange = {event => {this.setState({quantity: event.target.value})}}/>
+                                    </div>
+                                    <div className = "col-md-2">
+                                        <label className = "col-md-12">金额</label>
+                                        <input className = "col-md-12 kjga-input-box" type = "number" value = {this.state.amount} onChange = {event => {this.setState({amount: event.target.value})}}/>
+                                    </div>
+                                    <div className = "col-md-3">
+                                        <label className = "col-md-12">日期</label>
+                                        <DatePicker
+                                            dateFormat="dd/MM/yyyy"
+                                            selected={this.state.date}
+                                            onChange= {this.handleDateChange}
+                                        />
+                                    </div>
+                                    <div className = "col-md-2">
+                                        <div className = "col-md-12"><br></br> </div>
+                                        <div className = "col-md-12">
+                                            <GeneralButton type = "primary" buttonName ="输入" handleClick ={this.newItemHandle}/>
+                                        </div>
+                                        
+                                    </div>
+    
+                                </div>
                             <div className="row">
                                 <div
                                 className="col-lg-12"
@@ -66,17 +147,17 @@ class Daily extends Component {
                                     <Table>
                                     <thead>
                                     <tr>
-                                        <th className="paymentTable">客户</th>
+                                        <th className="paymentTable"></th>
                                         <th className="paymentTable">克数</th>
-                                        <th className="paymentTable">价格</th>
                                         <th className="paymentTable">金额</th>
+                                        <th className="paymentTable">日期</th>
+                                        <th className="paymentTable"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         {this.renderSummaryBox()}
                                         <th>总结</th>
                                         <th>{this.renderQuantity()}</th>
-                                        <th></th>
                                         <th>{this.renderAmount()}</th>
                                     </tbody>
                                     
@@ -104,11 +185,11 @@ class Daily extends Component {
 
 function mapStateToProps(state) {
     return{
-        today: state.operations.daily,
-        todayError: state.operations.dailyError
+        sales: state.operations.sales,
+        salesError: state.operations.salesError
     }
 }
 
 export default compose(
-    connect(mapStateToProps, { getToday })
+    connect(mapStateToProps, { salesSummary, insertSales, deleteSales })
 )(Daily)

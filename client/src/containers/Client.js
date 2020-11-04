@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Table, Dropdown } from "react-bootstrap";
-import { getClient } from "./../actions/operations"
+import { getClient } from "./../actions/operations";
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import Navbar from "./../components/NavBar";
@@ -14,25 +14,30 @@ class Client extends Component {
       data: null,
       client: null,
       startDay: null,
-        endDay: null,
-        sTime: null,
-        eTime: null
+      endDay: null,
+      sTime: null,
+      eTime: null,
     };
-    this.searchHandle = this.searchHandle.bind(this)
-
+    this.searchHandle = this.searchHandle.bind(this);
   }
-  searchHandle () {
-    let data = {
-        start: this.state.sTime,
-        end: this.state.eTime,
-        name: this.state.client
+  componentDidMount() {
+    if (!localStorage.getItem("token")) {
+      this.props.history.push("/signin");
     }
-    this.props.getClient(data, ()=>{
-        this.setState({
-            data: this.props.client
-        })
-    })
-}
+  }
+  searchHandle() {
+    let data = {
+      start: this.state.sTime,
+      end: this.state.eTime,
+      name: this.state.client,
+    };
+    this.props.getClient(data, () => {
+      this.setState({
+        data: this.props.client,
+      });
+    });
+  }
+
   renderSummaryBox() {
     if (this.state.data) {
       return this.state.data.data.map((item, index) => {
@@ -65,20 +70,18 @@ class Client extends Component {
       return total;
     }
   }
-  handleStartDayChange = date => { 
-    
-    this.setState ({
+  handleStartDayChange = (date) => {
+    this.setState({
       startDay: date,
-      sTime: Date.parse(date)
-    })
-}
-handleEndDayChange = date => { 
-
-    this.setState ({
+      sTime: Date.parse(date),
+    });
+  };
+  handleEndDayChange = (date) => {
+    this.setState({
       endDay: date,
-      eTime: Date.parse(date)
-    })
-}
+      eTime: Date.parse(date),
+    });
+  };
 
   render() {
     return (
@@ -232,6 +235,7 @@ handleEndDayChange = date => {
                 <Table>
                   <thead>
                     <tr>
+                      <th></th>
                       <th className="paymentTable">克数</th>
                       <th className="paymentTable">价格</th>
                       <th className="paymentTable">金额</th>
@@ -242,6 +246,7 @@ handleEndDayChange = date => {
                     {this.renderSummaryBox()}
                     <th>总结</th>
                     <th>{this.renderQuantity()}</th>
+                    <th></th>
                     <th>{this.renderAmount()}</th>
                   </tbody>
                 </Table>
@@ -254,9 +259,9 @@ handleEndDayChange = date => {
   }
 }
 function mapStateToProps(state) {
-    return{
-        client: state.operations.client,
-        clientError: state.operations.clientError
-    }
+  return {
+    client: state.operations.client,
+    clientError: state.operations.clientError,
+  };
 }
-export default compose(connect(mapStateToProps, {getClient}))(Client);
+export default compose(connect(mapStateToProps, { getClient }))(Client);

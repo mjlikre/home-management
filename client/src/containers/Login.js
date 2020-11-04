@@ -18,7 +18,7 @@ class Login extends Component {
     }
     renderRedirect = () => {
         if (this.state.redirect || this.props.auth) {  
-          return <Redirect to='/daily' />
+          return <Redirect to='/main' />
         }
     }
     signIn = () =>{

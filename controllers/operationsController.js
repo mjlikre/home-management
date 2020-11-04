@@ -9,7 +9,7 @@ const thedate = new Date(timeStamp);
 
 module.exports = {
   getThisDaySummary: async (req, res) => {
-    let query = "SELECT * FROM transactions WHERE transaction_date > ?";
+    let query = "SELECT * FROM transactions WHERE transaction_date > ? ORDER BY transaction_date DESC";
     let dayStart = timeStamp - 3600000 * (thedate.getHours()+1);
     try {
       client.Client.query(query, [dayStart], (err, result) => {
@@ -23,7 +23,7 @@ module.exports = {
     }
   },
   getThisMonthSummary: async (req, res) => {
-    let query = "SELECT * FROM transactions WHERE transaction_date > ?";
+    let query = "SELECT * FROM transactions WHERE transaction_date > ? ORDER BY transaction_date DESC";
     let monthStart = timeStamp - 3600000 * 24 * thedate.getDate();
     try {
       client.Client.query(query, [monthStart], (err, result) => {
@@ -38,13 +38,22 @@ module.exports = {
   },
   getDailySummary: async (req, res) => {
     let query =
-      "SELECT * FROM transactions WHERE transaction_date >= ? AND transaction_date <= ?";
+      "SELECT * FROM transactions WHERE transaction_date >= ? AND transaction_date <= ? ORDER BY transaction_date DESC";
+    let query1 = "SELECT * FROM sales WHERE date_sold >= ? AND date_sold <= ? ORDER BY date_sold DESC";
     let startDay = req.body.start;
     let endDay = req.body.end;
     try {
       client.Client.query(query, [startDay, endDay], (err, result) => {
-        if (err) throw err;
-        res.json({ data: result });
+        if (err) console.log( err);
+        else{
+          client.Client.query(query1, [startDay, endDay], (err1, result1) => {
+            if (err1) console.log(err1);
+            else{
+              res.json({ data: [result, result1]});
+            }
+          })
+        }
+        
       });
     } catch (e) {
       console.log(e);
@@ -53,12 +62,12 @@ module.exports = {
   },
   getMonthlySummary: async (req, res) => {
     let query =
-      "SELECT * FROM transactions WHERE transaction_date >= ? AND transaction_date <= ?";
+      "SELECT * FROM transactions WHERE transaction_date >= ? AND transaction_date <= ? ORDER BY transaction_date DESC";
     let start = req.body.start;
     let end = req.body.end;
     try {
       client.Client.query(query, [start, end], (err, result) => {
-        if (err) throw err;
+        if (err) console.log( err);
         res.json({ date: result });
       });
     } catch (e) {
@@ -69,13 +78,13 @@ module.exports = {
   getClientSummary: async (req, res) => {
     let queryFunction = () => {
       if (!req.body.start && ! req.body.end) {
-        return "SELECT * FROM transactions WHERE client_name = ?"
+        return "SELECT * FROM transactions WHERE client_name = ? ORDER BY transaction_date DESC"
       }
       else if (!req.body.start) {
-        return "SELECT * FROM transactions WHERE client_name = ? AND transaction_date >= ?"
+        return "SELECT * FROM transactions WHERE client_name = ? AND transaction_date >= ? ORDER BY transaction_date DESC"
       }
       else if (req.body.start && req.body.end) {
-        return "SELECT * FROM transactions WHERE client_name = ? AND transaction_date >= ? AND transaction_date <= ?";
+        return "SELECT * FROM transactions WHERE client_name = ? AND transaction_date >= ? AND transaction_date <= ? ORDER BY transaction_date DESC";
       }
     }
     
@@ -83,7 +92,7 @@ module.exports = {
     let end = req.body.end
     try {
       client.Client.query(queryFunction(), [req.body.name, start, end], (err, result) => {
-        if (err) throw err;
+        if (err) console.log( err);
         res.json({ data: result });
       });
     } catch (e) {
@@ -105,7 +114,7 @@ module.exports = {
           amount: req.body.amount
         },
         (err, result) => {
-          if (err) throw err;
+          if (err) console.log( err);
           module.exports.inventoryUpdate({date: req.body.transaction_date, quantity: req.body.quantity, amount_spent: req.body.amount})
           res.json({ data: "success" });
         }
@@ -121,6 +130,7 @@ module.exports = {
       client.Client.query(query, [req.body.id], (err, result) => {
         if (err) throw err
         module.exports.inventoryUpdate({date: 1, quantity: - req.body.quantity, amount_spent: - req.body.amount})
+        res.json({data: "success"})
       })
     }catch(e){
       res.json({error: "bad"})
@@ -131,7 +141,7 @@ module.exports = {
       "SELECT * FROM inventory WHERE id=(SELECT max(id) FROM inventory)";
     try {
       client.Client.query(query, (err, result) => {
-        if (err) throw err;
+        if (err) console.log( err);
         else {
           client.Client.query(
             "INSERT INTO inventory SET ?",
@@ -142,7 +152,7 @@ module.exports = {
               date_changed: req.date
             },
             (err1, result1) => {
-              if (err1) throw err1;
+              if (err1) console.log(err1);
               
             }
           );
@@ -154,17 +164,23 @@ module.exports = {
     }
   },
   mainPageData: async (req, res) => {
-    let query1 = "SELECT * FROM transactions ORDER BY transaction_date DESC LIMIT 5";
+    let query1 = "SELECT * FROM transactions ORDER BY transaction_date DESC LIMIT 10";
     let query2 =
       "SELECT * FROM inventory WHERE id=(SELECT max(id) FROM inventory)";
+    let query3 = "SELECT * FROM sales"
     try {
       client.Client.query(query1, (err, result) => {
-        if (err) throw err;
+        if (err) console.log( err);
         else {
           client.Client.query(query2, (err1, result1) => {
-            if (err1) throw err1;
+            if (err1) console.log(err1);
             else {
-              res.json({ data: [result, result1]});
+              client.Client.query(query3, (err2, result2) => {
+                if (err2) console.log(err2)
+                else{
+                  res.json({ data: [result, result1, result2]});
+                }
+              })
             }
           });
         }
@@ -174,4 +190,45 @@ module.exports = {
       res.json({ error: e });
     }
   },
+  salesSummary: async (req, res) => {
+    let query = "SELECT * FROM sales ORDER BY date_sold DESC"
+    try{
+      client.Client.query(query, (err, result) => {
+        if (err) console.log( err);
+        else{
+          res.json({data: result})
+        }
+        
+      })
+    }catch(e) {
+      res.json({data: e}) 
+    }
+  },
+  insertSales: async (req, res) => {
+    let query = "INSERT INTO sales SET ?"
+    try{
+      client.Client.query(query, {id: uuid.v4(), quantity: req.body.quantity, cash: req.body.amount, date_sold: req.body.timestamp}, (err, result) => {
+        if (err) console.log(err);
+        else{
+          res.json({data: "success"})
+        }
+      })
+    }catch(e){
+      console.log(e)
+      res.json({error: "err"})
+    }
+  },
+  deleteSales: async (req, res) => {
+    let query = "DELETE FROM sales WHERE id = ?"
+    try{
+      client.Client.query(query, [req.body.id], (err, result) => {
+        if (err) console.log(err); 
+        else{
+          res.json({data: "success"})
+        }
+      })
+    }catch(e) {
+      res.json({data: "e"})
+    }
+  }
 };

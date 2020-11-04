@@ -20,6 +20,11 @@ class Specifics extends Component {
         }
         this.searchHandle = this.searchHandle.bind(this)
     }
+    componentDidMount() {
+        if (!localStorage.getItem("token")) {
+            this.props.history.push("/signin");
+        }
+    }
     handleStartDayChange = date => { 
     
         this.setState ({
@@ -34,10 +39,24 @@ class Specifics extends Component {
           eTime: Date.parse(date)
         })
     }
+    renderSalesSummary() {
+        if (this.state.data) {
+            return this.state.data.data[1].map((item, index) => {
+                return (
+                  <tr>
+                    <th></th>
+                    <th>{item.quantity}</th>
+                    <th>{item.cash}</th>
+                    <th>{new Date(item.date_sold).toLocaleDateString()}</th>
+                  </tr>
+                );
+              }); 
+        }
+    }
     renderQuantity () {
         if (this.state.data) {
             let total = 0
-            this.state.data.data.map((item, index) => {
+            this.state.data.data[0].map((item, index) => {
                 total += item.quantity
             })
             return total
@@ -46,7 +65,7 @@ class Specifics extends Component {
     renderAmount () {
         if (this.state.data) {
             let total = 0
-            this.state.data.data.map((item, index) => {
+            this.state.data.data[0].map((item, index) => {
                 total += item.amount
             })
             return total
@@ -65,7 +84,7 @@ class Specifics extends Component {
     }
     renderSummaryBox () {
         if (this.state.data) {
-            return this.state.data.data.map((item, index) => {
+            return this.state.data.data[0].map((item, index) => {
               return (
                 <tr>
                   <th>{item.client_name}</th>
@@ -149,6 +168,28 @@ class Specifics extends Component {
 
                                     </div>
                                 </div>
+                                <div className="row">
+                                <div
+                                className="col-lg-12"
+                                style={{ padding: "20px 0 20px 20px" }}
+                                >
+                                    <Table>
+                                    <thead>
+                                    <tr>
+                                        <th className="paymentTable">出售</th>
+                                        <th className="paymentTable">克数</th>
+                                        <th className="paymentTable">金额</th>
+                                        <th className="paymentTable">日期</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.renderSalesSummary()}
+                                    </tbody>
+                                </Table>
+                              
+                                    
+                                </div>
+                            </div>
                                  
                                         
                             </div>

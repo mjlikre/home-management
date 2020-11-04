@@ -11,5 +11,6 @@ export const INPUT_DATA = "INPUT_DATA";
 export const INPUT_DATA_ERROR = "INPUT_DATA_ERROR";
 export const GET_SUMMARY = "GET_SUMMARY";
 export const GET_SUMMARY_ERROR = "GET_SUMMARY_ERROR";
-
+export const GET_SALES = "GET_SALES";
+export const GET_SALES_ERROR = "GET_SALES_ERROR";
 
