@@ -154,6 +154,7 @@ class Main extends Component {
                                                     <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({client: "Mainca"})}}>Mainca</Dropdown.Item>
                                                     <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({client: "Nuevo Karnil"})}}>Nuevo Karnil</Dropdown.Item>
                                                     <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({client: "Sukarne"})}}>Sukarne</Dropdown.Item>
+                                                    <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({client: "Alejandro"})}}>Alejandro</Dropdown.Item>
                                                     </Dropdown.Menu>
                                                 </Dropdown>
                                                 </div>
