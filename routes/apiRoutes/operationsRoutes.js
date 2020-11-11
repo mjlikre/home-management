@@ -25,5 +25,7 @@ router.route("/salesdel")
     .post(OperationsController.deleteSales)
 router.route("/insertsales")
     .post(OperationsController.insertSales)
+// router.route("/transfer")
+//     .get(OperationsController.dataTransfer)
 
 module.exports = router;

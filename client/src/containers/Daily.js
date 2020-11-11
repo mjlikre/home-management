@@ -95,7 +95,9 @@ class Daily extends Component {
     }
     handleDelete(index) {
         const data = {
-            id: this.state.data.data[index].id
+            id: this.state.data.data[index].id,
+            amount: this.state.data.data[index].cash,
+            quantity: this.state.data.data[index].quantity,
         }
         this.props.deleteSales(data, () => {
             this.props.salesSummary(()=>{

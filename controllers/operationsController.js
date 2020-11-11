@@ -36,6 +36,7 @@ module.exports = {
       res.json({ error: e });
     }
   },
+  
   getDailySummary: async (req, res) => {
     let query =
       "SELECT * FROM transactions WHERE transaction_date >= ? AND transaction_date <= ? ORDER BY transaction_date DESC";
@@ -146,7 +147,7 @@ module.exports = {
           client.Client.query(
             "INSERT INTO inventory SET ?",
             {
-              id: parseFloat(result[0].id) + 1,
+              id: parseFloat(result[0].id) + 2,
               quantity: parseFloat(result[0].quantity) + parseFloat(req.quantity),
               amount_spent: parseFloat(result[0].amount_spent) + parseFloat(req.amount_spent),
               date_changed: req.date
@@ -210,6 +211,7 @@ module.exports = {
       client.Client.query(query, {id: uuid.v4(), quantity: req.body.quantity, cash: req.body.amount, date_sold: req.body.timestamp}, (err, result) => {
         if (err) console.log(err);
         else{
+          module.exports.inventoryUpdate({date: req.body.timeStamp, quantity: - req.body.quantity, amount_spent: - req.body.amount})
           res.json({data: "success"})
         }
       })
@@ -224,11 +226,49 @@ module.exports = {
       client.Client.query(query, [req.body.id], (err, result) => {
         if (err) console.log(err); 
         else{
+          module.exports.inventoryUpdate({date: 1, quantity: req.body.quantity, amount_spent: req.body.amount})
           res.json({data: "success"})
         }
       })
     }catch(e) {
       res.json({data: "e"})
     }
-  }
+  },
+//   dataTransfer: async(req, res) => {
+//     // let query = "select * from transactions"
+//     // try{
+//     //   client.Client.query(query, (err, result) => {
+//     //     result.map((item, index) => {
+//     //       module.exports.addToNewList(item, index)
+//     //     })
+//     //     res.json({message: "done"})
+//     //   })
+//     // }catch(e){
+//     //   console.log(e)
+//     // }
+//     console.log(timeStamp)
+//     res.json({time: timeStamp})
+//   },
+//   addToNewList: async(data, index) => {
+//     try{
+//         const query = "INSERT INTO cycle_transaction SET ?";
+//         await client.Client.query(
+//             query, 
+//             {
+//                 transaction_id: data.transaction_id,
+//                 transaction_date:  data.transaction_date,
+//                 client_name: data.client_name,
+//                 price: data.price,
+//                 quantity: data.quantity,
+//                 amount: data.amount,
+//                 cycle_id: "m4399355"
+//             },
+//             (err, result) => {
+//                 if(err) console.log(err);
+//             }
+//         )
+//     }catch(e) {
+//         if (e) console.log(e);
+//     }
+// }
 };

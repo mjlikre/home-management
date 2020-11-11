@@ -19,8 +19,6 @@ class Main extends Component {
             price: null,
             amount: null,
             timestamp: null
-
-
         }
         this.newItemHandle = this.newItemHandle.bind(this)
     }

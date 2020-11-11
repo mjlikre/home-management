@@ -92,7 +92,7 @@ class Client extends Component {
           <div className="kjga-display-block col-lg-10">
             <div className="row">
               <div className="col-md-12">
-                <label className="col-md-12">客户</label>
+                <label className="col-md-12">clientes</label>
                 <div className="dropdown-container">
                   <div className="name-box">{this.state.client}</div>
 
@@ -207,7 +207,7 @@ class Client extends Component {
                 />
               </div>
               <div className="col-md-4">
-                <label className="col-md-12">截止日期</label>
+                <label className="col-md-12">结束日期</label>
                 <DatePicker
                   dateFormat="dd/MM/yyyy"
                   selected={this.state.endDay}
