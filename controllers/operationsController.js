@@ -231,7 +231,7 @@ module.exports = {
         }
       })
     }catch(e) {
-      res.json({data: "e"})
+      res.json({data: "error"})
     }
   },
 //   dataTransfer: async(req, res) => {
