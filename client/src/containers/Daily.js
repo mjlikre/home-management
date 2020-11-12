@@ -36,7 +36,7 @@ class Daily extends Component {
               return (
                 <tr>
                     <th></th>
-                  <th>{item.quantity}</th>
+                  <th>{item.quantity_sold}</th>
                   <th>{item.cash}</th>
                   <th>{new Date(item.date_sold).toLocaleDateString()}</th>
                   <th>
@@ -51,7 +51,7 @@ class Daily extends Component {
         if (this.state.data) {
             let total = 0
             this.state.data.data.map((item, index) => {
-                total += item.quantity
+                total += item.quantity_sold
             })
             return total
         }
@@ -97,7 +97,7 @@ class Daily extends Component {
         const data = {
             id: this.state.data.data[index].id,
             amount: this.state.data.data[index].cash,
-            quantity: this.state.data.data[index].quantity,
+            quantity: this.state.data.data[index].quantity_sold,
         }
         this.props.deleteSales(data, () => {
             this.props.salesSummary(()=>{

@@ -11,7 +11,11 @@ import {
   GET_SUMMARY,
   GET_SUMMARY_ERROR,
   GET_SALES,
-  GET_SALES_ERROR
+  GET_SALES_ERROR,
+  GET_CYCLE_ERROR,
+  GET_CYCLE_LIST,
+  GET_CURRENT_CYCLE,
+  GET_SPECIFIC_CYCLE
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -26,7 +30,11 @@ const INITIAL_STATE = {
   summary: null,
   summaryError: null,
   sales: null, 
-  salesError: null
+  salesError: null,
+  cycleList: null,
+  currentCycle: null,
+  specificCycle: null,
+  cycleError: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -55,6 +63,14 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, sales: action.payload };
     case GET_SALES_ERROR: 
       return { ...state, salesError: action.payload };
+    case GET_CYCLE_LIST: 
+      return { ...state, cycleList: action.payload };
+    case GET_CURRENT_CYCLE: 
+      return { ...state, currentCycle: action.payload };
+    case GET_SPECIFIC_CYCLE: 
+      return { ...state, specificCycle: action.payload };
+    case GET_CYCLE_ERROR: 
+      return { ...state, cycleError: action.payload };
     default:
       return state;
   }

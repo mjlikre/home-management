@@ -1,4 +1,4 @@
-import {GET_CLIENT, GET_CLIENT_ERROR, GET_DAILY, GET_DAILY_ERROR, GET_MONTHLY, GET_MONTHLY_ERROR, INPUT_DATA, INPUT_DATA_ERROR, GET_SUMMARY, GET_SUMMARY_ERROR, GET_SALES, GET_SALES_ERROR} from "./types"
+import {GET_CLIENT, GET_CLIENT_ERROR, GET_DAILY, GET_DAILY_ERROR, GET_MONTHLY, GET_MONTHLY_ERROR, INPUT_DATA, INPUT_DATA_ERROR, GET_SUMMARY, GET_SUMMARY_ERROR, GET_SALES, GET_SALES_ERROR, GET_CURRENT_CYCLE, GET_CYCLE_ERROR, GET_SPECIFIC_CYCLE, GET_CYCLE_LIST} from "./types"
 import axios from "axios";
 
 export const getToday = (callback) => async (dispatch) => {
@@ -96,6 +96,42 @@ export const insertSales = (data, callback) => async (dispatch) => {
 export const deleteSales = (data, callback) => async () => {
     try{
         await axios.post("/api/operations/salesdel", data)
+        callback()
+    }catch(e) {
+        console.log(e)
+    }
+}
+export const cycles = (callback) => async (dispatch) => {
+    try{
+      const res = await axios.post("/api/operations/cycle")
+      dispatch({ type: GET_CYCLE_LIST, payload: res.data })
+      callback()
+    }catch(e) {
+        dispatch({ type: GET_CYCLE_ERROR, payload: "err"})
+    }
+}
+export const currentCycle = (callback) => async (dispatch) => {
+    try {
+        const res = await axios.post("/api/operations/current_cycle")
+        dispatch({ type: GET_CURRENT_CYCLE, payload: res.data })
+        callback()
+    }catch(e) {
+        dispatch({ type: GET_CYCLE_ERROR, payload: "err"})
+    }
+}
+export const specificCycle = (data, callback) => async (dispatch) => {
+    try {
+        const res = await axios.post("/api/operations/specific_cycle", data)
+        dispatch({ type: GET_SPECIFIC_CYCLE, payload: res.data })
+        callback()
+    }catch(e) {
+        dispatch({ type: GET_CYCLE_ERROR, payload: "err"})
+    }
+}
+export const editSalesRecord = (data, callback) => async () => {
+    try {
+        await axios.post("/api/operations/edit_sales", data)
+        
         callback()
     }catch(e) {
         console.log(e)

@@ -66,7 +66,7 @@ class Main extends Component {
     }
     renderSummaryBox () {
         if (this.state.data) {
-            return this.state.data.data[0].map((item, index) => {
+            return this.state.data.data[1].map((item, index) => {
               return (
                 <tr>
                   <th>{item.client_name}</th>
@@ -98,9 +98,10 @@ class Main extends Component {
     }
     handleDelete(index) {
         const data = {
-            id: this.state.data.data[0][index].transaction_id,
-            amount: this.state.data.data[0][index].amount, 
-            quantity: this.state.data.data[0][index].quantity
+            id: this.state.data.data[1][index].transaction_id,
+            amount: this.state.data.data[1][index].amount, 
+            quantity: this.state.data.data[1][index].quantity,
+            cycle_id: this.state.data.data[1][index].cycle_id
         }
         this.props.deleteTransaction(data, () => {
             this.props.getSummary(()=>{
@@ -109,6 +110,24 @@ class Main extends Component {
                 })
             })
         })
+    }
+    renderQuantity () {
+        if (this.state.data) {
+            let total = 0
+            this.state.data.data[1].map((item, index) => {
+                total += item.quantity
+            })
+            return total
+        }
+    }
+    renderAmount () {
+        if (this.state.data) {
+            let total = 0
+            this.state.data.data[1].map((item, index) => {
+                total += item.amount
+            })
+            return total
+        }
     }
     render() {
         if (this.state.data) {
@@ -123,7 +142,7 @@ class Main extends Component {
                                 className="col-lg-12"
                                 style={{ padding: "20px 0 20px 20px" }}
                                 >
-                                    <h3>现有牛黄克数：{this.state.data.data[1][0].quantity}克</h3>
+                                    <h3>当前周期现有牛黄：{this.state.data.data[0][0].quantity}克</h3>
                                 </div>
                             </div>
                             <div className = "row">
@@ -208,6 +227,7 @@ class Main extends Component {
                                     </thead>
                                     <tbody>
                                         {this.renderSummaryBox()}
+                                        
                                     </tbody>
                                 </Table>
                               
@@ -220,22 +240,22 @@ class Main extends Component {
                                 style={{ padding: "20px 0 20px 20px" }}
                                 >
                                     <Table>
-                                    <thead>
-                                    <tr>
-                                        <th className="paymentTable">出售</th>
-                                        <th className="paymentTable">克数</th>
-                                        <th className="paymentTable">金额</th>
-                                        <th className="paymentTable">日期</th>
-                                    </tr>
-                                    </thead>
+                                    
                                     <tbody>
-                                        {this.renderSalesSummary()}
+                                       
+                                        <tr>
+                                            <th>目前总结</th>
+                                            <th>购买克数：{this.renderQuantity()}</th>
+                                            <th>购买金额：{this.renderAmount()}</th>
+                                        </tr>
                                     </tbody>
                                 </Table>
                               
                                     
                                 </div>
                             </div>
+                            
+                           
                         </div>
                     </div>
                     
