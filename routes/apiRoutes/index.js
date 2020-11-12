@@ -7,6 +7,7 @@ const operationsRoutes = require("./operationsRoutes")
 router.route('/test')
   .get(authMiddleware.requireAuth, (req, res) => {
     console.log(req.user, "i got here")
+    console.log(req.headers)
     res.send(req.user);
   });
 

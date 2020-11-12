@@ -1,8 +1,6 @@
 import {
   AUTH_USER,
   AUTH_ERROR,
-  
-
 } from "./types";
 import axios from "axios";
 
@@ -54,13 +52,6 @@ export const test = () => async (dispatch) => {
   }
 };
 
-export const getDailySummary = () => async (dispatch) => {
-  try{
-    await axios.get("/api/operations/daily")
-  }catch(e){
-    console.log(e);
-  }
-}
 
 
 

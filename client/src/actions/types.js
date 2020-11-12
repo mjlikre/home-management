@@ -1,6 +1,5 @@
-
-export const AUTH_USER = 'AUTH_USER';
-export const AUTH_ERROR = 'AUTH_ERROR';
+export const AUTH_USER = "AUTH_USER";
+export const AUTH_ERROR = "AUTH_ERROR";
 export const GET_DAILY = "GET_DAILY";
 export const GET_DAILY_ERROR = "GET_DAILY_ERROR";
 export const GET_MONTHLY = "GET_MONTHLY";

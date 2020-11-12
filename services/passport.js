@@ -6,7 +6,7 @@ const ExtractJwt    = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const bcrypt        = require('bcryptjs');
 const jwt = require('jwt-simple')
-
+require("dotenv").config();
 
 const localOptions = { usernameField: 'username' };
 
@@ -42,14 +42,13 @@ const localLogin = new LocalStrategy(localOptions, async (username, password, do
 const jwtOptions = {
 
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: config.SECRET_KEY
+  secretOrKey: process.env.SECRET_KEY
 
 };
 
 
 const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
-  // const decoded = jwt.decode(ExtractJwt.fromHeader("authotization"), config.SECRET_KEY)
-  // console.log(decoded)
+  console.log("start to deocde")
   try {
     if(payload.sub) {
       // userID = payload.sub.rows[0].id

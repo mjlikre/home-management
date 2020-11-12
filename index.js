@@ -13,9 +13,9 @@ app.use(cors());
 // This folder is created during production only
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  })
+  app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
 }
 
 // Routes setup
