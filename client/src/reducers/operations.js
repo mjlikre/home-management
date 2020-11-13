@@ -15,7 +15,8 @@ import {
   GET_CYCLE_ERROR,
   GET_CYCLE_LIST,
   GET_CURRENT_CYCLE,
-  GET_SPECIFIC_CYCLE
+  GET_SPECIFIC_CYCLE,
+  GET_CLIENT_LIST
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -34,7 +35,8 @@ const INITIAL_STATE = {
   cycleList: null,
   currentCycle: null,
   specificCycle: null,
-  cycleError: null
+  cycleError: null,
+  clientList: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -71,6 +73,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, specificCycle: action.payload };
     case GET_CYCLE_ERROR: 
       return { ...state, cycleError: action.payload };
+    case GET_CLIENT_LIST: 
+      return { ...state, clientList: action.payload };
     default:
       return state;
   }

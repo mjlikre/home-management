@@ -5,7 +5,8 @@ import Navbar from "./../components/NavBar";
 import {
   getSummary,
   inputTransaction,
-  deleteTransaction
+  deleteTransaction,
+  getClientList
 } from "./../actions/operations";
 import { Table, Dropdown } from "react-bootstrap";
 import GeneralButton from "./../components/Button/GeneralButton";
@@ -23,6 +24,7 @@ class Main extends Component {
       price: null,
       amount: null,
       timestamp: null,
+      clientList: null
     };
     this.newItemHandle = this.newItemHandle.bind(this);
   }
@@ -31,10 +33,23 @@ class Main extends Component {
       this.props.history.push("/signin");
     } else {
       this.props.getSummary(() => {
-        this.setState({
-          data: this.props.summary,
-        });
+        this.props.getClientList(()=>{
+          this.setState({
+            data: this.props.summary,
+            clientList: this.props.clientList
+          });
+        })
+        
       });
+    }
+  }
+  renderClients() {
+    if (this.state.clientList) {
+      return this.state.clientList.data.map((item, index) => {
+        return (
+          <Dropdown.Item href="#/action-1" onClick={() => {this.setState({ client: item.client_name });}}>{item.client_name}</Dropdown.Item>
+        )
+      })
     }
   }
   newItemHandle() {
@@ -168,110 +183,14 @@ class Main extends Component {
                     <div className="name-box">{this.state.client}</div>
 
                     <div className="col-md-6">
-                      <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          请选客户
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Monzon" });
-                            }}
-                          >
-                            Monzon
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-2"
-                            onClick={() => {
-                              this.setState({ client: "Misaer" });
-                            }}
-                          >
-                            Misaer
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Ruben" });
-                            }}
-                          >
-                            Ruben
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Lijia" });
-                            }}
-                          >
-                            Lijia
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Ala" });
-                            }}
-                          >
-                            Ala
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Victor" });
-                            }}
-                          >
-                            Victor
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Julio" });
-                            }}
-                          >
-                            Julio
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Condega" });
-                            }}
-                          >
-                            Condega
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Mainca" });
-                            }}
-                          >
-                            Mainca
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Nuevo Karnil" });
-                            }}
-                          >
-                            Nuevo Karnil
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Sukarne" });
-                            }}
-                          >
-                            Sukarne
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => {
-                              this.setState({ client: "Alejandro" });
-                            }}
-                          >
-                            Alejandro
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                    <Dropdown>
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        请选客户
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                          {this.renderClients()}
+                      </Dropdown.Menu>
+                    </Dropdown>
                     </div>
                   </div>
                 </div>
@@ -390,8 +309,9 @@ function mapStateToProps(state) {
   return {
     summary: state.operations.summary,
     summaryError: state.operations.summaryError,
+    clientList: state.operations.clientList
   };
 }
 export default compose(
-  connect(mapStateToProps, { getSummary, inputTransaction, deleteTransaction })
+  connect(mapStateToProps, { getSummary, inputTransaction, deleteTransaction, getClientList })
 )(Main);

@@ -104,7 +104,6 @@ module.exports = {
     }
   },
   inputTransaction: async (req, res) => {
-    let query = "SELECT * from cycles where end_date = ?";
     let query1 = "INSERT INTO cycle_transaction SET ?";
 
     try {
@@ -226,8 +225,6 @@ module.exports = {
       "SELECT * FROM cycle_transaction WHERE transaction_date >= ? ORDER BY transaction_date DESC";
     let query2 = "SELECT * FROM cycles WHERE end_date = ?";
     let query3 = "SELECT * FROM sales";
-    console.log(req.params)
-    console.log(req.headers)
     try {
       client.Client.query(query2, 0, (err, result) => {
         if (err) console.log(err);
@@ -415,4 +412,22 @@ module.exports = {
       res.json({ error: e });
     }
   },
+  getClients: async (req, res) => {
+    let query = "SELECT * FROM clients"
+    client.Client.query(query, (err, result) => {
+      if (err) console.log(err);
+      else{
+        res.json({data: result})
+      }
+    })
+  },
+  insertClient: async (req, res) => {
+    let query = "INSERT INTO clients SET ?"
+    client.Client.query(query, {client_name: req.body.client_name}, (err, result) => {
+      if (err) console.log(err);
+      else{
+        res.json({data: "success"})
+      }
+    })
+  }
 };

@@ -15,6 +15,8 @@ import {
   GET_CYCLE_ERROR,
   GET_SPECIFIC_CYCLE,
   GET_CYCLE_LIST,
+  GET_CLIENT_LIST,
+  INPUT_CLIENT
 } from "./types";
 import axios from "axios";
 
@@ -170,3 +172,23 @@ export const editSalesRecord = (data, callback) => async () => {
     console.log(e);
   }
 };
+export const getClientList = (callback) => async (dispatch) => {
+  try {
+    const res = await axios.post("/api/operations/getclient", {status: "getting it"}, {headers: { authorization: localStorage.getItem("token")}
+    
+    })
+    dispatch({type: GET_CLIENT_LIST, payload: res.data})
+    callback();
+  } catch(e) {
+    dispatch({ type: GET_CLIENT_ERROR, payload: "err" });
+  }
+};
+export const inputClient = (data, callback) => async () => {
+  try{
+    await axios.post("/api/operations/inputclient", data, {headers: { authorization: localStorage.getItem("token")}
+    })
+    callback();
+  }catch(e) {
+    console.log(e)
+  }
+}

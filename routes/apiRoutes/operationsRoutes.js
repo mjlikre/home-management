@@ -34,5 +34,9 @@ router.route("/specific_cycle")
     .post(authMiddleware.requireAuth, OperationsController.getCycle)
 router.route("/edit_sales")
     .post(authMiddleware.requireAuth, OperationsController.editSales)
+router.route("/getclient")
+    .post(authMiddleware.requireAuth, OperationsController.getClients)
+router.route("/inputclient")
+    .post(authMiddleware.requireAuth, OperationsController.insertClient)
 
 module.exports = router;

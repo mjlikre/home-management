@@ -48,7 +48,6 @@ const jwtOptions = {
 
 
 const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
-  console.log("start to deocde")
   try {
     if(payload.sub) {
       // userID = payload.sub.rows[0].id
