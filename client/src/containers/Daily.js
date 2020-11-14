@@ -98,10 +98,10 @@ class Daily extends Component {
     this.props.insertSales(item, () => {
       this.setState(
         {
-          date: null,
-          quantity: null,
-          amount: null,
-          timestamp: null,
+          date: "",
+          quantity: "",
+          amount: "",
+          timestamp: "",
         },
         () => {
           this.props.salesSummary(() => {

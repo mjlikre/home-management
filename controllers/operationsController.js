@@ -104,6 +104,7 @@ module.exports = {
     }
   },
   inputTransaction: async (req, res) => {
+    let query = "SELECT * FROM cycles WHERE end_date = ?"
     let query1 = "INSERT INTO cycle_transaction SET ?";
 
     try {

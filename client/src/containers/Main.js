@@ -63,12 +63,12 @@ class Main extends Component {
     this.props.inputTransaction(item, () => {
       this.setState(
         {
-          client: null,
-          date: null,
-          quantity: null,
-          price: null,
-          amount: null,
-          timestamp: null,
+          client: "",
+          date: "",
+          quantity: "",
+          price: "",
+          amount: "",
+          timestamp: "",
         },
         () => {
           this.props.getSummary(() => {

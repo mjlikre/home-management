@@ -99,6 +99,7 @@ export const deleteTransaction = (data, callback) => async () => {
   try {
     await axios.post("/api/operations/delete", data, {headers: { authorization: localStorage.getItem("token")}
     });
+    callback()
   } catch (e) {
     console.log(e);
   }

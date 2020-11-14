@@ -129,8 +129,8 @@ class Cycle extends Component {
       { id: this.state.data[0].cycle_id, amount: this.state.amount },
       () => {
         this.setState({
-          amount: null,
-          quantity: null,
+          amount: "",
+          quantity: "",
           edit: 0,
         });
       }

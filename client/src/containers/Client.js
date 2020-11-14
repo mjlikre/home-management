@@ -110,7 +110,7 @@ class Client extends Component {
         this.setState({
           clientEdit: 0,
           clientList: this.props.clientList,
-          client: null
+          client: " "
         })
       })
     })
