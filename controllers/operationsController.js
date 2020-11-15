@@ -187,7 +187,7 @@ module.exports = {
                 {
                   sales_quantity: req.quantity,
                   sales_amount: req.amount_spent,
-                  end_date: req.date,
+                  end_date: req.date + 1,
                 },
                 0,
               ],
@@ -202,7 +202,7 @@ module.exports = {
                         parseFloat(result[0].quantity) -
                         parseFloat(req.quantity),
                       amount_spent: 0,
-                      start_date: req.date,
+                      start_date: req.date + 1,
                       end_date: 0,
                       cycle_number: result[0].cycle_number + 1,
                     },
