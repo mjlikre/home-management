@@ -7,7 +7,7 @@ import {
   insertSales,
   deleteSales,
 } from "./../actions/operations";
-import { Table } from "react-bootstrap";
+import { Table, Spinner } from "react-bootstrap";
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -57,7 +57,7 @@ class Daily extends Component {
                   this.handleDelete(index);
                 }}
               >
-                X
+                删除
               </button>
             </th>
           </tr>
@@ -184,9 +184,9 @@ class Daily extends Component {
                   className="col-lg-12"
                   style={{ padding: "20px 0 20px 20px" }}
                 >
-                  <Table>
-                    <thead>
-                      <tr>
+                  <Table className = "table table-striped table-bordered table-hover">
+                    <thead className = "thead-dark">
+                      <tr >
                         <th className="paymentTable"></th>
                         <th className="paymentTable">克数</th>
                         <th className="paymentTable">金额</th>
@@ -194,11 +194,11 @@ class Daily extends Component {
                         <th className="paymentTable"></th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                       {this.renderSummaryBox()}
-                      <th>总结</th>
-                      <th>{this.renderQuantity()}</th>
-                      <th>{this.renderAmount()}</th>
+                      <th className = "thead-light">总结</th>
+                      <th className = "thead-light">{this.renderQuantity()}</th>
+                      <th className = "thead-light">{this.renderAmount()}</th>
                     </tbody>
                   </Table>
                 </div>
@@ -211,8 +211,8 @@ class Daily extends Component {
       return (
         <div>
           <Navbar navType="grocery" />
-          <div className="kjga-display-block col-lg-8">
-            <h1>加载中，请稍等</h1>
+          <div className="kjga-display-block centered">
+            <Spinner animation="border" />
           </div>
         </div>
       );

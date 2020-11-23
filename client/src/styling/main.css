@@ -1,12 +1,13 @@
 .primary-button{ 
     color: #fff;
-    background-color: #1976d2;
+    background-color: #28a845;
     padding: 6px 16px;
     font-size: 0.875rem;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border-radius: 4px;
+    border-radius: 12px;
     font-weight: 500;
     line-height: 1.75;
+    border: transparent;
 }
 
 .secondary-button {
@@ -18,17 +19,24 @@
     border-radius: 4px;
     font-weight: 500;
     line-height: 1.75;
+    border: transparent;
+}
+
+.centered {
+    margin-top:300px;
+    text-align: center;
 }
 
 .cancel-button {
     color: #fff;
     background-color: red;
-    padding: 6px;
+    padding: 6px 16px;
     font-size: 0.875rem;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border-radius: 30px;
+    border-radius: 12px;
     font-weight: 500;
     line-height: 0.75;
+    border: transparent;
 }
 
 .inactive-button {
@@ -49,7 +57,8 @@
 
 
 .kjga-input-box {
-    border: 1px solid black
+    border: 1px solid black;
+    height: 39px;
 }
 
 .name-box {

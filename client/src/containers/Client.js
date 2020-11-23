@@ -87,7 +87,7 @@ class Client extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.data.map((item, index) => {
-        total += item.amount;
+         total += item.amount;
       });
       return total;
     }
@@ -122,7 +122,7 @@ class Client extends Component {
         <div>
           <Navbar navType="grocery" />
           <div className="row">
-            <div className="col-lg-2"></div>
+            <div className="col-lg-1"></div>
             <div className="kjga-display-block col-lg-10">
               <div className="row">
                 <div className="col-md-12">
@@ -178,8 +178,8 @@ class Client extends Component {
                   className="col-lg-12"
                   style={{ padding: "20px 0 20px 20px" }}
                 >
-                  <Table>
-                    <thead>
+                  <Table className = "table table-striped table-bordered table-hover">
+                    <thead className = "thead-dark">
                       <tr>
                         <th></th>
                         <th className="paymentTable">克数</th>

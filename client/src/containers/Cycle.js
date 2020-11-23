@@ -176,8 +176,8 @@ class Cycle extends Component {
                   style={{ padding: "20px 0 20px 20px" }}
                 >
                   <div className="col-md-12">
-                    <Table>
-                      <thead>
+                    <Table className = "table table-striped table-bordered table-hover">
+                      <thead className = "thead-dark">
                         <tr>
                           <th className="paymentTable">客户</th>
                           <th className="paymentTable">克数</th>
@@ -198,8 +198,8 @@ class Cycle extends Component {
                     className="col-lg-12"
                     style={{ padding: "20px 0 20px 20px" }}
                   >
-                    <Table>
-                      <tbody>
+                    <Table className = "table table-bordered">
+                      <tbody className = "thead-light">
                         <tr>
                           <th>总结</th>
                           <th>购买克数：{this.renderQuantity()}</th>

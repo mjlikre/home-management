@@ -8,7 +8,7 @@ import {
   deleteTransaction,
   getClientList
 } from "./../actions/operations";
-import { Table, Dropdown } from "react-bootstrap";
+import { Table, Dropdown, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -97,14 +97,22 @@ class Main extends Component {
             <th>{item.amount}</th>
             <th>{new Date(item.transaction_date).toLocaleDateString()}</th>
             <th>
+            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">点击删除此记录</Tooltip>}>
+              <span className="d-inline-block">
               <button
                 className="cancel-button"
                 onClick={() => {
                   this.handleDelete(index);
                 }}
+                style={{ pointerEvents: 'none' }}
+                
               >
-                X
+                 删除
               </button>
+              </span>
+            </OverlayTrigger>
+              
+              
             </th>
           </tr>
         );
@@ -176,16 +184,16 @@ class Main extends Component {
                   </h3>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-12">
-                  <label className="col-md-12">客户</label>
-                  <div className="dropdown-container">
-                    <div className="name-box">{this.state.client}</div>
+              
 
+              <div className="row">
+                <div className = "col-md-2">
+                <label className="col-md-12">客户</label>
+                  <div className="dropdown-container">
                     <div className="col-md-6">
                     <Dropdown>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        请选客户
+                        {this.state.client || "请选择客户"}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                           {this.renderClients()}
@@ -194,9 +202,6 @@ class Main extends Component {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="row">
                 <div className="col-md-2">
                   <label className="col-md-12">克数</label>
                   <input
@@ -230,17 +235,18 @@ class Main extends Component {
                     }}
                   />
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2">
                   <label className="col-md-12">日期</label>
                   <DatePicker
                     dateFormat="dd/MM/yyyy"
                     selected={this.state.date}
                     onChange={this.handleDateChange}
+                    className="kjga-input-box"
                   />
                 </div>
                 <div className="col-md-2">
                   <div className="col-md-12">
-                    <br></br>{" "}
+                    <br/>   {  }
                   </div>
                   <div className="col-md-12">
                     <GeneralButton
@@ -256,15 +262,15 @@ class Main extends Component {
                   className="col-lg-12"
                   style={{ padding: "20px 0 20px 20px" }}
                 >
-                  <Table>
-                    <thead>
+                  <Table striped bordered hover>
+                    <thead className = "thead-dark">
                       <tr>
                         <th className="paymentTable">客户</th>
                         <th className="paymentTable">克数</th>
                         <th className="paymentTable">价格</th>
                         <th className="paymentTable">金额</th>
                         <th className="paymentTable">日期</th>
-                        <th className="paymentTable">删除</th>
+                        <th className="paymentTable"></th>
                       </tr>
                     </thead>
                     <tbody>{this.renderSummaryBox()}</tbody>
@@ -276,8 +282,8 @@ class Main extends Component {
                   className="col-lg-12"
                   style={{ padding: "20px 0 20px 20px" }}
                 >
-                  <Table>
-                    <tbody>
+                  <Table className = "table table-bordered">
+                    <tbody className = "thead-light">
                       <tr>
                         <th>目前总结</th>
                         <th>购买克数：{this.renderQuantity()}</th>
@@ -296,8 +302,8 @@ class Main extends Component {
       return (
         <div>
           <Navbar navType="grocery" />
-          <div className="kjga-display-block col-lg-8">
-            <h1>加载中，请稍等</h1>
+          <div className="kjga-display-block centered">
+            <Spinner animation="border" />
           </div>
         </div>
       );

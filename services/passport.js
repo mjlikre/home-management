@@ -1,11 +1,11 @@
 const passport      = require('passport');
 const User          = require('../models/Client');
-const config        = require('../config');
 const JwtStrategy   = require('passport-jwt').Strategy;
 const ExtractJwt    = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const bcrypt        = require('bcryptjs');
 const jwt = require('jwt-simple')
+const timeStamp = Date.now();
 require("dotenv").config();
 
 const localOptions = { usernameField: 'username' };
@@ -22,7 +22,6 @@ const localLogin = new LocalStrategy(localOptions, async (username, password, do
       }
       const isMatch = await bcrypt.compare(password, user[0].pass)
       if (isMatch){
-        console.log("matched", user)
         return done(null, user);
       }else{
 
@@ -49,12 +48,10 @@ const jwtOptions = {
 
 const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
   try {
-    if(payload.sub) {
-      // userID = payload.sub.rows[0].id
+    if(payload.sub && (timeStamp - payload.iat) <= 3600000 ) {
       
       done(null, payload.sub);
     } else {
-      console.log("failed", payload)
       done(null, false);
     }
   } catch(e) {

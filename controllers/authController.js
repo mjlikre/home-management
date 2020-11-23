@@ -1,18 +1,15 @@
 
 const jwt     = require('jwt-simple');
-const config  = require('../config');
 const uuid = require("uuid")
 const client = require('../models')
 const bcrypt = require('bcryptjs');
-const secret = require("./../config")
 require('dotenv').config()
 const tokenForUser = function(id) {
   const timestamp = new Date().getTime();
   // Sub === subject
   // iat === issued at time
-
   // Its going to encode the whole 1st object and then add our secret to it
-  return jwt.encode({ sub: id, iat: timestamp}, config.SECRET_KEY);
+  return jwt.encode({ sub: id, iat: timestamp}, process.env.SECRET_KEY);
 };
 
 
@@ -42,7 +39,6 @@ module.exports = {
       const query = "INSERT INTO auth SET ?"
       await client.Client.query(query, { user_id: id, email: email, pass: password, house_id : req.body.houseid, user_name: req.body.username}, (err, result) => {
         if (err) console.log(err);
-        console.log(result)
         res.json({ token: tokenForUser(id)});
       })
 
@@ -54,7 +50,6 @@ module.exports = {
 
   },
   signIn: async (req, res) => {
-    console.log("i'm seding stuff back")
     res.send({ token: tokenForUser(req.user[0].user_id)});
 
   },
