@@ -246,7 +246,7 @@ class Main extends Component {
                 </div>
                 <div className="col-md-2">
                   <div className="col-md-12">
-                    <br/>   {  }
+                    <br/> 
                   </div>
                   <div className="col-md-12">
                     <GeneralButton

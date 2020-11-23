@@ -6,6 +6,9 @@ import { getClient, getClientList, inputClient } from "./../actions/operations";
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import Navbar from "./../components/NavBar";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+
+
 
 class Client extends Component {
   constructor(props) {
@@ -24,6 +27,50 @@ class Client extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleFinalEdit = this.handleFinalEdit.bind(this);
   }
+  renderLineChart (){
+    
+    
+    if (this.state.data) {
+      const data = []
+      this.state.data.data.map((item, index) => {
+        let temp = {}
+        temp.date = new Date(item.transaction_date).toLocaleDateString();
+        temp.price = item.price
+        temp.quantity = item.quantity
+        temp.amount = item.amount
+        return data.unshift(temp)
+      })
+      return(
+        <div>
+          价格浮动表
+          <LineChart width={600} height={400} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+            <Line type="monotone" dataKey="price" stroke="#8884d8" />
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <XAxis dataKey="date" />
+            <YAxis />
+          </LineChart>
+          <br/>
+          金额浮动表
+          <LineChart width={600} height={400} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+            <Line type="monotone" dataKey="amount" stroke="#8884d8" />
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <XAxis dataKey="date" />
+            <YAxis />
+          </LineChart>
+          <br/>
+          克数浮动表
+          <LineChart width={600} height={400} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+            <Line type="monotone" dataKey="quantity" stroke="#8884d8" />
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <XAxis dataKey="date" />
+            <YAxis />
+          </LineChart>
+        </div>
+        
+      )
+    }
+    
+  };
   componentDidMount() {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/signin");
@@ -197,7 +244,13 @@ class Client extends Component {
                     </tbody>
                   </Table>
                 </div>
+                <div>
+                {this.renderLineChart()}
+                </div>
+                <div>
                 <GeneralButton type="primary" buttonName="添加客户" handleClick={this.handleEdit}></GeneralButton>
+                </div>
+                
               </div>
             </div>
           </div>
