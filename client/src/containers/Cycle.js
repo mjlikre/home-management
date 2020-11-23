@@ -33,12 +33,12 @@ class Cycle extends Component {
       });
     }
   }
-  handleCycleList(item) {
+  handleCycleList  (item) {
     this.props.specificCycle(
       { start_date: item.start_date, end_date: item.end_date },
       () => {
         if (this.props.sCycle) {
-          console.log(this.props.sCycle.data);
+          
           this.setState({ data: this.props.sCycle.data });
         } else {
           console.log("failed");
@@ -80,12 +80,13 @@ class Cycle extends Component {
     }
   }
   renderQuantity() {
+    
     if (this.state.data) {
       let total = 0;
       this.state.data.map((item, index) => {
         total += item.quantity;
       });
-      return total;
+      return total.toFixed(2);
     }
   }
   renderAmount() {
@@ -94,7 +95,7 @@ class Cycle extends Component {
       this.state.data.map((item, index) => {
         total += item.amount;
       });
-      return total;
+      return total.toFixed(2);
     }
   }
   handleEdit(data) {
@@ -136,6 +137,50 @@ class Cycle extends Component {
       }
     );
   }
+  returnProfit() {
+    if(this.state.data) {
+      return this.state.data[0].cash - this.renderAmount()
+    }
+  }
+  returnSales () {
+    if (this.state.data) {
+      return this.state.data[0].cash
+    }
+  }
+
+  calculateDetails () {
+    if (this.state.data) {
+      const details = {}
+      for (let i = 0; i < this.state.data.length; i ++) {
+        if (!details.hasOwnProperty(this.state.data.client_name)){
+          details[this.state.data[i].client_name] = {
+            amount: this.state.data[i].amount,
+            quantity: this.state.data[i].quantity
+          }
+         
+        }else{
+          details[this.state.data[i].client_name].amount += this.state.data[i].amount
+          details[this.state.data[i].client_name].quantity += this.state.data[i].quantity
+        }
+      }
+      return details
+    }
+  }
+  renderDetailsTable () {
+    if (this.state.data) {
+      let data = Object.entries(this.calculateDetails())
+      return data.map((item, index) => {
+        return(
+          <tr>
+            <th>{item[0]}</th>
+            <th>{item[1].amount}</th>
+            <th>{item[1].quantity}</th>
+          </tr>
+        )
+      })
+      
+    }
+  }
   render() {
     if (this.state.edit === 0) {
       return (
@@ -171,6 +216,25 @@ class Cycle extends Component {
                 </div>
               </div>
               <div className="row">
+                  <div
+                    className="col-lg-12"
+                    style={{ padding: "20px 0 20px 20px" }}
+                  >
+                    <Table className = "table table-bordered">
+                      <tbody className = "thead-light">
+                        <tr>
+                          <th>购买克数：{this.renderQuantity()}</th>
+                          <th>出售金额：{this.returnSales()}</th>
+                          <th>购买金额：{this.renderAmount()}</th>
+                          
+                          <th>利润：{this.returnProfit()}</th>
+                          
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </div>
+                </div>
+              <div className="row">
                 <div
                   className="col-lg-12"
                   style={{ padding: "20px 0 20px 20px" }}
@@ -189,26 +253,40 @@ class Cycle extends Component {
                       <tbody>
                         {this.renderSummaryBox()}
                         {this.renderSales()}
+                        
+                        
                       </tbody>
                     </Table>
                   </div>
                 </div>
-                <div className="row">
-                  <div
-                    className="col-lg-12"
-                    style={{ padding: "20px 0 20px 20px" }}
-                  >
-                    <Table className = "table table-bordered">
-                      <tbody className = "thead-light">
+                
+              </div>
+              <div className="row">
+                <div
+                  className="col-lg-12"
+                  style={{ padding: "20px 0 20px 20px" }}
+                >
+                  <div className="col-md-12">
+                    <label>客户详情</label>
+                    <Table className = "table table-striped table-bordered table-hover">
+                      <thead className = "thead-dark">
                         <tr>
-                          <th>总结</th>
-                          <th>购买克数：{this.renderQuantity()}</th>
-                          <th>购买金额：{this.renderAmount()}</th>
+                          <th className="paymentTable">客户</th>
+                          <th className="paymentTable">克数</th>
+               
+                          <th className="paymentTable">金额</th>
+                          
                         </tr>
+                      </thead>
+                      <tbody>
+                        
+                        {this.renderDetailsTable()}
+                        
                       </tbody>
                     </Table>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
