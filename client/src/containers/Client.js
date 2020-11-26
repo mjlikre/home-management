@@ -6,7 +6,7 @@ import { getClient, getClientList, inputClient } from "./../actions/operations";
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import Navbar from "./../components/NavBar";
-import { BarChart, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 
 
 

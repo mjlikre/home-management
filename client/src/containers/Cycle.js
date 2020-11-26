@@ -49,7 +49,7 @@ class Cycle extends Component {
   renderDropDown() {
     if (this.state.list) {
       return this.state.list.data.map((item, index) => {
-        if (item.end_date != 0) {
+        if (item.end_date !== 0) {
           return (
             <Dropdown.Item
               href="#/action-1"

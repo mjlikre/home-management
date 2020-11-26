@@ -24,7 +24,7 @@ class Main extends Component {
       price: null,
       amount: null,
       timestamp: null,
-      clientList: null
+      clientList: null,
     };
     this.newItemHandle = this.newItemHandle.bind(this);
   }
@@ -104,7 +104,7 @@ class Main extends Component {
                 onClick={() => {
                   this.handleDelete(index);
                 }}
-                style={{ pointerEvents: 'none' }}
+                
                 
               >
                  删除
@@ -171,6 +171,7 @@ class Main extends Component {
       return (
         <div>
           <Navbar navType="grocery" />
+          
           <div className="row">
             <div className="col-lg-1"></div>
             <div className="kjga-display-block col-lg-10">
