@@ -23,8 +23,6 @@ module.exports = {
       return res.status(422).json({ error: 'You must provide an username and password' });
     }
     try {
-      // Check if theres existing user
-      
       await client.Client.query(`SELECT * FROM auth WHERE email = ?`, [email], function (err, result) {
         if (err) console.log(err);
         else if(result.length > 0){ 

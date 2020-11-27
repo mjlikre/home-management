@@ -5,7 +5,7 @@ const ExtractJwt    = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const bcrypt        = require('bcryptjs');
 const jwt = require('jwt-simple')
-const timeStamp = Date.now();
+
 require("dotenv").config();
 
 const localOptions = { usernameField: 'username' };
@@ -48,7 +48,9 @@ const jwtOptions = {
 
 const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
   try {
-    if(payload.sub && (timeStamp - payload.iat) <= 3600000 ) {
+    const timeStamp = Date.now();
+    if(payload.sub && (timeStamp - payload.iat) <= 7200000 ) {
+      console.log("enough")
       
       done(null, payload.sub);
     } else {

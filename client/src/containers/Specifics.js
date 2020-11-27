@@ -25,6 +25,11 @@ class Specifics extends Component {
       this.props.history.push("/signin");
     }
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.auth !== this.props.auth && !this.props.auth) {
+      this.props.history.push("/signout")
+    }
+  }
   handleStartDayChange = (date) => {
     this.setState({
       startDay: date,
@@ -199,6 +204,7 @@ function mapStateToProps(state) {
     monthlyError: state.operations.monthlyError,
     summary: state.operations.summary,
     summaryError: state.operations.summaryError,
+    auth: state.auth.authenticated,
   };
 }
 

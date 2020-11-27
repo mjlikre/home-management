@@ -41,6 +41,11 @@ class Daily extends Component {
       });
     }
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.auth !== this.props.auth && !this.props.auth) {
+      this.props.history.push("/signout")
+    }
+  }
   renderSummaryBox() {
     if (this.state.data) {
       return this.state.data.data.map((item, index) => {
@@ -141,6 +146,7 @@ class Daily extends Component {
                   <input
                     className="col-md-12 kjga-input-box"
                     type="number"
+                    autocomplete="off"
                     value={this.state.quantity}
                     onChange={(event) => {
                       this.setState({ quantity: event.target.value });
@@ -152,6 +158,7 @@ class Daily extends Component {
                   <input
                     className="col-md-12 kjga-input-box"
                     type="number"
+                    autocomplete="off"
                     value={this.state.amount}
                     onChange={(event) => {
                       this.setState({ amount: event.target.value });
@@ -224,6 +231,7 @@ function mapStateToProps(state) {
   return {
     sales: state.operations.sales,
     salesError: state.operations.salesError,
+    auth: state.auth.authenticated
   };
 }
 

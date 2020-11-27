@@ -11,7 +11,6 @@ class Signout extends Component {
     render(){
         return(
             <div className='container'>
-                <h1>Sorry to see you go.</h1>
                 <Redirect to='/signin'/>
             </div>
 

@@ -16,11 +16,10 @@ import {
   GET_SPECIFIC_CYCLE,
   GET_CYCLE_LIST,
   GET_CLIENT_LIST,
-  INPUT_CLIENT,
-  AUTH_USER,
-  AUTH_ERROR,
+  AUTH_USER
 } from "./types";
 import axios from "axios";
+import { browserHistory } from 'react-router'
 
 export const getToday = (callback) => async (dispatch) => {
   try {
@@ -36,10 +35,8 @@ export const getToday = (callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_DAILY_ERROR, payload: e });
     }
@@ -56,10 +53,9 @@ export const getDaily = (data, callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
+       
     } else {
       dispatch({ type: GET_DAILY_ERROR, payload: e });
     }
@@ -78,10 +74,8 @@ export const getThisMonth = (callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_MONTHLY_ERROR, payload: e });
     }
@@ -98,10 +92,8 @@ export const getMonthly = (data, callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_MONTHLY_ERROR, payload: e });
     }
@@ -118,10 +110,8 @@ export const getClient = (data, callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_CLIENT_ERROR, payload: e });
     }
@@ -137,10 +127,8 @@ export const inputTransaction = (data, callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: INPUT_DATA_ERROR, payload: e });
     }
@@ -158,16 +146,14 @@ export const getSummary = (callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_SUMMARY_ERROR, payload: e });
     }
   }
 };
-export const deleteTransaction = (data, callback) => async () => {
+export const deleteTransaction = (data, callback) => async (dispatch) => {
   try {
     await axios.post("/api/operations/delete", data, {
       headers: { authorization: localStorage.getItem("token") },
@@ -176,10 +162,8 @@ export const deleteTransaction = (data, callback) => async () => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       console.log(e);
     }
@@ -197,10 +181,8 @@ export const salesSummary = (callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_SALES_ERROR, payload: "err" });
     }
@@ -216,16 +198,14 @@ export const insertSales = (data, callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: INPUT_DATA_ERROR, payload: "err" });
     }
   }
 };
-export const deleteSales = (data, callback) => async () => {
+export const deleteSales = (data, callback) => async (dispatch) => {
   try {
     await axios.post("/api/operations/salesdel", data, {
       headers: { authorization: localStorage.getItem("token") },
@@ -234,10 +214,8 @@ export const deleteSales = (data, callback) => async () => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       console.log(e);
     }
@@ -255,10 +233,8 @@ export const cycles = (callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_CYCLE_ERROR, payload: "err" });
     }
@@ -276,10 +252,8 @@ export const currentCycle = (callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_CYCLE_ERROR, payload: "err" });
     }
@@ -295,16 +269,14 @@ export const specificCycle = (data, callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_CYCLE_ERROR, payload: "err" });
     }
   }
 };
-export const editSalesRecord = (data, callback) => async () => {
+export const editSalesRecord = (data, callback) => async (dispatch) => {
   try {
     await axios.post("/api/operations/edit_sales", data, {
       headers: { authorization: localStorage.getItem("token") },
@@ -314,10 +286,8 @@ export const editSalesRecord = (data, callback) => async () => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       console.log(e);
     }
@@ -335,16 +305,14 @@ export const getClientList = (callback) => async (dispatch) => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       dispatch({ type: GET_CLIENT_ERROR, payload: "err" });
     }
   }
 };
-export const inputClient = (data, callback) => async () => {
+export const inputClient = (data, callback) => async (dispatch) => {
   try {
     await axios.post("/api/operations/inputclient", data, {
       headers: { authorization: localStorage.getItem("token") },
@@ -353,10 +321,8 @@ export const inputClient = (data, callback) => async () => {
   } catch (e) {
     if (e == "Error: Request failed with status code 401") {
       localStorage.removeItem("token");
-      return {
-        type: AUTH_USER,
-        payload: null,
-      };
+      
+      dispatch({ type: AUTH_USER, payload: null,})
     } else {
       console.log(e);
     }

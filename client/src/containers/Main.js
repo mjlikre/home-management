@@ -36,11 +36,16 @@ class Main extends Component {
         this.props.getClientList(()=>{
           this.setState({
             data: this.props.summary,
-            clientList: this.props.clientList
+            clientList: this.props.clientList,
           });
         })
         
       });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.auth !== this.props.auth && !this.props.auth) {
+      this.props.history.push("/signout")
     }
   }
   renderClients() {
@@ -104,8 +109,6 @@ class Main extends Component {
                 onClick={() => {
                   this.handleDelete(index);
                 }}
-                
-                
               >
                  删除
               </button>
@@ -171,7 +174,6 @@ class Main extends Component {
       return (
         <div>
           <Navbar navType="grocery" />
-          
           <div className="row">
             <div className="col-lg-1"></div>
             <div className="kjga-display-block col-lg-10">
@@ -208,6 +210,7 @@ class Main extends Component {
                   <input
                     className="col-md-12 kjga-input-box"
                     type="number"
+                    autocomplete="off"
                     value={this.state.quantity}
                     onChange={(event) => {
                       this.setState({ quantity: event.target.value });
@@ -219,6 +222,7 @@ class Main extends Component {
                   <input
                     className="col-md-12 kjga-input-box"
                     type="number"
+                    autocomplete="off"
                     value={this.state.price}
                     onChange={(event) => {
                       this.setState({ price: event.target.value });
@@ -230,6 +234,7 @@ class Main extends Component {
                   <input
                     className="col-md-12 kjga-input-box"
                     type="number"
+                    autocomplete="off"
                     value={this.state.amount}
                     onChange={(event) => {
                       this.setState({ amount: event.target.value });
@@ -316,7 +321,8 @@ function mapStateToProps(state) {
   return {
     summary: state.operations.summary,
     summaryError: state.operations.summaryError,
-    clientList: state.operations.clientList
+    clientList: state.operations.clientList,
+    auth: state.auth.authenticated
   };
 }
 export default compose(

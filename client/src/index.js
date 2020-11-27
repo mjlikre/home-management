@@ -12,7 +12,6 @@ import SignOut from "./containers/Signout";
 import SignIn from "./containers/Login";
 import Daily from "./containers/Daily";
 import Client from "./containers/Client";
-// import Specifics from "./containers/Specifics"
 import Main from "./containers/Main";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -38,7 +37,6 @@ ReactDOM.render(
       <Route path="/signout" component={SignOut} />
       <Route path="/specifics" component={Cycle} />
       <Route path="/client" component={Client} />
-      {/* <Route path="/cycle" component={Cycle}/> */}
       <Route path="/main" component={Main} />
     </Router>
   </Provider>,

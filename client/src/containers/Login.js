@@ -69,6 +69,7 @@ class Login extends Component {
                       onChange={(e) => {
                         this.setState({ username: e.target.value });
                       }}
+                      autocomplete="off"
                     />
                   </Form.Group>
 
@@ -80,6 +81,7 @@ class Login extends Component {
                       onChange={(e) => {
                         this.setState({ password: e.target.value });
                       }}
+                      autocomplete="off"
                     />
                   </Form.Group>
                   <Button

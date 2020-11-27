@@ -27,6 +27,11 @@ class Client extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleFinalEdit = this.handleFinalEdit.bind(this);
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.auth !== this.props.auth && !this.props.auth) {
+      this.props.history.push("/signout")
+    }
+  }
   renderLineChart (){
     
     
@@ -318,7 +323,8 @@ function mapStateToProps(state) {
   return {
     client: state.operations.client,
     clientError: state.operations.clientError,
-    clientList: state.operations.clientList
+    clientList: state.operations.clientList,
+    auth: state.auth.authenticated
   };
 }
 export default compose(connect(mapStateToProps, { getClient, getClientList, inputClient }))(Client);

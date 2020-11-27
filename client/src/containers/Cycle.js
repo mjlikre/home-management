@@ -46,6 +46,11 @@ class Cycle extends Component {
       }
     );
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.auth !== this.props.auth && !this.props.auth) {
+      this.props.history.push("/signout")
+    }
+  }
   renderDropDown() {
     if (this.state.list) {
       return this.state.list.data.map((item, index) => {
@@ -355,6 +360,7 @@ function mapStateToProps(state) {
     sCycle: state.operations.specificCycle,
     cycleError: state.operations.cycleError,
     sales: state.operations.sales,
+    auth: state.auth.authenticated
   };
 }
 
