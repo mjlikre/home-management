@@ -8,6 +8,7 @@ import {
   deleteSales,
 } from "./../actions/operations";
 import { Table, Spinner } from "react-bootstrap";
+import PageHeader from "./../components/PageHeader"
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -216,12 +217,10 @@ class Daily extends Component {
       );
     } else {
       return (
-        <div>
-          <Navbar navType="grocery" />
-          <div className="kjga-display-block centered">
+          <PageHeader>
             <Spinner animation="border" />
-          </div>
-        </div>
+          </PageHeader>
+            
       );
     }
   }

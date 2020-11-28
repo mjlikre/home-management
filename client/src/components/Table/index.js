@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import "./General.css";
 class GeneralTable extends Component {
   constructor(props) {

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import Navbar from "./../components/NavBar";
 import {
   getSummary,
   inputTransaction,
   deleteTransaction,
   getClientList
 } from "./../actions/operations";
+import PageHeader from "./../components/PageHeader"
 import { Table, Dropdown, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
+import DropdownBox from "./../components/DropdownBox"
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -172,11 +173,7 @@ class Main extends Component {
   render() {
     if (this.state.data) {
       return (
-        <div>
-          <Navbar navType="grocery" />
-          <div className="row">
-            <div className="col-lg-1"></div>
-            <div className="kjga-display-block col-lg-10">
+        <PageHeader>
               <div className="row">
                 <div
                   className="col-lg-12"
@@ -191,20 +188,8 @@ class Main extends Component {
 
               <div className="row">
                 <div className = "col-md-2">
-                <label className="col-md-12">客户</label>
-                  <div className="dropdown-container">
-                    <div className="col-md-6">
-                    <Dropdown>
-                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        {this.state.client || "请选择客户"}
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                          {this.renderClients()}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    </div>
+                  <DropdownBox label = '客户' dropdownList = {this.state.clientList} dropdownName = {this.state.client} handleClick = {(item) => {this.setState({client: item})}} />
                   </div>
-                </div>
                 <div className="col-md-2">
                   <label className="col-md-12">克数</label>
                   <input
@@ -300,18 +285,16 @@ class Main extends Component {
                   
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+          </PageHeader>
       );
     } else {
       return (
-        <div>
-          <Navbar navType="grocery" />
-          <div className="kjga-display-block centered">
+        <PageHeader>
+          <div className = "centered">
             <Spinner animation="border" />
           </div>
-        </div>
+          
+        </PageHeader>
       );
     }
   }

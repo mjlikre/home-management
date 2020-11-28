@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Table, Dropdown } from "react-bootstrap";
+import { Dropdown, Spinner } from "react-bootstrap";
 import { getClient, getClientList, inputClient } from "./../actions/operations";
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
-import Navbar from "./../components/NavBar";
+import PageHeader from "./../components/PageHeader"
+import GeneralTable from "./../components/Table";
+import DropdownBox from "./../components/DropdownBox"
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 
 
@@ -26,6 +28,7 @@ class Client extends Component {
     this.searchHandle = this.searchHandle.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleFinalEdit = this.handleFinalEdit.bind(this);
+    this.dropdownClick = this.dropdownClick.bind(this);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.auth !== this.props.auth && !this.props.auth) {
@@ -107,29 +110,10 @@ class Client extends Component {
       });
     });
   }
-  renderClients() {
-    if (this.state.clientList) {
-      return this.state.clientList.data.map((item, index) => {
-        return (
-          <Dropdown.Item href="#/action-1" onClick={() => {this.setState({ client: item.client_name });}}>{item.client_name}</Dropdown.Item>
-        )
-      })
-    }
-  }
-  renderSummaryBox() {
-    if (this.state.data) {
-      return this.state.data.data.map((item, index) => {
-        return (
-          <tr>
-            <th></th>
-            <th>{item.quantity}</th>
-            <th>{item.price}</th>
-            <th>{item.amount}</th>
-            <th>{new Date(item.transaction_date).toLocaleDateString()}</th>
-          </tr>
-        );
-      });
-    }
+  
+
+  dropdownClick(clientName) {
+    this.setState({ client: clientName})
   }
   handleEdit() {
     this.setState({
@@ -177,34 +161,21 @@ class Client extends Component {
       })
     })
   }
+  cleanData () {
+    if (this.state.data){
+      let data = []
+      this.state.data.data.map((item, index) => {
+        return data.push(["", item.quantity, item.price, item.amount, new Date(item.transaction_date).toLocaleDateString()])
+      })
+      return data
+    }
+  }
 
   render() {
-    if (this.state.clientEdit === 0){
+    if (this.state.clientEdit === 0 && this.state.clientList){
       return (
-        <div>
-          <Navbar navType="grocery" />
-          <div className="row">
-            <div className="col-lg-1"></div>
-            <div className="kjga-display-block col-lg-10">
-              <div className="row">
-                <div className="col-md-12">
-                  <label className="col-md-12">客户</label>
-                  <div className="dropdown-container">
-                    <div className="name-box">{this.state.client}</div>
-  
-                    <div className="col-md-6">
-                      <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                          请选客户
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {this.renderClients()}
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <PageHeader>
+              <DropdownBox dropdownName = {this.state.client} dropdownList = {this.state.clientList} handleClick = {this.dropdownClick}></DropdownBox>
               <div className="row">
                 <div className="col-md-4">
                   <label className="col-md-12">开始日期</label>
@@ -235,50 +206,27 @@ class Client extends Component {
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div
-                  className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
-                >
-                  <Table className = "table table-striped table-bordered table-hover">
-                    <thead className = "thead-dark">
-                      <tr>
-                        <th></th>
-                        <th className="paymentTable">克数</th>
-                        <th className="paymentTable">价格</th>
-                        <th className="paymentTable">金额</th>
-                        <th className="paymentTable">日期</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.renderSummaryBox()}
+                <GeneralTable item_name = {[" ","克数","价格","金额","日期"]} item_list = {this.cleanData()}>
                       <th>总结</th>
                       <th>{this.renderQuantity()}</th>
                       <th></th>
                       <th>{this.renderAmount()}</th>
-                    </tbody>
-                  </Table>
+                </GeneralTable>
+              <div>
+                <GeneralButton type="primary" buttonName="添加客户" handleClick={this.handleEdit}></GeneralButton>
                 </div>
                 <div>
                 {this.renderLineChart()}
                 </div>
-                <div>
-                <GeneralButton type="primary" buttonName="添加客户" handleClick={this.handleEdit}></GeneralButton>
-                </div>
                 
-              </div>
-            </div>
-          </div>
-        </div>
+                
+              
+            </PageHeader>
       );
     }
-    else {
+    else if(this.state.clientEdit && this.state.clientList) {
       return (
-        <div>
-          <Navbar navType="grocery" />
-          <div className="row">
-            <div className="col-lg-1"></div>
-            <div className="kjga-display-block col-lg-10">
+        <PageHeader>
               <div className="row">
                 <div
                   className="col-lg-12"
@@ -311,10 +259,14 @@ class Client extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+              </PageHeader>
       );
+    }else{
+      return(
+        <PageHeader>
+          <Spinner animation="border" />
+        </PageHeader>
+      )
     }
     
   }

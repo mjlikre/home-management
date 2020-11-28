@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Navbar from "./../components/NavBar";
 import GeneralButton from "./../components/Button/GeneralButton";
 import GeneralTable from "./../components/Table";
+import PageHeader from "./../components/PageHeader"
 import {
   cycles,
   currentCycle,
@@ -201,11 +202,14 @@ class Cycle extends Component {
   render() {
     if (this.state.edit === 0) {
       return (
-        <div>
+        <PageHeader>
+
+        
+        {/* <div>
           <Navbar navType="grocery" />
           <div className="row">
             <div className="col-lg-1"></div>
-            <div className="kjga-display-block col-lg-10">
+            <div className="kjga-display-block col-lg-10"> */}
               <div className="row">
                 <div
                   className="col-lg-12"
@@ -251,17 +255,11 @@ class Cycle extends Component {
               </GeneralTable>
 
               {this.renderDetailsTable()}
-            </div>
-          </div>
-        </div>
+        </PageHeader>
       );
     } else {
       return (
-        <div>
-          <Navbar navType="grocery" />
-          <div className="row">
-            <div className="col-lg-1"></div>
-            <div className="kjga-display-block col-lg-10">
+        <PageHeader>
               <div className="row">
                 <div
                   className="col-lg-12"
@@ -287,7 +285,6 @@ class Cycle extends Component {
                         }}
                       />
                     </div>
-
                     <div className="col-md-2">
                       <div className="col-md-12">
                         <br></br>{" "}
@@ -303,9 +300,7 @@ class Cycle extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+        </PageHeader>
       );
     }
   }
