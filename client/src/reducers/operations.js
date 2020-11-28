@@ -1,4 +1,3 @@
-import { bindActionCreators } from "redux";
 import {
   GET_CLIENT,
   GET_CLIENT_ERROR,

@@ -13,7 +13,6 @@ const localOptions = { usernameField: 'username' };
 let userID = ""
 
 const localLogin = new LocalStrategy(localOptions, async (username, password, done) => {
-  console.log("local")
   try {
     await User.query(`SELECT * FROM auth WHERE email = ?`, [username], async (err, user) => {
       if (err) throw err; 
@@ -37,7 +36,6 @@ const localLogin = new LocalStrategy(localOptions, async (username, password, do
 
 
 
-
 const jwtOptions = {
 
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
@@ -50,7 +48,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
   try {
     const timeStamp = Date.now();
     if(payload.sub && (timeStamp - payload.iat) <= 7200000 ) {
-      console.log("enough")
       
       done(null, payload.sub);
     } else {

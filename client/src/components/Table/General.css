@@ -1,0 +1,51 @@
+.kjga-wrapper {
+    position: relative;
+}
+.kjga-outer-container {
+    align-content: center;
+    width: 100%;
+    top: 80px;
+    opacity: 0.8
+}
+.kjga-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.kjga-box {
+    padding: 15px;
+    width: 100%
+}
+.kjga-main-list-item {
+    border: 1px solid black;
+    padding: 5px;
+}
+.button {
+    color: #333;
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.25;
+    border: 1px solid #1976d2;
+    max-width: 75px;
+    text-align: center;
+    margin-right: 7px;
+}
+
+.button-wrapper {
+    display: flex;
+}
+.greendot {
+    height: 10px;
+    width: 10px;
+    background-color: green;
+    border-radius: 5px;
+}
+.greydot{
+    height: 10px;
+    width: 10px;
+    background-color: grey;
+    border-radius: 5px;
+}

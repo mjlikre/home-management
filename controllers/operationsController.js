@@ -21,6 +21,7 @@ module.exports = {
       res.json({ error: e });
     }
   },
+  
   getThisMonthSummary: async (req, res) => {
     let query =
       "SELECT * FROM cycle_transaction WHERE transaction_date > ? ORDER BY transaction_date DESC";

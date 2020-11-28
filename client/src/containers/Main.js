@@ -45,7 +45,7 @@ class Main extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.auth !== this.props.auth && !this.props.auth) {
-      this.props.history.push("/signout")
+      this.props.history.push("/logout")
     }
   }
   renderClients() {

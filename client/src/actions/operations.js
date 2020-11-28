@@ -19,7 +19,6 @@ import {
   AUTH_USER
 } from "./types";
 import axios from "axios";
-import { browserHistory } from 'react-router'
 
 export const getToday = (callback) => async (dispatch) => {
   try {

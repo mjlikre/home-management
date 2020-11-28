@@ -3,6 +3,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import Navbar from "./../components/NavBar";
 import GeneralButton from "./../components/Button/GeneralButton";
+import GeneralTable from "./../components/Table";
 import {
   cycles,
   currentCycle,
@@ -20,6 +21,7 @@ class Cycle extends Component {
       list: null,
       data: null,
       edit: 0,
+      cleaned_data: null,
     };
     this.handleCycleList = this.handleCycleList.bind(this);
     this.handleFinalEdit = this.handleFinalEdit.bind(this);
@@ -33,13 +35,26 @@ class Cycle extends Component {
       });
     }
   }
-  handleCycleList  (item) {
+  handleCycleList(item) {
     this.props.specificCycle(
       { start_date: item.start_date, end_date: item.end_date },
       () => {
         if (this.props.sCycle) {
-          
-          this.setState({ data: this.props.sCycle.data });
+          let cleaned = [];
+          this.props.sCycle.data.map((item, index) => {
+            cleaned.push([
+              item.client_name,
+              item.quantity,
+              item.price,
+              item.amount,
+              new Date(item.transaction_date).toLocaleDateString(),
+            ]);
+          });
+
+          this.setState({
+            data: this.props.sCycle.data,
+            cleaned_data: cleaned,
+          });
         } else {
           console.log("failed");
         }
@@ -48,7 +63,7 @@ class Cycle extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.auth !== this.props.auth && !this.props.auth) {
-      this.props.history.push("/signout")
+      this.props.history.push("/signout");
     }
   }
   renderDropDown() {
@@ -69,29 +84,15 @@ class Cycle extends Component {
       });
     }
   }
-  renderSummaryBox() {
-    if (this.state.data) {
-      return this.state.data.map((item, index) => {
-        return (
-          <tr>
-            <th>{item.client_name}</th>
-            <th>{item.quantity}</th>
-            <th>{item.price}</th>
-            <th>{item.amount}</th>
-            <th>{new Date(item.transaction_date).toLocaleDateString()}</th>
-          </tr>
-        );
-      });
-    }
-  }
   renderQuantity() {
-    
     if (this.state.data) {
       let total = 0;
       this.state.data.map((item, index) => {
         total += item.quantity;
       });
       return total.toFixed(2);
+    } else {
+      return 0;
     }
   }
   renderAmount() {
@@ -101,6 +102,8 @@ class Cycle extends Component {
         total += item.amount;
       });
       return total.toFixed(2);
+    } else {
+      return 0;
     }
   }
   handleEdit(data) {
@@ -143,47 +146,56 @@ class Cycle extends Component {
     );
   }
   returnProfit() {
-    if(this.state.data) {
-      return this.state.data[0].cash - this.renderAmount()
+    if (this.state.data) {
+      return this.state.data[0].cash - this.renderAmount();
+    } else {
+      return 0;
     }
   }
-  returnSales () {
+  returnSales() {
     if (this.state.data) {
-      return this.state.data[0].cash
+      return this.state.data[0].cash;
+    } else {
+      return 0;
     }
   }
 
-  calculateDetails () {
+  calculateDetails() {
     if (this.state.data) {
-      const details = {}
-      for (let i = 0; i < this.state.data.length; i ++) {
-        if (!details.hasOwnProperty(this.state.data.client_name)){
+      const details = {};
+      const data = [];
+      for (let i = 0; i < this.state.data.length; i++) {
+        if (!details.hasOwnProperty(this.state.data.client_name)) {
           details[this.state.data[i].client_name] = {
             amount: this.state.data[i].amount,
-            quantity: this.state.data[i].quantity
-          }
-         
-        }else{
-          details[this.state.data[i].client_name].amount += this.state.data[i].amount
-          details[this.state.data[i].client_name].quantity += this.state.data[i].quantity
+            quantity: this.state.data[i].quantity,
+          };
+        } else {
+          details[this.state.data[i].client_name].amount += this.state.data[
+            i
+          ].amount;
+          details[this.state.data[i].client_name].quantity += this.state.data[
+            i
+          ].quantity;
         }
       }
-      return details
+      let cleaned = Object.entries(details);
+      cleaned.map((item, index) => {
+        data.push([item[0], item[1].amount, item[1].quantity]);
+      });
+      return data;
     }
   }
-  renderDetailsTable () {
+  renderDetailsTable() {
     if (this.state.data) {
-      let data = Object.entries(this.calculateDetails())
-      return data.map((item, index) => {
-        return(
-          <tr>
-            <th>{item[0]}</th>
-            <th>{item[1].amount}</th>
-            <th>{item[1].quantity}</th>
-          </tr>
-        )
-      })
-      
+      let data = this.calculateDetails();
+
+      return (
+        <GeneralTable
+          item_name={["客户", "克数", "金额"]}
+          item_list={data}
+        ></GeneralTable>
+      );
     }
   }
   render() {
@@ -220,79 +232,25 @@ class Cycle extends Component {
                   </div>
                 </div>
               </div>
-              <div className="row">
-                  <div
-                    className="col-lg-12"
-                    style={{ padding: "20px 0 20px 20px" }}
-                  >
-                    <Table className = "table table-bordered">
-                      <tbody className = "thead-light">
-                        <tr>
-                          <th>购买克数：{this.renderQuantity()}</th>
-                          <th>出售金额：{this.returnSales()}</th>
-                          <th>购买金额：{this.renderAmount()}</th>
-                          
-                          <th>利润：{this.returnProfit()}</th>
-                          
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                </div>
-              <div className="row">
-                <div
-                  className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
-                >
-                  <div className="col-md-12">
-                    <Table className = "table table-striped table-bordered table-hover">
-                      <thead className = "thead-dark">
-                        <tr>
-                          <th className="paymentTable">客户</th>
-                          <th className="paymentTable">克数</th>
-                          <th className="paymentTable">价格</th>
-                          <th className="paymentTable">金额</th>
-                          <th className="paymentTable">日期</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {this.renderSummaryBox()}
-                        {this.renderSales()}
-                        
-                        
-                      </tbody>
-                    </Table>
-                  </div>
-                </div>
-                
-              </div>
-              <div className="row">
-                <div
-                  className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
-                >
-                  <div className="col-md-12">
-                    <label>客户详情</label>
-                    <Table className = "table table-striped table-bordered table-hover">
-                      <thead className = "thead-dark">
-                        <tr>
-                          <th className="paymentTable">客户</th>
-                          <th className="paymentTable">克数</th>
-               
-                          <th className="paymentTable">金额</th>
-                          
-                        </tr>
-                      </thead>
-                      <tbody>
-                        
-                        {this.renderDetailsTable()}
-                        
-                      </tbody>
-                    </Table>
-                  </div>
-                </div>
-                
-              </div>
+
+              <GeneralTable
+                item_list={[
+                  [
+                    `购买克数：${this.renderQuantity()}`,
+                    `出售金额：${this.returnSales()}`,
+                    `购买金额：${this.renderAmount()}`,
+                    `利润：${this.returnProfit()}`,
+                  ],
+                ]}
+              ></GeneralTable>
+              <GeneralTable
+                item_name={["客户", "克数", "价格", "金额", "日期"]}
+                item_list={this.state.cleaned_data}
+              >
+                {this.renderSales()}
+              </GeneralTable>
+
+              {this.renderDetailsTable()}
             </div>
           </div>
         </div>
@@ -360,7 +318,7 @@ function mapStateToProps(state) {
     sCycle: state.operations.specificCycle,
     cycleError: state.operations.cycleError,
     sales: state.operations.sales,
-    auth: state.auth.authenticated
+    auth: state.auth.authenticated,
   };
 }
 
