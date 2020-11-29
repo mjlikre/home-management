@@ -12,6 +12,7 @@ import { Table, Dropdown, Spinner, OverlayTrigger, Tooltip } from "react-bootstr
 import DropdownBox from "./../components/DropdownBox"
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
+import InputArea from "./../components/InputArea"
 import "react-datepicker/dist/react-datepicker.css";
 import "./../styling/main.css";
 class Main extends Component {
@@ -47,15 +48,6 @@ class Main extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.auth !== this.props.auth && !this.props.auth) {
       this.props.history.push("/logout")
-    }
-  }
-  renderClients() {
-    if (this.state.clientList) {
-      return this.state.clientList.data.map((item, index) => {
-        return (
-          <Dropdown.Item href="#/action-1" onClick={() => {this.setState({ client: item.client_name });}}>{item.client_name}</Dropdown.Item>
-        )
-      })
     }
   }
   newItemHandle() {
@@ -115,8 +107,6 @@ class Main extends Component {
               </button>
               </span>
             </OverlayTrigger>
-              
-              
             </th>
           </tr>
         );
@@ -190,52 +180,21 @@ class Main extends Component {
                 <div className = "col-md-2">
                   <DropdownBox label = '客户' dropdownList = {this.state.clientList} dropdownName = {this.state.client} handleClick = {(item) => {this.setState({client: item})}} />
                   </div>
-                <div className="col-md-2">
-                  <label className="col-md-12">克数</label>
-                  <input
-                    className="col-md-12 kjga-input-box"
-                    type="number"
-                    autocomplete="off"
-                    value={this.state.quantity}
-                    onChange={(event) => {
-                      this.setState({ quantity: event.target.value });
-                    }}
-                  />
-                </div>
-                <div className="col-md-2">
-                  <label className="col-md-12">价格</label>
-                  <input
-                    className="col-md-12 kjga-input-box"
-                    type="number"
-                    autocomplete="off"
-                    value={this.state.price}
-                    onChange={(event) => {
-                      this.setState({ price: event.target.value });
-                    }}
-                  />
-                </div>
-                <div className="col-md-2">
-                  <label className="col-md-12">金额</label>
-                  <input
-                    className="col-md-12 kjga-input-box"
-                    type="number"
-                    autocomplete="off"
-                    value={this.state.amount}
-                    onChange={(event) => {
-                      this.setState({ amount: event.target.value });
-                    }}
-                  />
-                </div>
+                
+                <InputArea label = "克数" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "normal"/>
+                <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "normal"/>
+                <InputArea label = "金额" amount = {this.state.amount} change = {(event) => {this.setState({amount: event.target.value})}} type = "normal"/>
+                
                 <div className="col-md-2">
                   <label className="col-md-12">日期</label>
                   <DatePicker
                     dateFormat="dd/MM/yyyy"
                     selected={this.state.date}
-                    onChange={this.handleDateChange}
+                    onChange={(date) => {console.log(date)}}
                     className="kjga-input-box"
                   />
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-2">  
                   <div className="col-md-12">
                     <br/> 
                   </div>
@@ -299,7 +258,6 @@ class Main extends Component {
     }
   }
 }
-
 function mapStateToProps(state) {
   return {
     summary: state.operations.summary,

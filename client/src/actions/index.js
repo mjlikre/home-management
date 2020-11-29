@@ -31,7 +31,8 @@ export const signin = (formProps, callback) => async (dispatch) => {
     dispatch({ type: AUTH_USER, payload: res.data.token });
     callback();
   } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: "Invalid login credentials" });
+    console.log(e)
+    dispatch({ type: AUTH_ERROR, payload: e});
   }
 };
 export const changePass = (formProps, callback) => async (dispatch) => {

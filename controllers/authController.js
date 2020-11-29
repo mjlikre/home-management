@@ -48,7 +48,11 @@ module.exports = {
 
   },
   signIn: async (req, res) => {
-    res.send({ token: tokenForUser(req.user[0].user_id)});
+    
+   
+      res.send({ token: tokenForUser(req.user[0].user_id)});
+    
+    
 
   },
   passwordChange: async(req, res) => {

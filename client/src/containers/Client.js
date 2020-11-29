@@ -168,6 +168,8 @@ class Client extends Component {
         return data.push(["", item.quantity, item.price, item.amount, new Date(item.transaction_date).toLocaleDateString()])
       })
       return data
+    }else {
+      return 0
     }
   }
 

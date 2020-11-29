@@ -23,7 +23,6 @@ const localLogin = new LocalStrategy(localOptions, async (username, password, do
       if (isMatch){
         return done(null, user);
       }else{
-
         return done(null, false);
       }      
     })

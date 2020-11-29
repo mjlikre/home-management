@@ -9,6 +9,7 @@ import {
 } from "./../actions/operations";
 import { Table, Spinner } from "react-bootstrap";
 import PageHeader from "./../components/PageHeader"
+import InputArea from "./../components/InputArea"
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -142,30 +143,8 @@ class Daily extends Component {
             <div className="col-lg-1"></div>
             <div className="kjga-display-block col-lg-10">
               <div className="row">
-                <div className="col-md-2">
-                  <label className="col-md-12">克数</label>
-                  <input
-                    className="col-md-12 kjga-input-box"
-                    type="number"
-                    autocomplete="off"
-                    value={this.state.quantity}
-                    onChange={(event) => {
-                      this.setState({ quantity: event.target.value });
-                    }}
-                  />
-                </div>
-                <div className="col-md-2">
-                  <label className="col-md-12">金额</label>
-                  <input
-                    className="col-md-12 kjga-input-box"
-                    type="number"
-                    autocomplete="off"
-                    value={this.state.amount}
-                    onChange={(event) => {
-                      this.setState({ amount: event.target.value });
-                    }}
-                  />
-                </div>
+                <InputArea label = "克数" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "normal"/>
+                <InputArea label = "金额" amount = {this.state.amount} change = {(event) => {this.setState({amount: event.target.value})}} type = "normal"/>
                 <div className="col-md-3">
                   <label className="col-md-12">日期</label>
                   <DatePicker

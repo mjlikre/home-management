@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import Navbar from "./../components/NavBar";
+import DropdownBox from "./../components/DropdownBox"
 import GeneralButton from "./../components/Button/GeneralButton";
 import GeneralTable from "./../components/Table";
 import PageHeader from "./../components/PageHeader"
@@ -65,24 +65,6 @@ class Cycle extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.auth !== this.props.auth && !this.props.auth) {
       this.props.history.push("/signout");
-    }
-  }
-  renderDropDown() {
-    if (this.state.list) {
-      return this.state.list.data.map((item, index) => {
-        if (item.end_date !== 0) {
-          return (
-            <Dropdown.Item
-              href="#/action-1"
-              onClick={() => {
-                this.handleCycleList(item);
-              }}
-            >
-              {item.cycle_number}
-            </Dropdown.Item>
-          );
-        }
-      });
     }
   }
   renderQuantity() {
@@ -182,7 +164,7 @@ class Cycle extends Component {
       }
       let cleaned = Object.entries(details);
       cleaned.map((item, index) => {
-        data.push([item[0], item[1].amount, item[1].quantity]);
+        data.push([item[0], item[1].quantity, item[1].amount]);
       });
       return data;
     }
@@ -199,17 +181,28 @@ class Cycle extends Component {
       );
     }
   }
+  renderDropDown() {
+    if (this.state.list) {
+      return this.state.list.data.map((item, index) => {
+        if (item.end_date !== 0) {
+          return (
+            <Dropdown.Item
+              href="#/action-1"
+              onClick={() => {
+                this.handleCycleList(item);
+              }}
+            >
+              {item.cycle_number}
+            </Dropdown.Item>
+          );
+        }
+      });
+    }
+  }
   render() {
     if (this.state.edit === 0) {
       return (
         <PageHeader>
-
-        
-        {/* <div>
-          <Navbar navType="grocery" />
-          <div className="row">
-            <div className="col-lg-1"></div>
-            <div className="kjga-display-block col-lg-10"> */}
               <div className="row">
                 <div
                   className="col-lg-12"
@@ -228,12 +221,12 @@ class Cycle extends Component {
                           >
                             请选周期
                           </Dropdown.Toggle>
-
                           <Dropdown.Menu>{this.renderDropDown()}</Dropdown.Menu>
                         </Dropdown>
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
 
