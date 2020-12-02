@@ -190,7 +190,7 @@ class Main extends Component {
                   <DatePicker
                     dateFormat="dd/MM/yyyy"
                     selected={this.state.date}
-                    onChange={(date) => {console.log(date)}}
+                    onChange={this.handleDateChange}
                     className="kjga-input-box"
                   />
                 </div>
