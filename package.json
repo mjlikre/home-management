@@ -36,6 +36,7 @@
     "passport-local": "^1.0.0",
     "pg": "^7.18.2",
     "react-bootstrap": "^1.4.0",
+    "react-composition-input": "^1.1.1",
     "react-datepicker": "^3.3.0",
     "react-sidebar": "^3.0.2",
     "react-uuid": "^1.0.2",

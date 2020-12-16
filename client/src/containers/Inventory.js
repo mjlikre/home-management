@@ -11,7 +11,7 @@ class Inventory extends Component {
     this.state = {
       defaultList: null,
       dataList: null,
-      specified: null,
+      specified: null
     };
   }
   componentDidMount() {
