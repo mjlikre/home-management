@@ -13,10 +13,12 @@ import SignIn from "./containers/Login";
 import Daily from "./containers/Daily";
 import Client from "./containers/Client";
 import Main from "./containers/Main";
+import Inventory from "./containers/Inventory"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styling/main.css"
 
 import reducers from "./reducers";
+
 
 // configure redux dev tools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -39,6 +41,7 @@ ReactDOM.render(
       <Route path="/specifics" component={Cycle} />
       <Route path="/client" component={Client} />
       <Route path="/main" component={Main} />
+      <Route path = "/inventory" component = {Inventory}/>
     </Router>
   </Provider>,
   document.getElementById("root")

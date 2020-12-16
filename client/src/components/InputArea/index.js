@@ -30,6 +30,20 @@ const InputArea = props => {
                 />
             </div>
         )
+    } else if (props.type === "inventory"){
+        return(
+           <>
+                <label className="col-md-12">{props.label}</label>
+                <input
+                className="col-md-12 kjga-input-box"
+                type={props.style}
+                autoComplete="off"
+                value={props.amount}
+                onChange={props.change}
+                />
+            </>
+        )
+        
     }
     
 }
