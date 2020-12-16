@@ -1,7 +1,8 @@
 import React, {Component} from "react";
+
 import { Table, Spinner } from "react-bootstrap";
-import PopupEdit from "./popupEdit"
-class inventoryTable extends Component {
+import PopupEditS from "./popupEdit"
+class inventoryTableS extends Component {
     
     
     renderTableComponents() {
@@ -10,10 +11,10 @@ class inventoryTable extends Component {
             return this.props.data.map((item, index) => {
                 return (
                     <tr>
-                        <th>{item.cname}</th>
+                        <th>{item.sname}</th>
                         <th>{item.quantity}</th>
                         <th>
-                            <PopupEdit item = {item} />
+                            <PopupEditS item = {item} />
                         </th>
                     </tr>
                 )
@@ -28,8 +29,8 @@ class inventoryTable extends Component {
                 <Table striped bordered>
                     <thead>
                         <tr>
-                            <th>名字</th>
-                            <th>数量</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -43,4 +44,4 @@ class inventoryTable extends Component {
     
 }
 
-export default inventoryTable;
+export default inventoryTableS;

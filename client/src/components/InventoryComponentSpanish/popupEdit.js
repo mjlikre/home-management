@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import { compose } from "redux";
 import { connect } from "react-redux"; 
+import {updateInventory} from "../../actions/inventory"
 import { Modal, Button } from "react-bootstrap"
-import {newInventory} from "../../actions/inventory"
 import InputArea from "../InputArea"
-class PopupNewItem extends Component {
+class PopupEditS extends Component {
     constructor(props){
         super(props);
         this.state ={
@@ -27,16 +27,29 @@ class PopupNewItem extends Component {
         this.setState({show: false})
     }
     
+    componentDidMount() {
+        if (this.props.item) {
+            this.setState({
+                cname: this.props.item.cname,
+                sname: this.props.item.sname,
+                quantity: this.props.item.quantity,
+                id: this.props.item.id,
+                price: this.props.item.price
+            })
+        }
+    }
 
     submitData (done) {
+        
         let data = {
             cname: this.state.cname,
             sname: this.state.sname,
             quantity: this.state.quantity,
             id: this.state.id, 
             price: this.state.price,
+            
         }
-        this.props.newInventory(data)
+        this.props.updateInventory(data)
         done()
     }
     
@@ -44,7 +57,7 @@ class PopupNewItem extends Component {
         return (
             <>
             <Button variant="primary" onClick={this.handleShow}>
-              添加
+                Editar
             </Button>
       
             <Modal
@@ -55,19 +68,18 @@ class PopupNewItem extends Component {
             >
             <Modal.Dialog>
             <Modal.Header closeButton>
-                <Modal.Title>添加新货物</Modal.Title>
+                <Modal.Title>Editar: {this.state.sname}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <InputArea label = "中文名称" amount = {this.state.cname} change = {(event) => {this.setState({cname: event.target.value})}} type = "inventory" style = "text"/>
-                <InputArea label = "西文名称" amount = {this.state.sname} change = {(event) => {this.setState({sname: event.target.value})}} type = "inventory" style = "text"/>
-                <InputArea label = "数量" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "inventory" style = "number"/>
-                <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "inventory" style = "number"/>
+                <InputArea label = "Nombre"amount = {this.state.sname} change = {(event) => {this.setState({sname: event.target.value})}} type = "inventory" style = "text"/>
+                <InputArea label = "Cantidad" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "inventory" style = "number"/>
+                <InputArea label = "Precio" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "inventory" style = "number"/>
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>关闭</Button>
-                <Button variant="primary" onClick ={ ()=> {this.submitData(this.handleClose)}}>保存</Button>
+                <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
+                <Button variant="primary" onClick ={ ()=> {this.submitData(this.handleClose)}}>Guardar</Button>
             </Modal.Footer>
             </Modal.Dialog>
             </Modal>
@@ -78,6 +90,7 @@ class PopupNewItem extends Component {
 
 }
 
+
 export default compose(
-    connect(null, {newInventory})
-)(PopupNewItem);
+    connect(null, {updateInventory})
+)(PopupEditS);

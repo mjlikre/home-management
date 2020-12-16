@@ -8,10 +8,11 @@ class PopupEdit extends Component {
     constructor(props){
         super(props);
         this.state ={
-            name: null,
-            quantity: null,
-            id: null, 
-            price: null,
+            cname: "",
+            sname: "",
+            quantity: 0,
+            id: "", 
+            price: 0,
             show: false
 
         }
@@ -29,7 +30,8 @@ class PopupEdit extends Component {
     componentDidMount() {
         if (this.props.item) {
             this.setState({
-                name: this.props.item.cname,
+                cname: this.props.item.cname,
+                sname: this.props.item.sname,
                 quantity: this.props.item.quantity,
                 id: this.props.item.id,
                 price: this.props.item.price
@@ -40,7 +42,8 @@ class PopupEdit extends Component {
     submitData (done) {
         
         let data = {
-            cname: this.state.name,
+            cname: this.state.cname,
+            sname: this.state.sname,
             quantity: this.state.quantity,
             id: this.state.id, 
             price: this.state.price,
@@ -65,11 +68,12 @@ class PopupEdit extends Component {
             >
             <Modal.Dialog>
             <Modal.Header closeButton>
-                <Modal.Title>编辑: {this.state.name}</Modal.Title>
+                <Modal.Title>编辑: {this.state.cname}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <InputArea label = "名称" amount = {this.state.name} change = {(event) => {this.setState({name: event.target.value})}} type = "inventory" style = "text"/>
+                <InputArea label = "中文名称" amount = {this.state.cname} change = {(event) => {this.setState({cname: event.target.value})}} type = "inventory" style = "text"/>
+                <InputArea label = "西文名称" amount = {this.state.sname} change = {(event) => {this.setState({sname: event.target.value})}} type = "inventory" style = "text"/>
                 <InputArea label = "数量" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "inventory" style = "number"/>
                 <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "inventory" style = "number"/>
             </Modal.Body>

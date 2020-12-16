@@ -4,16 +4,22 @@ import { connect } from "react-redux";
 import InventoryTable from "../components/InventoryComponents/inventoryTable";
 import SearchBar from "../components/SearchBar/SearchBar";
 import PopupNewItem from "../components/InventoryComponents/popupNewItem";
+import InventoryTableS from "../components/InventoryComponentSpanish/inventoryTable";
+import PopupNewItemS from "../components/InventoryComponentSpanish/popupNewItem";
+import Footer from "../components/StickyFooter/Footer"
 import { getInventory } from "./../actions/inventory";
+import { Button } from "react-bootstrap"
 class Inventory extends Component {
   constructor(props) {
     super(props);
     this.state = {
       defaultList: null,
       dataList: null,
-      specified: null
+      specified: null,  
+      version: 0
     };
   }
+
   componentDidMount() {
     this.props.getInventory(() => {
       this.setState({
@@ -29,7 +35,13 @@ class Inventory extends Component {
   }
   updateInput = async (input) => {
     const filtered = await this.state.defaultList.filter((data) => {
-      return data.cname.includes(input);
+        if (this.state.version) {
+            return data.sname.includes(input);
+        }
+        else{
+            return data.cname.includes(input);
+        }
+      
     });
 
     this.setState({
@@ -39,24 +51,63 @@ class Inventory extends Component {
   };
   
   render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-1"></div>
-          <div className="col-sm-10">
-            <SearchBar
-              input={this.state.specified}
-              onChange={this.updateInput}
-            />
-            <InventoryTable
-              data={this.state.dataList}
-  
-            />
-          </div>
-        </div>
-        <PopupNewItem />
-      </div>
-    );
+      if (this.state.version === 0) {
+        return (
+            <div className="container">
+              <div className="row">
+                <div className="col-sm-1"></div>
+                <div className="col-sm-10">
+                  <SearchBar
+                    input={this.state.specified}
+                    onChange={this.updateInput}
+                    search = "搜索"
+                    type = "C"
+                  />
+                  <InventoryTable
+                    data={this.state.dataList}
+        
+                  />
+                </div>
+              </div>
+              <Footer>
+              <div className = "row">
+                      <div className = "col-md-6"><PopupNewItem/></div>
+                      <div className = "col-md-6"><Button onClick ={() => {this.setState({version:1})}}>Español</Button></div>
+                  </div>
+              </Footer>
+            </div>
+          );
+      }
+      else if(this.state.version === 1) {
+        return (
+            <div className="container">
+              <div className="row">
+                <div className="col-sm-1"></div>
+                <div className="col-sm-10">
+                  <SearchBar
+                    input={this.state.specified}
+                    onChange={this.updateInput}
+                    search = "Buscar"
+                    type = "S"
+                  />
+                  <InventoryTableS
+                    data={this.state.dataList}
+        
+                  />
+                </div>
+              </div>
+              <Footer>
+                  <div className = "row">
+                      <div className = "col-md-6"><PopupNewItemS/></div>
+                      <div className = "col-md-6"><Button onClick ={() => {this.setState({version:0})}}>中文</Button></div>
+                  </div>
+                
+              </Footer>
+              
+            </div>
+          );
+      }
+    
   }
 }
 function mapStateToProps(state) {

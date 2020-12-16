@@ -14,15 +14,28 @@ const SearchBar = (props) => {
   //     setInputLock(false)
   //   }
   // }
-  return (
-    <CInput 
-     style={BarStyling}
-     key="random1"
-     value={props.input}
-     placeholder={"搜索"}
-     onInputChange={(e) => props.onChange(e.target.value)}
-    />
-  );
+  if (props.type === "C"){
+    return (
+      <CInput 
+       style={BarStyling}
+       key="random1"
+       value={props.input}
+       placeholder={props.search}
+       onInputChange={(e) => props.onChange(e.target.value)}
+      />
+    );
+  }else if(props.type === "S") {
+    return (
+      <input 
+       style={BarStyling}
+       key="random1"
+       value={props.input}
+       placeholder={props.search}
+       onChange={(e) => props.onChange(e.target.value)}
+      />
+    );
+  }
+  
 }
 
 export default SearchBar
