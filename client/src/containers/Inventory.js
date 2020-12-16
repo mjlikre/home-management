@@ -55,14 +55,16 @@ class Inventory extends Component {
         return (
             <div className="container">
               <div className="row">
-                <div className="col-sm-1"></div>
+                <div className="col-sm-1"/>
                 <div className="col-sm-10">
+                <br/>
                   <SearchBar
                     input={this.state.specified}
                     onChange={this.updateInput}
                     search = "搜索"
                     type = "C"
                   />
+                  <br/><br/>
                   <InventoryTable
                     data={this.state.dataList}
         
@@ -70,10 +72,14 @@ class Inventory extends Component {
                 </div>
               </div>
               <Footer>
-              <div className = "row">
-                      <div className = "col-md-6"><PopupNewItem/></div>
-                      <div className = "col-md-6"><Button onClick ={() => {this.setState({version:1})}}>Español</Button></div>
-                  </div>
+                <div style = {{display: "grid", gridTemplateColumns: "10% 35% 10% 35% 10%"}}>
+                    <div/>
+                    <PopupNewItem/>
+                    <div/>
+                    <Button onClick ={() => {this.setState({version:1})}}>Español</Button>
+                    <div/>
+                </div>
+                      
               </Footer>
             </div>
           );
@@ -82,14 +88,16 @@ class Inventory extends Component {
         return (
             <div className="container">
               <div className="row">
-                <div className="col-sm-1"></div>
+                <div className="col-sm-1"/>
                 <div className="col-sm-10">
+                <br/>
                   <SearchBar
                     input={this.state.specified}
                     onChange={this.updateInput}
                     search = "Buscar"
                     type = "S"
                   />
+                  <br/><br/>
                   <InventoryTableS
                     data={this.state.dataList}
         
@@ -97,13 +105,15 @@ class Inventory extends Component {
                 </div>
               </div>
               <Footer>
-                  <div className = "row">
-                      <div className = "col-md-6"><PopupNewItemS/></div>
-                      <div className = "col-md-6"><Button onClick ={() => {this.setState({version:0})}}>中文</Button></div>
+                  
+                  <div style = {{display: "grid", gridTemplateColumns: "10% 35% 10% 35% 10%"}}>
+                  <div/>
+                      <PopupNewItemS/>
+                      <div/>
+                      <Button onClick ={() => {this.setState({version:0})}}>中文</Button>
+                      <div/>
                   </div>
-                
-              </Footer>
-              
+              </Footer>          
             </div>
           );
       }
