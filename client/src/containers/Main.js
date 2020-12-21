@@ -182,7 +182,7 @@ class Main extends Component {
                   </div>
                 
                 <InputArea label = "克数" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "normal"/>
-                <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "normal"/>
+                <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value, amount: (event.target.value * this.state.quantity).toFixed(1)})}} type = "normal"/>
                 <InputArea label = "金额" amount = {this.state.amount} change = {(event) => {this.setState({amount: event.target.value})}} type = "normal"/>
                 
                 <div className="col-md-2">
