@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const uuid = require("uuid");
 const client = require("../models");
 const bcrypt = require("bcryptjs");
-const { token } = require("morgan");
 require("dotenv").config();
 const accessTokenSecret = process.env.SECRET_KEY;
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
@@ -12,7 +11,7 @@ const tokenForUser = async function (id) {
       { user: { id } },
       accessTokenSecret,
       {
-        expiresIn: "60h",
+        expiresIn: "60m",
       }
     );
     console.log(accessToken)
