@@ -79,10 +79,14 @@ class Specifics extends Component {
       start: this.state.sTime,
       end: this.state.eTime,
     };
-    this.props.getDaily(data, () => {
+    this.props.getDaily(data, (data) => {
+      if (data) {
+        this.setState({showRefreshBox: true})
+      }else{
       this.setState({
         data: this.props.daily,
       });
+    }
     });
   }
   renderSummaryBox() {

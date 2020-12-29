@@ -93,8 +93,12 @@ class Client extends Component {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/signin");
     }else{
-      this.props.getClientList(()=> {
+      this.props.getClientList((data)=> {
+        if (data) {
+          this.setState({showRefreshBox: true})
+        }else{
         this.setState({ clientList: this.props.clientList })
+        }
       })
     }
   }
@@ -104,10 +108,14 @@ class Client extends Component {
       end: this.state.eTime,
       name: this.state.client,
     };
-    this.props.getClient(data, () => {
+    this.props.getClient(data, (data) => {
+      if (data) {
+        this.setState({showRefreshBox: true})
+      }else{
       this.setState({
         data: this.props.client,
       });
+    }
     });
   }
   
@@ -151,7 +159,10 @@ class Client extends Component {
     });
   };
   handleFinalEdit() {
-    this.props.inputClient({client_name: this.state.client}, ()=> {
+    this.props.inputClient({client_name: this.state.client}, (data)=> {
+      if (data) {
+        this.setState({showRefreshBox: true})
+      }else{
       this.props.getClientList(()=> {
         this.setState({
           clientEdit: 0,
@@ -159,6 +170,7 @@ class Client extends Component {
           client: " "
         })
       })
+    }
     })
   }
   cleanData () {

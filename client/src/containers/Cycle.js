@@ -31,15 +31,22 @@ class Cycle extends Component {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/signin");
     } else {
-      this.props.cycles(() => {
+      this.props.cycles((data) => {
+        if (data) {
+          this.setState({showRefreshBox: true})
+        }else{
         this.setState({ list: this.props.cycleList });
+        }
       });
     }
   }
   handleCycleList(item) {
     this.props.specificCycle(
       { start_date: item.start_date, end_date: item.end_date },
-      () => {
+      (data) => {
+        if (data) {
+          this.setState({showRefreshBox: true})
+        }else{
         if (this.props.sCycle) {
           let cleaned = [];
           this.props.sCycle.data.map((item, index) => {
@@ -60,6 +67,7 @@ class Cycle extends Component {
           console.log("failed");
         }
       }
+    }
     );
   }
   componentDidUpdate(prevProps, prevState) {
@@ -119,12 +127,16 @@ class Cycle extends Component {
   handleFinalEdit() {
     this.props.editSalesRecord(
       { id: this.state.data[0].cycle_id, amount: this.state.amount },
-      () => {
+      (data) => {
+        if (data) {
+          this.setState({showRefreshBox: true})
+        }else{
         this.setState({
           amount: "",
           quantity: "",
           edit: 0,
         });
+      }
       }
     );
   }

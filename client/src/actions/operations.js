@@ -31,13 +31,13 @@ export const getToday = (callback) => async (dispatch) => {
     );
     dispatch({ type: GET_DAILY, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      dispatch({ type: GET_DAILY_ERROR, payload: e });
+      dispatch({ type: GET_DAILY_ERROR, payload: error });
     }
   }
 };
@@ -49,14 +49,14 @@ export const getDaily = (data, callback) => async (dispatch) => {
     });
     dispatch({ type: GET_DAILY, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  }catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
        
     } else {
-      dispatch({ type: GET_DAILY_ERROR, payload: e });
+      dispatch({ type: GET_DAILY_ERROR, payload: error });
     }
   }
 };
@@ -70,13 +70,13 @@ export const getThisMonth = (callback) => async (dispatch) => {
     );
     dispatch({ type: GET_MONTHLY, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      dispatch({ type: GET_MONTHLY_ERROR, payload: e });
+      dispatch({ type: GET_MONTHLY_ERROR, payload: error });
     }
   }
 };
@@ -88,13 +88,13 @@ export const getMonthly = (data, callback) => async (dispatch) => {
     });
     dispatch({ type: GET_MONTHLY, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      dispatch({ type: GET_MONTHLY_ERROR, payload: e });
+      dispatch({ type: GET_MONTHLY_ERROR, payload: error });
     }
   }
 };
@@ -106,13 +106,13 @@ export const getClient = (data, callback) => async (dispatch) => {
     });
     dispatch({ type: GET_CLIENT, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
-      
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
+  
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      dispatch({ type: GET_CLIENT_ERROR, payload: e });
+      dispatch({ type: GET_CLIENT_ERROR, payload: error });
     }
   }
 };
@@ -123,13 +123,12 @@ export const inputTransaction = (data, callback) => async (dispatch) => {
     });
     dispatch({ type: INPUT_DATA, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
-      
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      dispatch({ type: INPUT_DATA_ERROR, payload: e });
+      dispatch({ type: INPUT_DATA_ERROR, payload: error });
     }
   }
 };
@@ -142,15 +141,14 @@ export const getSummary = (callback) => async (dispatch) => {
     );
     dispatch({ type: GET_SUMMARY, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
-      
-      dispatch({ type: AUTH_USER, payload: null,})
-    } else {
-      dispatch({ type: GET_SUMMARY_ERROR, payload: e });
-    }
+  } catch (error) {
+      if (error.response.data.error) {
+        callback(error.response.data.error) 
+      }else{
+        dispatch({ type: GET_SUMMARY_ERROR, payload: error });
+      }
   }
+      
 };
 export const deleteTransaction = (data, callback) => async (dispatch) => {
   try {
@@ -158,13 +156,13 @@ export const deleteTransaction = (data, callback) => async (dispatch) => {
       headers: { authorization: localStorage.getItem("token") },
     });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      console.log(e);
+      console.log(error);
     }
   }
 };
@@ -177,9 +175,9 @@ export const salesSummary = (callback) => async (dispatch) => {
     );
     dispatch({ type: GET_SALES, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
@@ -194,9 +192,9 @@ export const insertSales = (data, callback) => async (dispatch) => {
     });
     dispatch({ type: INPUT_DATA, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
@@ -210,13 +208,13 @@ export const deleteSales = (data, callback) => async (dispatch) => {
       headers: { authorization: localStorage.getItem("token") },
     });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      console.log(e);
+      console.log(error);
     }
   }
 };
@@ -229,9 +227,9 @@ export const cycles = (callback) => async (dispatch) => {
     );
     dispatch({ type: GET_CYCLE_LIST, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
@@ -248,9 +246,9 @@ export const currentCycle = (callback) => async (dispatch) => {
     );
     dispatch({ type: GET_CURRENT_CYCLE, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
@@ -265,9 +263,9 @@ export const specificCycle = (data, callback) => async (dispatch) => {
     });
     dispatch({ type: GET_SPECIFIC_CYCLE, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
@@ -282,13 +280,13 @@ export const editSalesRecord = (data, callback) => async (dispatch) => {
     });
 
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      console.log(e);
+      console.log(error);
     }
   }
 };
@@ -301,9 +299,9 @@ export const getClientList = (callback) => async (dispatch) => {
     );
     dispatch({ type: GET_CLIENT_LIST, payload: res.data });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
@@ -317,13 +315,13 @@ export const inputClient = (data, callback) => async (dispatch) => {
       headers: { authorization: localStorage.getItem("token") },
     });
     callback();
-  } catch (e) {
-    if (e == "Error: Request failed with status code 401") {
-      localStorage.removeItem("token");
+  } catch (error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
-      console.log(e);
+      console.log(error);
     }
   }
 };

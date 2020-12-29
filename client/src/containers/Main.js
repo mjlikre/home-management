@@ -13,6 +13,7 @@ import DropdownBox from "./../components/DropdownBox"
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import InputArea from "./../components/InputArea"
+import RefreshBox from "./../components/RefreshBox"
 import "react-datepicker/dist/react-datepicker.css";
 import "./../styling/main.css";
 class Main extends Component {
@@ -27,6 +28,7 @@ class Main extends Component {
       amount: null,
       timestamp: null,
       clientList: null,
+      showRefreshBox: false
     };
     this.newItemHandle = this.newItemHandle.bind(this);
   }
@@ -34,22 +36,25 @@ class Main extends Component {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/signin");
     } else {
-      this.props.getSummary(() => {
-        this.props.getClientList(()=>{
-          this.setState({
-            data: this.props.summary,
-            clientList: this.props.clientList,
-          });
-        })
-        
+      this.props.getSummary((data) => {
+        if (!data) {
+          this.props.getClientList(()=>{
+            this.setState({
+              data: this.props.summary,
+              clientList: this.props.clientList,
+            });
+          })
+        }else{
+          this.setState({showRefreshBox: true})
+        }
       });
     }
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.auth !== this.props.auth && !this.props.auth) {
-      this.props.history.push("/logout")
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.auth !== this.props.auth && !this.props.auth) {
+  //     this.props.history.push("/logout")
+  //   }
+  // }
   newItemHandle() {
     const item = {
       client_name: this.state.client,
@@ -58,24 +63,29 @@ class Main extends Component {
       amount: this.state.amount,
       transaction_date: this.state.timestamp,
     };
-    this.props.inputTransaction(item, () => {
-      this.setState(
-        {
-          client: "",
-          date: "",
-          quantity: "",
-          price: "",
-          amount: "",
-          timestamp: "",
-        },
-        () => {
-          this.props.getSummary(() => {
-            this.setState({
-              data: this.props.summary,
+    this.props.inputTransaction(item, (data) => {
+      if (!data){
+        this.setState(
+          {
+            client: "",
+            date: "",
+            quantity: "",
+            price: "",
+            amount: "",
+            timestamp: "",
+          },
+          () => {
+            this.props.getSummary(() => {
+              this.setState({
+                data: this.props.summary,
+              });
             });
-          });
-        }
-      );
+          }
+        );
+      }else{
+        this.setState({showRefreshBox: true})
+      }
+      
     });
   }
   handleDateChange = (date) => {
@@ -134,12 +144,16 @@ class Main extends Component {
       quantity: this.state.data.data[1][index].quantity,
       cycle_id: this.state.data.data[1][index].cycle_id,
     };
-    this.props.deleteTransaction(data, () => {
+    this.props.deleteTransaction(data, (data) => {
+      if (data) {
+        this.setState({showRefreshBox: true})
+      }else{
       this.props.getSummary(() => {
         this.setState({
           data: this.props.summary,
         });
       });
+    }
     });
   }
   renderQuantity() {
@@ -164,6 +178,7 @@ class Main extends Component {
     if (this.state.data) {
       return (
         <PageHeader>
+          
               <div className="row">
                 <div
                   className="col-lg-12"
@@ -244,6 +259,7 @@ class Main extends Component {
                   
                 </div>
               </div>
+              
           </PageHeader>
       );
     } else {
@@ -251,6 +267,7 @@ class Main extends Component {
         <PageHeader>
           <div className = "centered">
             <Spinner animation="border" />
+            <RefreshBox show = {this.state.showRefreshBox}/>
           </div>
           
         </PageHeader>

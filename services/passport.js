@@ -4,7 +4,7 @@ const JwtStrategy   = require('passport-jwt').Strategy;
 const ExtractJwt    = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const bcrypt        = require('bcryptjs');
-const jwt = require('jwt-simple')
+const jwt           = require("jsonwebtoken");
 
 require("dotenv").config();
 
@@ -26,9 +26,9 @@ const localLogin = new LocalStrategy(localOptions, async (username, password, do
         return done(null, false);
       }      
     })
-  }catch(e){
+  }catch(err){
 
-      done(e, false);
+      done(err, false);
   }
 });
 

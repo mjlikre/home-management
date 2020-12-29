@@ -31,7 +31,10 @@ class Daily extends Component {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/signin");
     } else {
-      this.props.salesSummary(() => {
+      this.props.salesSummary((data) => {
+        if (data) {
+          this.setState({showRefreshBox: true})
+        }else{
         this.setState(
           {
             data: this.props.sales,
@@ -40,7 +43,9 @@ class Daily extends Component {
             console.log(this.state.data);
           }
         );
+        }
       });
+      
     }
   }
   componentDidUpdate(prevProps, prevState) {
@@ -102,7 +107,10 @@ class Daily extends Component {
       amount: this.state.amount,
       timestamp: this.state.timestamp,
     };
-    this.props.insertSales(item, () => {
+    this.props.insertSales(item, (data) => {
+      if (data) {
+        this.setState({showRefreshBox: true})
+      }else{
       this.setState(
         {
           date: "",
@@ -118,6 +126,7 @@ class Daily extends Component {
           });
         }
       );
+      }
     });
   }
   handleDelete(index) {
@@ -126,12 +135,16 @@ class Daily extends Component {
       amount: this.state.data.data[index].cash,
       quantity: this.state.data.data[index].quantity_sold,
     };
-    this.props.deleteSales(data, () => {
+    this.props.deleteSales(data, (data) => {
+      if (data) {
+        this.setState({showRefreshBox: true})
+      }else{
       this.props.salesSummary(() => {
         this.setState({
           data: this.props.sales,
         });
       });
+    }
     });
   }
   render() {

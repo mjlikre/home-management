@@ -245,7 +245,6 @@ module.exports = {
         }
       });
     } catch (e) {
-      console.log(e);
       res.json({ error: e });
     }
   },
@@ -296,7 +295,6 @@ module.exports = {
         }
       });
     } catch (e) {
-      console.log(e);
       res.json({ error: "err" });
     }
   },
@@ -330,7 +328,6 @@ module.exports = {
         }
       );
     } catch (e) {
-      console.log(e);
       res.json({ error: e });
     }
   },
@@ -353,7 +350,6 @@ module.exports = {
         }
       });
     } catch (e) {
-      console.log(e);
       res.json({ error: e });
     }
   },
@@ -370,7 +366,7 @@ module.exports = {
         }
       );
     } catch (e) {
-      console.log(e);
+
       res.json({ error: e });
     }
   },
@@ -382,7 +378,7 @@ module.exports = {
         res.json({ data: result });
       });
     } catch (e) {
-      console.log(e);
+
       res.json({ error: e });
     }
   },
@@ -410,7 +406,7 @@ module.exports = {
         }
       );
     } catch (e) {
-      console.log(e);
+
       res.json({ error: e });
     }
   },
