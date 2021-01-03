@@ -20,16 +20,6 @@ class Specifics extends Component {
     };
     this.searchHandle = this.searchHandle.bind(this);
   }
-  componentDidMount() {
-    if (!localStorage.getItem("token")) {
-      this.props.history.push("/signin");
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.auth !== this.props.auth && !this.props.auth) {
-      this.props.history.push("/signout")
-    }
-  }
   handleStartDayChange = (date) => {
     this.setState({
       startDay: date,

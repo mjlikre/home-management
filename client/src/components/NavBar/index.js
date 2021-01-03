@@ -45,7 +45,7 @@ class NavBar extends Component {
                         <div className="collapse navbar-collapse" id="navbarResponsive">
                             <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/main">主页面</a>
+                                <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/">主页面</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/daily">出售记录</a>
@@ -80,7 +80,7 @@ class NavBar extends Component {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/main">Main</a>
+                            <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/">Main</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/temp">Temp</a>

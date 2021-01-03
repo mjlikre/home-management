@@ -6,7 +6,6 @@ import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
 
 // Import Containers
-import App from "./containers/App";
 import Cycle from "./containers/Cycle";
 import SignOut from "./containers/Signout";
 import SignIn from "./containers/Login";
@@ -34,14 +33,13 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Route path="/" render={App} />
+      <Route exact path="/" component={Main} />
       <Route path="/signin" component={SignIn} />
       <Route path="/daily" component={Daily} />
       <Route path="/signout" component={SignOut} />
       <Route path="/specifics" component={Cycle} />
       <Route path="/client" component={Client} />
-      <Route path="/main" component={Main} />
-      <Route path = "/inventory" component = {Inventory}/>
+      <Route path="/inventory" component = {Inventory}/>
     </Router>
   </Provider>,
   document.getElementById("root")

@@ -30,13 +30,8 @@ class Client extends Component {
     this.handleFinalEdit = this.handleFinalEdit.bind(this);
     this.dropdownClick = this.dropdownClick.bind(this);
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.auth !== this.props.auth && !this.props.auth) {
-      this.props.history.push("/signout")
-    }
-  }
+  
   renderLineChart (){
-    
     
     if (this.state.data) {
       const data = []

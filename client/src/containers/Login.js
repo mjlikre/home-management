@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { signin } from "../actions";
-import { Redirect } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import monday from "./../images/4.jpg";
 import NavBar from "./../components/NavBar";
@@ -15,11 +14,7 @@ class Login extends Component {
       redirect: false,
     };
   }
-  renderRedirect = () => {
-    if (this.state.redirect || this.props.auth) {
-      return <Redirect to="/main" />;
-    }
-  };
+  
   signIn = () => {
     const data = {
       username: this.state.username,
@@ -27,6 +22,7 @@ class Login extends Component {
     };
     this.props.signin(data, () => {
       this.setState({ redirect: true });
+      this.props.history.push("/")
     });
   };
 
@@ -35,7 +31,6 @@ class Login extends Component {
       <div>
         <NavBar navItems={[{ name: "登录", href: "/signin" }, "登录"]} />
         <div style={{ position: "relative" }}>
-          {this.renderRedirect()}
           <img
             src={monday}
             className="img-fluid"

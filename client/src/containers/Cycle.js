@@ -70,11 +70,7 @@ class Cycle extends Component {
     }
     );
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.auth !== this.props.auth && !this.props.auth) {
-      this.props.history.push("/signout");
-    }
-  }
+
   renderQuantity() {
     if (this.state.data) {
       let total = 0;
