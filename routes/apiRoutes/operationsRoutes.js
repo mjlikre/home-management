@@ -38,5 +38,7 @@ router.route("/getclient")
     .post(authMiddleware.checkAuth, OperationsController.getClients)
 router.route("/inputclient")
     .post(authMiddleware.checkAuth, OperationsController.insertClient)
+router.route("/getclientprice")
+    .post(authMiddleware.checkAuth, OperationsController.getClientLatestPrice)
 
 module.exports = router;

@@ -16,7 +16,9 @@ import {
   GET_SPECIFIC_CYCLE,
   GET_CYCLE_LIST,
   GET_CLIENT_LIST,
-  AUTH_USER
+  AUTH_USER,
+  GET_CLIENT_PRICE,
+  GET_CLIENT_PRICE_ERROR
 } from "./types";
 import axios from "axios";
 
@@ -142,6 +144,7 @@ export const getSummary = (callback) => async (dispatch) => {
     dispatch({ type: GET_SUMMARY, payload: res.data });
     callback();
   } catch (error) {
+    console.log(error)
       if (error.response.data.error) {
         callback(error.response.data.error) 
       }else{
@@ -325,3 +328,21 @@ export const inputClient = (data, callback) => async (dispatch) => {
     }
   }
 };
+
+export const getClientPrice = (data, callback) => async (dispatch) =>{
+  try{
+    const res = await axios.post("/api/operations/getclientprice", data, {
+      headers: { authorization: localStorage.getItem("token") },
+    });
+    dispatch({ type: GET_CLIENT_PRICE, payload: res.data})
+    callback()
+  }catch(error) {
+    if (error.response.data.error) {
+      callback(error.response.data.error) 
+      
+      dispatch({ type: AUTH_USER, payload: null,})
+    } else {
+      dispatch({ type: GET_CLIENT_PRICE_ERROR, payload: error });
+    }
+  }
+}

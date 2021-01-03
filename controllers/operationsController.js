@@ -427,5 +427,19 @@ module.exports = {
         res.json({data: "success"})
       }
     })
+  },
+  getClientLatestPrice: async (req, res) => {
+    let query = "SELECT MAX(transaction_date), price FROM cycle_transaction WHERE client_name = ?"
+    try{
+      client.Client.query(query, [req.body.client], (error, result) => {
+      if (error) throw error;
+      else{
+        res.json({data: result[0].price})
+      }
+      })
+    }catch(error){
+      res.json({error: error})
+    }
+    
   }
 };

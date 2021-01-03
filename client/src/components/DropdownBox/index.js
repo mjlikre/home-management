@@ -2,10 +2,10 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 
 const renderClients = props => {
-    if (props) {
+    if (props.dropdownList) {
         return props.dropdownList.data.map((item, index) => {
           return (
-            <Dropdown.Item href="#/action-1" onClick={()=>{props.handleClick(item.client_name)}}>{item.client_name}</Dropdown.Item>
+            <Dropdown.Item key = {index} href="#/action-1" onClick={()=>{props.handleClick(item.client_name)}}>{item.client_name}</Dropdown.Item>
           )
         })
       }

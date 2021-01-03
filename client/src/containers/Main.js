@@ -3,17 +3,13 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import {
   getSummary,
-  inputTransaction,
   deleteTransaction,
-  getClientList
 } from "./../actions/operations";
 import PageHeader from "./../components/PageHeader"
-import { Table, Dropdown, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
-import DropdownBox from "./../components/DropdownBox"
-import GeneralButton from "./../components/Button/GeneralButton";
-import DatePicker from "react-datepicker";
-import InputArea from "./../components/InputArea"
+import { Table, Spinner } from "react-bootstrap";
+
 import RefreshBox from "./../components/RefreshBox"
+import PopupNewItem from "./../components/PopUp"
 import "react-datepicker/dist/react-datepicker.css";
 import "./../styling/main.css";
 class Main extends Component {
@@ -21,16 +17,15 @@ class Main extends Component {
     super(props);
     this.state = {
       data: null,
-      client: null,
-      date: null,
-      quantity: null,
-      price: null,
-      amount: null,
-      timestamp: null,
+      client: "",
+      date: "",
+      quantity: 0,
+      price: 0,
+      amount: 0,
+      timestamp: 0,
       clientList: null,
       showRefreshBox: false
     };
-    this.newItemHandle = this.newItemHandle.bind(this);
   }
   componentDidMount() {
     if (!localStorage.getItem("token")) {
@@ -38,75 +33,39 @@ class Main extends Component {
     } else {
       this.props.getSummary((data) => {
         if (!data) {
-          this.props.getClientList(()=>{
+          
             this.setState({
               data: this.props.summary,
               clientList: this.props.clientList,
             });
-          })
+          
         }else{
           this.setState({showRefreshBox: true})
         }
       });
     }
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.auth !== this.props.auth && !this.props.auth) {
-  //     this.props.history.push("/logout")
-  //   }
-  // }
-  newItemHandle() {
-    const item = {
-      client_name: this.state.client,
-      quantity: this.state.quantity,
-      price: this.state.price,
-      amount: this.state.amount,
-      transaction_date: this.state.timestamp,
-    };
-    this.props.inputTransaction(item, (data) => {
-      if (!data){
-        this.setState(
-          {
-            client: "",
-            date: "",
-            quantity: "",
-            price: "",
-            amount: "",
-            timestamp: "",
-          },
-          () => {
-            this.props.getSummary(() => {
-              this.setState({
-                data: this.props.summary,
-              });
-            });
-          }
-        );
-      }else{
-        this.setState({showRefreshBox: true})
-      }
-      
-    });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.summary !== this.props.summary) {
+      this.setState({
+        data: this.props.summary
+      });
+    }
   }
-  handleDateChange = (date) => {
-    this.setState({
-      date: date,
-      timestamp: Date.parse(date),
-    });
-  };
+  
+  
   renderSummaryBox() {
     if (this.state.data) {
       return this.state.data.data[1].map((item, index) => {
         return (
-          <tr>
+          <tr key = {index}>
             <th>{item.client_name}</th>
             <th>{item.quantity}</th>
             <th>{item.price}</th>
             <th>{item.amount}</th>
             <th>{new Date(item.transaction_date).toLocaleDateString()}</th>
             <th>
-            <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">点击删除此记录</Tooltip>}>
-              <span className="d-inline-block">
+            
               <button
                 className="cancel-button"
                 onClick={() => {
@@ -115,8 +74,7 @@ class Main extends Component {
               >
                  删除
               </button>
-              </span>
-            </OverlayTrigger>
+              
             </th>
           </tr>
         );
@@ -160,7 +118,7 @@ class Main extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.data[1].map((item, index) => {
-        total += item.quantity;
+        return total += item.quantity;
       });
       return total;
     }
@@ -169,7 +127,7 @@ class Main extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.data[1].map((item, index) => {
-        total += item.amount;
+        return total += item.amount;
       });
       return total;
     }
@@ -187,45 +145,15 @@ class Main extends Component {
                   <h3>
                     当前周期现有牛黄：{this.state.data.data[0][0].quantity}克
                   </h3>
-                </div>
-              </div>
-              
 
-              <div className="row">
-                <div className = "col-md-2">
-                  <DropdownBox label = '客户' dropdownList = {this.state.clientList} dropdownName = {this.state.client} handleClick = {(item) => {this.setState({client: item})}} />
-                  </div>
-                
-                <InputArea label = "克数" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "normal"/>
-                <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value, amount: (event.target.value * this.state.quantity).toFixed(1)})}} type = "normal"/>
-                <InputArea label = "金额" amount = {this.state.amount} change = {(event) => {this.setState({amount: event.target.value})}} type = "normal"/>
-                
-                <div className="col-md-2">
-                  <label className="col-md-12">日期</label>
-                  <DatePicker
-                    dateFormat="dd/MM/yyyy"
-                    selected={this.state.date}
-                    onChange={this.handleDateChange}
-                    className="kjga-input-box"
-                  />
+                  <PopupNewItem authFailed = {()=>{this.setState({showRefreshBox: true})}}/>
                 </div>
-                <div className="col-md-2">  
-                  <div className="col-md-12">
-                    <br/> 
-                  </div>
-                  <div className="col-md-12">
-                    <GeneralButton
-                      type="primary"
-                      buttonName="输入"
-                      handleClick={this.newItemHandle}
-                    />
-                  </div>
-                </div>
+               
               </div>
               <div className="row">
                 <div
                   className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
+                  style={{ padding: "20px 0 20px 20px", maxHeight: "600px", overflowX: "scroll",}}
                 >
                   <Table striped bordered hover>
                     <thead className = "thead-dark">
@@ -284,5 +212,5 @@ function mapStateToProps(state) {
   };
 }
 export default compose(
-  connect(mapStateToProps, { getSummary, inputTransaction, deleteTransaction, getClientList })
+  connect(mapStateToProps, { getSummary, deleteTransaction })
 )(Main);

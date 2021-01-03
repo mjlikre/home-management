@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import "./General.css";
 
 const renderThead = (item_name) => {

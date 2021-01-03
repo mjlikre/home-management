@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 
 import { Table } from "react-bootstrap";
-import PopupEditS from "./popupEdit"
-class inventoryTableS extends Component {
+import PopupEditS from "./../PopUp/popupEdit"
+class Tables extends Component {
     
     
     renderTableComponents() {
@@ -44,4 +44,4 @@ class inventoryTableS extends Component {
     
 }
 
-export default inventoryTableS;
+export default Tables;

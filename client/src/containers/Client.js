@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Dropdown, Spinner } from "react-bootstrap";
+import {  Spinner } from "react-bootstrap";
 import { getClient, getClientList, inputClient } from "./../actions/operations";
 import GeneralButton from "./../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";

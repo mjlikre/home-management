@@ -40,7 +40,7 @@ export const signin = (formProps, callback) => async (dispatch) => {
 };
 export const changePass = (formProps, callback) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/auth/edit", formProps);
+    await axios.post("/api/auth/edit", formProps);
     callback();
   } catch (e) {
     console.log(e);
