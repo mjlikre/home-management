@@ -211,13 +211,13 @@ class Client extends Component {
                       type="primary"
                       buttonName="寻找"
                       handleClick={this.searchHandle}
-                    />
+                    />  
                   </div>
                 </div>
               </div>
               <div
-                  className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px", maxHeight: "600px", overflowX: "scroll",}}
+                  className="col-lg-12 table-wrapper"
+                  
                 >
                 <GeneralTable item_name = {[this.state.client,"克数","价格","金额","日期"]} item_list = {this.cleanData()}>
                       <th>总结</th>
@@ -244,7 +244,7 @@ class Client extends Component {
               <div className="row">
                 <div
                   className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
+                  
                 >
                   <div className="row">
                     <div className="col-md-2">

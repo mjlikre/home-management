@@ -104,7 +104,6 @@ class Specifics extends Component {
             <div className="row">
               <div
                 className="col-lg-12"
-                style={{ padding: "20px 0 20px 20px" }}
               >
                 <div className="row">
                   <div className="col-md-4">
@@ -139,7 +138,7 @@ class Specifics extends Component {
                 <div className="row">
                   <div
                     className="col-lg-12"
-                    style={{ padding: "20px 0 20px 20px" }}
+                    
                   >
                     <Table>
                       <thead>
@@ -166,7 +165,7 @@ class Specifics extends Component {
                 <div className="row">
                   <div
                     className="col-lg-12"
-                    style={{ padding: "20px 0 20px 20px" }}
+                    
                   >
                     <Table>
                       <thead>

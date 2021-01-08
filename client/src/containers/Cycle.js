@@ -221,7 +221,7 @@ class Cycle extends Component {
               <div className="row">
                 <div
                   className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
+                  
                 >
                   <div className="col-md-12">
                     <label className="col-md-12">周期</label>
@@ -245,8 +245,8 @@ class Cycle extends Component {
                 </div>
               </div>
               <div
-                  className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px", maxHeight: "600px", overflowX: "scroll",}}
+                  className="col-lg-12 table-wrapper"
+                  
                 >
               <GeneralTable
                 item_list={[
@@ -280,7 +280,7 @@ class Cycle extends Component {
               <div className="row">
                 <div
                   className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
+                 
                 >
                   <div className="row">
                     <div className="col-md-2">

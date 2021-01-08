@@ -140,7 +140,7 @@ class Main extends Component {
               <div className="row">
                 <div
                   className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
+                  
                 >
                   <h3>
                     当前周期现有牛黄：{this.state.data.data[0][0].quantity}克
@@ -152,8 +152,8 @@ class Main extends Component {
               </div>
               <div className="row">
                 <div
-                  className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px", maxHeight: "600px", overflowX: "scroll",}}
+                  className="col-lg-12 table-wrapper"
+                  
                 >
                   <Table striped bordered hover>
                     <thead className = "thead-dark">
@@ -173,7 +173,7 @@ class Main extends Component {
               <div className="row">
                 <div
                   className="col-lg-12"
-                  style={{ padding: "20px 0 20px 20px" }}
+                  
                 >
                   <Table className = "table table-bordered">
                     <tbody className = "thead-light">

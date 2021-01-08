@@ -24,7 +24,7 @@ const renderIndividualItems = (item) => {
 const GeneralTable = (props) => {
   return (
     <div className="row">
-      <div className="col-lg-12" style={{ padding: "20px 0 20px 20px" }}>
+      <div className="col-lg-12" >
         <Table striped bordered hover size = "sm">
           <thead className="thead-dark">
             <tr>{renderThead(props.item_name)}</tr>

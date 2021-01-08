@@ -150,11 +150,8 @@ class Daily extends Component {
   render() {
     if (this.state.data) {
       return (
-        <div>
-          <Navbar navType="grocery" />
-          <div className="row">
-            <div className="col-lg-1"></div>
-            <div className="kjga-display-block col-lg-10">
+        <PageHeader>
+        
               <div className="row">
                 <InputArea label = "克数" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "normal"/>
                 <InputArea label = "金额" amount = {this.state.amount} change = {(event) => {this.setState({amount: event.target.value})}} type = "normal"/>
@@ -203,9 +200,7 @@ class Daily extends Component {
                   </Table>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+        </PageHeader>
       );
     } else {
       return (
