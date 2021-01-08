@@ -215,12 +215,17 @@ class Client extends Component {
                   </div>
                 </div>
               </div>
-                <GeneralTable item_name = {[" ","克数","价格","金额","日期"]} item_list = {this.cleanData()}>
+              <div
+                  className="col-lg-12"
+                  style={{ padding: "20px 0 20px 20px", maxHeight: "600px", overflowX: "scroll",}}
+                >
+                <GeneralTable item_name = {[this.state.client,"克数","价格","金额","日期"]} item_list = {this.cleanData()}>
                       <th>总结</th>
                       <th>{this.renderQuantity()}</th>
                       <th></th>
                       <th>{this.renderAmount()}</th>
                 </GeneralTable>
+                </div>
               <div>
                 <GeneralButton type="primary" buttonName="添加客户" handleClick={this.handleEdit}></GeneralButton>
                 </div>

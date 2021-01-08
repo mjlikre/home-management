@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import DropdownBox from "./../components/DropdownBox"
 import GeneralButton from "./../components/Button/GeneralButton";
 import GeneralTable from "./../components/Table";
 import PageHeader from "./../components/PageHeader"
@@ -150,18 +149,26 @@ class Cycle extends Component {
       return 0;
     }
   }
+  returnSalesAmount() {
+    if (this.state.data) {
+      return this.state.data[0].quantity_sold;
+    } else {
+      return 0;
+    }
+  }
 
   calculateDetails() {
     if (this.state.data) {
       const details = {};
       const data = [];
       for (let i = 0; i < this.state.data.length; i++) {
-        if (!details.hasOwnProperty(this.state.data.client_name)) {
+        if (!details.hasOwnProperty(this.state.data[i].client_name)) {
           details[this.state.data[i].client_name] = {
             amount: this.state.data[i].amount,
             quantity: this.state.data[i].quantity,
           };
         } else {
+          console.log("yes")
           details[this.state.data[i].client_name].amount += this.state.data[
             i
           ].amount;
@@ -180,7 +187,6 @@ class Cycle extends Component {
   renderDetailsTable() {
     if (this.state.data) {
       let data = this.calculateDetails();
-
       return (
         <GeneralTable
           item_name={["客户", "克数", "金额"]}
@@ -207,6 +213,7 @@ class Cycle extends Component {
       });
     }
   }
+
   render() {
     if (this.state.edit === 0) {
       return (
@@ -237,25 +244,34 @@ class Cycle extends Component {
 
                 </div>
               </div>
-
+              <div
+                  className="col-lg-12"
+                  style={{ padding: "20px 0 20px 20px", maxHeight: "600px", overflowX: "scroll",}}
+                >
               <GeneralTable
                 item_list={[
                   [
                     `购买克数：${this.renderQuantity()}`,
-                    `出售金额：${this.returnSales()}`,
+                    `出售克数：${this.returnSalesAmount()}`,
                     `购买金额：${this.renderAmount()}`,
-                    `利润：${this.returnProfit()}`,
+                    `出售金额：${this.returnSales()}`,
+                    `利润：${this.returnProfit()}`
+                    
                   ],
                 ]}
+                
               ></GeneralTable>
+              
               <GeneralTable
                 item_name={["客户", "克数", "价格", "金额", "日期"]}
                 item_list={this.state.cleaned_data}
               >
                 {this.renderSales()}
               </GeneralTable>
+              
 
               {this.renderDetailsTable()}
+              </div>
         </PageHeader>
       );
     } else {

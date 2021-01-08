@@ -81,3 +81,6 @@
 .thead-stick {
     position: sticky;
 }
+th.paymentTable {
+    width: 150px;
+}

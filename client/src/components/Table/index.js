@@ -5,7 +5,7 @@ import "./General.css";
 const renderThead = (item_name) => {
   if (item_name) {
     return item_name.map((item, index) => {
-      return <th className="paymentTable">{item}</th>;
+      return <th className = "paymentTable">{item}</th>;
     });
   }
 };
@@ -18,14 +18,14 @@ const renderTbody = (item_list) => {
 };
 const renderIndividualItems = (item) => {
   return item.map((item, index) => {
-    return <th className="paymentTable">{item}</th>;
+    return <td className="paymentTable">{item}</td>;
   });
 };
 const GeneralTable = (props) => {
   return (
     <div className="row">
       <div className="col-lg-12" style={{ padding: "20px 0 20px 20px" }}>
-        <Table striped bordered hover>
+        <Table striped bordered hover size = "sm">
           <thead className="thead-dark">
             <tr>{renderThead(props.item_name)}</tr>
           </thead>
