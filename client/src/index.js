@@ -9,7 +9,7 @@ import reduxThunk from "redux-thunk";
 import Cycle from "./containers/Cycle";
 import SignOut from "./containers/Signout";
 import SignIn from "./containers/Login";
-import Daily from "./containers/Daily";
+import Sales from "./containers/Sales";
 import Client from "./containers/Client";
 import Main from "./containers/Main";
 import Inventory from "./containers/Inventory"
@@ -35,7 +35,7 @@ ReactDOM.render(
     <Router>
       <Route exact path="/" component={Main} />
       <Route path="/signin" component={SignIn} />
-      <Route path="/daily" component={Daily} />
+      <Route path="/sales" component={Sales} />
       <Route path="/signout" component={SignOut} />
       <Route path="/specifics" component={Cycle} />
       <Route path="/client" component={Client} />

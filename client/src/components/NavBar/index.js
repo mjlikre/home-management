@@ -48,7 +48,7 @@ class NavBar extends Component {
                                 <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/">主页面</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/daily">出售记录</a>
+                                <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/sales">出售记录</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link js-scroll-trigger" style = {{color: "black"}} href="/specifics">详细账目</a>

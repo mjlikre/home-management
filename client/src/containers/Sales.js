@@ -15,7 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./../styling/main.css";
 
-class Daily extends Component {
+class Sales extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -223,4 +223,4 @@ function mapStateToProps(state) {
 
 export default compose(
   connect(mapStateToProps, { salesSummary, insertSales, deleteSales })
-)(Daily);
+)(Sales);
