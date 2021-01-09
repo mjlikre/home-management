@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Table, Spinner } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import PopupEdit from "./popupEdit"
 class inventoryTable extends Component {
     

@@ -15,7 +15,6 @@ class RefreshBox extends Component {
         // this.handleLogout = this.handleLogout.bind(this);
     };
     componentDidMount() {
-        console.log("what")
         this.setState({show: this.props.show})
     }
     componentDidUpdate(prevProps) {

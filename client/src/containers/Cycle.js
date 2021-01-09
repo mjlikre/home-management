@@ -49,7 +49,7 @@ class Cycle extends Component {
         if (this.props.sCycle) {
           let cleaned = [];
           this.props.sCycle.data.map((item, index) => {
-            cleaned.push([
+            return cleaned.push([
               item.client_name,
               item.quantity,
               item.price,
@@ -74,7 +74,7 @@ class Cycle extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.map((item, index) => {
-        total += item.quantity;
+        return total += item.quantity;
       });
       return total.toFixed(2);
     } else {
@@ -85,7 +85,7 @@ class Cycle extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.map((item, index) => {
-        total += item.amount;
+        return total += item.amount;
       });
       return total.toFixed(2);
     } else {
@@ -179,7 +179,7 @@ class Cycle extends Component {
       }
       let cleaned = Object.entries(details);
       cleaned.map((item, index) => {
-        data.push([item[0], item[1].quantity, item[1].amount]);
+        return data.push([item[0], item[1].quantity, item[1].amount]);
       });
       return data;
     }
@@ -209,6 +209,8 @@ class Cycle extends Component {
               {item.cycle_number}
             </Dropdown.Item>
           );
+        }else{
+          return null
         }
       });
     }

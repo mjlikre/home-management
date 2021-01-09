@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import Navbar from "./../components/NavBar";
 import {
   salesSummary,
   insertSales,
   deleteSales,
-} from "./../actions/operations";
+} from "../actions/operations";
 import { Table, Spinner } from "react-bootstrap";
-import PageHeader from "./../components/PageHeader"
-import InputArea from "./../components/InputArea"
-import GeneralButton from "./../components/Button/GeneralButton";
+import PageHeader from "../components/PageHeader"
+import InputArea from "../components/InputArea"
+import GeneralButton from "../components/Button/GeneralButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./../styling/main.css";
@@ -81,7 +80,7 @@ class Sales extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.data.map((item, index) => {
-        total += item.quantity_sold;
+        return total += item.quantity_sold;
       });
       return total;
     }
@@ -90,7 +89,7 @@ class Sales extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.data.map((item, index) => {
-        total += item.cash;
+        return total += item.cash;
       });
       return total;
     }

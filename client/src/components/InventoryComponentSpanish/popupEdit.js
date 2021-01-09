@@ -72,9 +72,9 @@ class PopupEditS extends Component {
             </Modal.Header>
 
             <Modal.Body>
-                <InputArea label = "Nombre"amount = {this.state.sname} change = {(event) => {this.setState({sname: event.target.value})}} type = "inventory" style = "text"/>
-                <InputArea label = "Cantidad" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "inventory" style = "number"/>
-                <InputArea label = "Precio" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "inventory" style = "number"/>
+                <InputArea label = "Nombre"amount = {this.state.sname} change = {(event) => {this.setState({sname: event.target.value})}} type = "inventory" type_2 = "text"/>
+                <InputArea label = "Cantidad" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "inventory" type_2 = "number"/>
+                <InputArea label = "Precio" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "inventory" type_2 = "number"/>
             </Modal.Body>
 
             <Modal.Footer>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CInput from 'react-composition-input';
 const SearchBar = (props) => {
   const BarStyling = {width:"20rem",background:"#F2F1F9", border:"none", padding:"0.5rem"};

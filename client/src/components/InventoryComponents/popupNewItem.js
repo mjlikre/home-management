@@ -59,10 +59,10 @@ class PopupNewItem extends Component {
             </Modal.Header>
 
             <Modal.Body>
-                <InputArea label = "中文名称" amount = {this.state.cname} change = {(event) => {this.setState({cname: event.target.value})}} type = "inventory" style = "text"/>
-                <InputArea label = "西文名称" amount = {this.state.sname} change = {(event) => {this.setState({sname: event.target.value})}} type = "inventory" style = "text"/>
-                <InputArea label = "数量" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "inventory" style = "number"/>
-                <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "inventory" style = "number"/>
+                <InputArea label = "中文名称" amount = {this.state.cname} change = {(event) => {this.setState({cname: event.target.value})}} type = "inventory" type_2 = "text"/>
+                <InputArea label = "西文名称" amount = {this.state.sname} change = {(event) => {this.setState({sname: event.target.value})}} type = "inventory" type_2 = "text"/>
+                <InputArea label = "数量" amount = {this.state.quantity} change = {(event) => {this.setState({quantity: event.target.value})}} type = "inventory" type_2 = "number"/>
+                <InputArea label = "价格" amount = {this.state.price} change = {(event) => {this.setState({price: event.target.value})}} type = "inventory" type_2 = "number"/>
             </Modal.Body>
 
             <Modal.Footer>

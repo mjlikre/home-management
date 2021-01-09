@@ -127,7 +127,7 @@ class Client extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.data.map((item, index) => {
-        total += item.quantity;
+        return total += item.quantity;
       });
       return total;
     }
@@ -136,7 +136,7 @@ class Client extends Component {
     if (this.state.data) {
       let total = 0;
       this.state.data.data.map((item, index) => {
-         total += item.amount;
+         return total += item.amount;
       });
       return total;
     }
