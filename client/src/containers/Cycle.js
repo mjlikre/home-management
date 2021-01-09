@@ -11,7 +11,7 @@ import {
   salesSummary,
   editSalesRecord,
 } from "./../actions/operations";
-import { Table, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import "./../styling/main.css";
 
 class Cycle extends Component {

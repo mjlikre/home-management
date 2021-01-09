@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
@@ -40,6 +40,7 @@ ReactDOM.render(
       <Route path="/specifics" component={Cycle} />
       <Route path="/client" component={Client} />
       <Route path="/inventory" component = {Inventory}/>
+      <Redirect from="/main" to="/" />
     </Router>
   </Provider>,
   document.getElementById("root")
