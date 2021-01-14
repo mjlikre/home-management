@@ -40,7 +40,6 @@ ReactDOM.render(
       <Route path="/specifics" component={Cycle} />
       <Route path="/client" component={Client} />
       <Route path="/inventory" component = {Inventory}/>
-      <Redirect from="/main" to="/" />
     </Router>
   </Provider>,
   document.getElementById("root")

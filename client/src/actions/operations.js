@@ -34,7 +34,7 @@ export const getToday = (callback) => async (dispatch) => {
     dispatch({ type: GET_DAILY, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -52,7 +52,7 @@ export const getDaily = (data, callback) => async (dispatch) => {
     dispatch({ type: GET_DAILY, payload: res.data });
     callback();
   }catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -73,7 +73,7 @@ export const getThisMonth = (callback) => async (dispatch) => {
     dispatch({ type: GET_MONTHLY, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -91,7 +91,7 @@ export const getMonthly = (data, callback) => async (dispatch) => {
     dispatch({ type: GET_MONTHLY, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -109,7 +109,7 @@ export const getClient = (data, callback) => async (dispatch) => {
     dispatch({ type: GET_CLIENT, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
   
       dispatch({ type: AUTH_USER, payload: null,})
@@ -126,7 +126,7 @@ export const inputTransaction = (data, callback) => async (dispatch) => {
     dispatch({ type: INPUT_DATA, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       dispatch({ type: AUTH_USER, payload: null,})
     } else {
@@ -145,7 +145,7 @@ export const getSummary = (callback) => async (dispatch) => {
     callback();
   } catch (error) {
     console.log(error)
-      if (error.response.data.error) {
+      if (error.response.data) {
         callback(error.response.data.error) 
       }else{
         dispatch({ type: GET_SUMMARY_ERROR, payload: error });
@@ -160,7 +160,7 @@ export const deleteTransaction = (data, callback) => async (dispatch) => {
     });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -179,7 +179,7 @@ export const salesSummary = (callback) => async (dispatch) => {
     dispatch({ type: GET_SALES, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -196,7 +196,7 @@ export const insertSales = (data, callback) => async (dispatch) => {
     dispatch({ type: INPUT_DATA, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -212,7 +212,7 @@ export const deleteSales = (data, callback) => async (dispatch) => {
     });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -231,7 +231,7 @@ export const cycles = (callback) => async (dispatch) => {
     dispatch({ type: GET_CYCLE_LIST, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -250,7 +250,7 @@ export const currentCycle = (callback) => async (dispatch) => {
     dispatch({ type: GET_CURRENT_CYCLE, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -267,7 +267,7 @@ export const specificCycle = (data, callback) => async (dispatch) => {
     dispatch({ type: GET_SPECIFIC_CYCLE, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -284,7 +284,7 @@ export const editSalesRecord = (data, callback) => async (dispatch) => {
 
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -303,7 +303,7 @@ export const getClientList = (callback) => async (dispatch) => {
     dispatch({ type: GET_CLIENT_LIST, payload: res.data });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -319,7 +319,7 @@ export const inputClient = (data, callback) => async (dispatch) => {
     });
     callback();
   } catch (error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})
@@ -337,7 +337,7 @@ export const getClientPrice = (data, callback) => async (dispatch) =>{
     dispatch({ type: GET_CLIENT_PRICE, payload: res.data})
     callback()
   }catch(error) {
-    if (error.response.data.error) {
+    if (error.response.data) {
       callback(error.response.data.error) 
       
       dispatch({ type: AUTH_USER, payload: null,})

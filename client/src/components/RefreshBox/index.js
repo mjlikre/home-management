@@ -11,8 +11,6 @@ class RefreshBox extends Component {
         }
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
-        // this.handleRefresh = this.handleRefresh.bind(this);
-        // this.handleLogout = this.handleLogout.bind(this);
     };
     componentDidMount() {
         this.setState({show: this.props.show})

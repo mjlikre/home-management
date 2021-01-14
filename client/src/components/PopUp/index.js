@@ -64,7 +64,7 @@ class PopupNewItem extends Component {
                   timestamp: "",
                 },
                 () => {
-                  this.props.getSummary();
+                  this.props.getSummary(()=> {console.log("success")});
                 }
               );
             }else{
@@ -79,7 +79,6 @@ class PopupNewItem extends Component {
             client: item
         }
         this.props.getClientPrice(data, ()=>{
-            console.log(this.props.clientPrice.data)
             this.setState ({
                 client: item,
                 price: this.props.clientPrice.data
