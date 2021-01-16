@@ -75,7 +75,7 @@ class Main extends Component {
                   this.handleDelete(index);
                 }}
               >
-                 删除
+                 X
               </button>
               
             </th>
