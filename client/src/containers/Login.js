@@ -47,8 +47,7 @@ class Login extends Component {
             }}
           >
             <div
-              className="container"
-              style={{ width: "38%", marginLeft: "31%", marginRight: "31%" }}
+              className="container login-container"
             >
               <div className="jumbotron">
                 <div style={{ textAlign: "center" }}>

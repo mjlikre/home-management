@@ -33,7 +33,7 @@ class RefreshBox extends Component {
         done()
     }
     handleLogout (done) {
-        this.props.signout(this.props.history.push('/signin'))
+        this.props.signout()
         done()
     }
     

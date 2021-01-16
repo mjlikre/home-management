@@ -51,6 +51,9 @@ class Main extends Component {
         data: this.props.summary
       });
     }
+    if (!this.props.auth){
+      this.props.history.push("/signin")
+    }
   }
   
   

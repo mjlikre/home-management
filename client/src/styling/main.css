@@ -93,3 +93,8 @@ th.paymentTable {
     overflow-x: scroll;
     padding: 20px 0;
 }
+
+.login-container {
+    margin-left: auto;
+    margin-right: auto;
+}
