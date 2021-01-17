@@ -32,6 +32,11 @@ class Specifics extends Component {
       eTime: Date.parse(date),
     });
   };
+  componentDidUpdate() {
+    if (!this.props.auth) {
+      this.props.history.push("/signout")
+    }
+  }
   renderSalesSummary() {
     if (this.state.data) {
       return this.state.data.data[1].map((item, index) => {

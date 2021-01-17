@@ -11,10 +11,10 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirect: false,
+      redirect: false
     };
   }
-  
+
   signIn = () => {
     const data = {
       username: this.state.username,
@@ -22,9 +22,10 @@ class Login extends Component {
     };
     this.props.signin(data, () => {
       this.setState({ redirect: true });
-      this.props.history.push("/")
+      this.props.history.push("/");
     });
   };
+  
 
   render() {
     return (
@@ -46,12 +47,11 @@ class Login extends Component {
               opacity: "0.8",
             }}
           >
-            <div
-              className="container login-container"
-            >
-              <div className="jumbotron">
+            <div className="container">
+              <div className="login-container">
                 <div style={{ textAlign: "center" }}>
                   <h2>登录页面</h2>
+                  <div className = "errorMessage"> {this.props.errorMessage ? "用户名或密码错误" : null}</div>
                 </div>
 
                 <Form>
@@ -87,6 +87,7 @@ class Login extends Component {
                     登录
                   </Button>
                 </Form>
+                
               </div>
             </div>
           </div>

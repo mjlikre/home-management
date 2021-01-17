@@ -153,6 +153,11 @@ class Client extends Component {
       eTime: Date.parse(date),
     });
   };
+  componentDidUpdate() {
+    if (!this.props.auth) {
+      this.props.history.push("/signout")
+    }
+  }
   handleFinalEdit() {
     this.props.inputClient({client_name: this.state.client}, (data)=> {
       if (data) {

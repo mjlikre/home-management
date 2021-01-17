@@ -156,6 +156,11 @@ class Cycle extends Component {
       return 0;
     }
   }
+  componentDidUpdate() {
+    if (!this.props.auth) {
+      this.props.history.push("/signout")
+    }
+  }
 
   calculateDetails() {
     if (this.state.data) {

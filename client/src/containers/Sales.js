@@ -48,7 +48,7 @@ class Sales extends Component {
     }
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.auth !== this.props.auth && !this.props.auth) {
+    if (!this.props.auth) {
       this.props.history.push("/signout")
     }
   }

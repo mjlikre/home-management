@@ -140,18 +140,14 @@ class Main extends Component {
       return (
         <PageHeader>
           
-              <div className="row">
-                <div
-                  className="col-lg-12"
-                  
-                >
+              <div className="header-grid">
+                
                   <h3>
                     当前周期现有牛黄：{this.state.data.data[0][0].quantity}克
                   </h3>
-
+                  <div></div>
                   <PopupNewItem authFailed = {()=>{this.setState({showRefreshBox: true})}}/>
-                </div>
-               
+                
               </div>
               <div className="row">
                 <div

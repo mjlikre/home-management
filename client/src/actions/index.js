@@ -33,9 +33,9 @@ export const signin = (formProps, callback) => async (dispatch) => {
     localStorage.setItem("refreshToken", res.data.refreshToken);
     dispatch({ type: AUTH_USER, payload: res.data.token });
     callback();
-  } catch (e) {
-    console.log(e);
-    dispatch({ type: AUTH_ERROR, payload: e });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: AUTH_ERROR, payload: error });
   }
 };
 export const changePass = (formProps, callback) => async (dispatch) => {
