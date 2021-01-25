@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import { compose } from "redux";
 import { connect } from "react-redux"; 
 import { Modal, Button } from "react-bootstrap"
-import { refreshToken, signout } from "../../actions/index"
+import { signout } from "../../actions/index"
 class RefreshBox extends Component {
     constructor(props){
         super(props);
@@ -26,12 +26,6 @@ class RefreshBox extends Component {
     handleClose() {
         this.setState({show: false})
     }
-    
-
-    handleRefresh = async (done)=>{
-        await this.props.refreshToken()
-        done()
-    }
     handleLogout (done) {
         this.props.signout()
         done()
@@ -49,15 +43,10 @@ class RefreshBox extends Component {
             >
             <Modal.Dialog>
             <Modal.Header closeButton>
-                <Modal.Title>登录超时，请更新密匙或退出页面</Modal.Title>
+                <Modal.Title>登录超时，请退出页面后重新登录</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-            <Button variant="primary" onClick ={ ()=> {this.handleRefresh(this.handleClose)}}>
-                更新密匙
-            </Button>
-            <br/>
-            <br/>
             <Button variant="primary" onClick ={ ()=> {this.handleLogout(this.handleClose)}}>
                 退出页面
             </Button>
@@ -76,5 +65,5 @@ class RefreshBox extends Component {
 }
 
 export default compose(
-    connect(null, {refreshToken, signout})
+    connect(null, {signout})
 )(RefreshBox);

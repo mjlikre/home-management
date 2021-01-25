@@ -27,7 +27,7 @@ class NavBar extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link href="/">主页面</Nav.Link>
+                    <Nav.Link href="/main">主页面</Nav.Link>
                     <Nav.Link href="/sales">出售记录</Nav.Link>
                     <Nav.Link href="/specifics">详细账目</Nav.Link>
                     <Nav.Link href="/client">客户细节</Nav.Link>

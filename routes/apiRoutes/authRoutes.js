@@ -11,10 +11,6 @@ router.route("/signup")
   .post(authController.signUp)
 router.route('/signin')
   .post(authMiddleware.requireSignIn, authController.signIn);
-router.route("/logout")
-  .post(authController.logOut)
-router.route("/refreshaccess")
-  .post(authController.refreshAccessToken)
 router.route("/edit")
   .post(authMiddleware.requireSignIn, authController.passwordChange)
 
