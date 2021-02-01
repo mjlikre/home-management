@@ -7,7 +7,7 @@ class NavBar extends Component {
         if (this.props.navItems){ 
             return(
                 <Navbar className = "navBar-color" expand="lg" variant= "light">
-                <Navbar.Brand href="#home">蒋家管理页面</Navbar.Brand>
+                <Navbar.Brand href="#home">蒋氏管理页面</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
@@ -23,7 +23,7 @@ class NavBar extends Component {
             return(
                 
                 <Navbar className = "navBar-color" expand="lg" variant= "light">
-                <Navbar.Brand href="#home">蒋家管理页面</Navbar.Brand>
+                <Navbar.Brand href="#home">蒋氏管理页面</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
