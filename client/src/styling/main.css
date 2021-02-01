@@ -58,11 +58,10 @@
     margin-right: auto;
     background-color: white;
     padding-top: 30px;
+    border-radius: 10px;
 }
 .login-display-block {
     display: block;
-
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
 
