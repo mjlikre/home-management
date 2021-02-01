@@ -6,7 +6,7 @@ class NavBar extends Component {
     render() {
         if (this.props.navItems){ 
             return(
-                <Navbar bg="light" expand="lg">
+                <Navbar className = "navBar-color" expand="lg" variant= "light">
                 <Navbar.Brand href="#home">蒋家管理页面</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -22,7 +22,7 @@ class NavBar extends Component {
         else if (this.props.navType === "grocery") {
             return(
                 
-                <Navbar bg="light" expand="lg">
+                <Navbar className = "navBar-color" expand="lg" variant= "light">
                 <Navbar.Brand href="#home">蒋家管理页面</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

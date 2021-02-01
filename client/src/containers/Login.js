@@ -3,7 +3,10 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { signin } from "../actions";
 import { Form, Button } from "react-bootstrap";
-import monday from "./../images/4.jpg";
+
+import y from "./../images/6.jpg";
+
+
 import NavBar from "./../components/NavBar";
 class Login extends Component {
   constructor(props) {
@@ -11,7 +14,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirect: false
+      redirect: false,
     };
   }
 
@@ -33,7 +36,7 @@ class Login extends Component {
         <NavBar navItems={[{ name: "登录", href: "/signin" }, "登录"]} />
         <div style={{ position: "relative" }}>
           <img
-            src={monday}
+            src={y}
             className="img-fluid"
             alt=""
             style={{ height: "100vh", width: "100vw" }}

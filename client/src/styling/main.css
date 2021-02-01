@@ -56,6 +56,8 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    background-color: white;
+    padding-top: 30px;
 }
 
 
@@ -118,4 +120,19 @@ th.paymentTable {
     grid-template-rows: auto;
     text-align: center;
     padding:20px 0 0 0;
+}
+.navBar-color {
+    background-color: #e3f2fd;
+    opacity: 0.8
+}
+.back-img{
+    background-image: url("../images/6.jpg");
+
+    /* Full height */
+    height: 93.9vh;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
