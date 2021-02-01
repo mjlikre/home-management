@@ -59,6 +59,7 @@
     background-color: white;
     padding-top: 30px;
     border-radius: 10px;
+    max-width: 95%;
 }
 .login-display-block {
     display: block;
