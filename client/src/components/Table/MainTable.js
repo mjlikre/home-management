@@ -48,7 +48,7 @@ import { useMediaQuery } from 'react-responsive';
                 
             >
                 {!mobile ? (
-                    <table className = "main-table">
+                    <Table striped bordered>
                     <thead className = "thead-dark">
                         <tr>
                         <th className="paymentTable">客户</th>
@@ -78,7 +78,7 @@ import { useMediaQuery } from 'react-responsive';
                 })) 
                 : (null)}
                 </tbody>
-            </table>
+            </Table>
                 ): (
                     <table className = "main-table">
                     <thead className = "thead-dark">
