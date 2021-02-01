@@ -52,12 +52,20 @@
 
 .kjga-display-block {
     display: block;
-    top: 80px;
+    top: 30px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
     padding-top: 30px;
+}
+.login-display-block {
+    display: block;
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 
@@ -126,13 +134,20 @@ th.paymentTable {
     opacity: 0.8
 }
 .back-img{
-    background-image: url("../images/6.jpg");
-
     /* Full height */
-    height: 93.9vh;
+    height: 100vh;
   
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.main-table{
+    width: 100%
+}
+.main-table th{
+    border:#333 solid 1px;
+    height: 35px;
+    font-size: 20px;
 }

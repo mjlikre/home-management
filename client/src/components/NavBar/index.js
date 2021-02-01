@@ -4,7 +4,7 @@ import { Navbar, Nav} from "react-bootstrap";
 class NavBar extends Component {
 
     render() {
-        if (this.props.navItems){ 
+        if (this.props.navItems && this.props.navType === "login"){ 
             return(
                 <Navbar className = "navBar-color" expand="lg" variant= "light">
                 <Navbar.Brand href="#home">蒋氏管理页面</Navbar.Brand>

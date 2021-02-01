@@ -3,8 +3,8 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { signin } from "../actions";
 import { Form, Button } from "react-bootstrap";
+import PageHeader from "./../components/PageHeader"
 
-import y from "./../images/6.jpg";
 
 
 import NavBar from "./../components/NavBar";
@@ -15,6 +15,7 @@ class Login extends Component {
       username: "",
       password: "",
       redirect: false,
+
     };
   }
 
@@ -32,15 +33,16 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <NavBar navItems={[{ name: "登录", href: "/signin" }, "登录"]} />
-        <div style={{ position: "relative" }}>
+
+        <PageHeader type = "login" items = {[{ name: "登录", href: "/signin" }, "登录"]} >
+        {/* <NavBar navItems={[{ name: "登录", href: "/signin" }, "登录"]} /> */}
+        {/* <div style={{ position: "relative", backgroundImage:`url(${this.state.images[Math.floor(Math.random()*this.state.images.length)]})`}}>
           <img
             src={y}
             className="img-fluid"
             alt=""
             style={{ height: "100vh", width: "100vw" }}
-          />
+          /> */}
           <div
             style={{
               alignContent: "center",
@@ -94,8 +96,8 @@ class Login extends Component {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        {/* </div> */}
+        </PageHeader>
     );
   }
 }
