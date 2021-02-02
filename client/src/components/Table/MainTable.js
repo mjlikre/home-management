@@ -39,7 +39,7 @@ import { useMediaQuery } from 'react-responsive';
                 当前周期现有牛黄：{item ? (item.data[0][0].quantity) : (null)}克
             </h3>
             <div></div>
-            <PopupNewItem authFailed = {()=>{props.authFailed()}}/>
+            <PopupNewItem />
             
         </div>
         <div className="row">

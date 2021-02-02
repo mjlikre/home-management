@@ -26,9 +26,8 @@ class PopupNewItem extends Component {
     };
     componentDidMount() {
               this.props.getClientList((data)=>{
-                  if (data){
-                      this.props.authFailed()
-                  }else{
+                  if (!data){
+                      
                     this.setState({
                         clientList: this.props.clientList,
                     });
@@ -67,8 +66,6 @@ class PopupNewItem extends Component {
                   this.props.getSummary(()=> {console.log("success")});
                 }
               );
-            }else{
-                this.props.authFailed()
             }
             
           });

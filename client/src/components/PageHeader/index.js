@@ -13,8 +13,8 @@ const PageHeader = (props) => {
         <div
           className={
             props.items
-              ? "login-display-block col-lg-10"
-              : "kjga-display-block col-lg-10"
+              ? "login-display-block "
+              : "kjga-display-block "
           }
         >
           {props.children}

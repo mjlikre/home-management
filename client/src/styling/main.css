@@ -105,13 +105,14 @@ th.paymentTable {
 }
 
 .login-container {
-    max-width: 350px;
+    
     margin-left: auto;
     margin-right: auto;
     background-color:  #e9ecef;
     padding: 30px;
     border-radius: 15px;
 }
+
 .errorMessage{
     color: red;
 
@@ -135,7 +136,7 @@ th.paymentTable {
 }
 .back-img{
     /* Full height */
-    height: 100vh;
+    height: 93.9vh;
   
     /* Center and scale the image nicely */
     background-position: center;

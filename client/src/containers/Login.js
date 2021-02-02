@@ -7,7 +7,6 @@ import PageHeader from "./../components/PageHeader"
 
 
 
-import NavBar from "./../components/NavBar";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +14,24 @@ class Login extends Component {
       username: "",
       password: "",
       redirect: false,
-
+      hideNav: false
     };
   }
+  componentDidMount() {
+    window.addEventListener("resize", this.resize.bind(this));
+    this.resize();
+}
 
+resize() {
+  let currentHideNav = (window.innerWidth <= 768);
+  if (currentHideNav !== this.state.hideNav) {
+      this.setState({hideNav: currentHideNav});
+  }
+}
+
+componentWillUnmount() {
+    window.removeEventListener("resize", this.resize.bind(this));
+}
   signIn = () => {
     const data = {
       username: this.state.username,
@@ -35,25 +48,17 @@ class Login extends Component {
     return (
 
         <PageHeader type = "login" items = {[{ name: "登录", href: "/signin" }, "登录"]} >
-        {/* <NavBar navItems={[{ name: "登录", href: "/signin" }, "登录"]} /> */}
-        {/* <div style={{ position: "relative", backgroundImage:`url(${this.state.images[Math.floor(Math.random()*this.state.images.length)]})`}}>
-          <img
-            src={y}
-            className="img-fluid"
-            alt=""
-            style={{ height: "100vh", width: "100vw" }}
-          /> */}
+
           <div
             style={{
               alignContent: "center",
               width: "100%",
               position: "absolute",
-              top: "80px",
+              top: "150px",
               opacity: "0.8",
             }}
           >
-            <div className="container">
-              <div className="login-container">
+              <div className="login-container" style = {!this.state.hideNav ? ({maxWidth: "500px"}) : ({maxWidth: "350px"})}>
                 <div style={{ textAlign: "center" }}>
                   <h2>登录页面</h2>
                   <div className = "errorMessage"> {this.props.errorMessage ? "用户名或密码错误" : null}</div>
@@ -95,8 +100,6 @@ class Login extends Component {
                 
               </div>
             </div>
-          </div>
-        {/* </div> */}
         </PageHeader>
     );
   }
