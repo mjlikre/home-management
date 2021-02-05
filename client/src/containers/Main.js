@@ -1,42 +1,15 @@
-import React, {useEffect} from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import React from "react";
 
-import PageHeader from "./../components/PageHeader"
-import MainTableContainer from "../components/Table/MainTableContainer"
+import requireAuth from "../hoc/requireAuth";
+import PageHeader from "./../components/PageHeader";
+import MainTableContainer from "../components/Table/MainTableContainer";
 
-import "react-datepicker/dist/react-datepicker.css";
-import "./../styling/main.css";
-const Main = (props) =>  {
+const Main = () => {
+  return (
+    <PageHeader>
+      <MainTableContainer />
+    </PageHeader>
+  );
+};
 
-  
-  useEffect(()=>{
-    if (!props.auth){
-      props.history.push("/signin")
-    }
-  }, [props.auth])
-
-
-
-
-      return (
-        <PageHeader>
-          
-                  <MainTableContainer/>
-
-              
-              
-          </PageHeader>
-      );
-    
-  
-}
-function mapStateToProps(state) {
-  return {
-
-    auth: state.auth.authenticated
-  };
-}
-export default compose(
-  connect(mapStateToProps, null)
-)(Main);
+export default requireAuth(Main);

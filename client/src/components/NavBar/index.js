@@ -11,7 +11,7 @@ class NavBar extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                    {this.props.navItems ? (this.props.navItems.map((item, index) => {return (<Nav.Link href={item.href}>{item.name}</Nav.Link>)})) : (null)}
+                    {this.props.navItems ? (this.props.navItems.map((item, index) => {return (<Nav.Link key = {index} href={item.href}>{item.name}</Nav.Link>)})) : (null)}
                     </Nav>
                     
                 </Navbar.Collapse>

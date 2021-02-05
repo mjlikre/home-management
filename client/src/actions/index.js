@@ -13,13 +13,11 @@ export const signup = (data, callback) => async (dispatch) => {
   }
 };
 
-export const signout = () => {
+export const signout = () => async (dispatch) => {
   localStorage.removeItem("token");
   
-  return {
-    type: AUTH_USER,
-    payload: null,
-  };
+  dispatch({type: AUTH_USER, payload: null});
+  return null
 };
 
 export const signin = (formProps, callback) => async (dispatch) => {

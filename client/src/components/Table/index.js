@@ -12,7 +12,7 @@ const renderThead = (item_name) => {
 const renderTbody = (item_list) => {
   if (item_list) {
     return item_list.map((item, index) => {
-      return <tr>{renderIndividualItems(item)}</tr>;
+      return <tr key = {index}>{renderIndividualItems(item)}</tr>;
     });
   }
 };

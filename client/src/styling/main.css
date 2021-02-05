@@ -60,6 +60,8 @@
     padding-top: 30px;
     border-radius: 10px;
     max-width: 95%;
+    position:relative;
+    opacity: 0.8,
 }
 .login-display-block {
     display: block;
@@ -101,7 +103,7 @@ th.paymentTable {
 .table-wrapper {
     max-height: 600px;
     overflow-x: scroll;
-    padding: 20px 0;
+    padding: 20px 5px;
 }
 
 .login-container {
@@ -122,6 +124,7 @@ th.paymentTable {
     display: grid;
     grid-template-columns: 65% 5% 30%;
     grid-template-rows: auto;
+    padding: 0 5px;
 }
 .body-grid{
     display: grid;

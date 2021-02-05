@@ -6,7 +6,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
 
 // Import Containers
-import Cycle from "./containers/Cycle";
+import Cycle1 from "./containers/Cycle1";
 import SignOut from "./containers/Signout";
 import SignIn from "./containers/Login";
 import Sales from "./containers/Sales";
@@ -37,7 +37,7 @@ ReactDOM.render(
       <Route path="/signin" component={SignIn} />
       <Route path="/sales" component={Sales} />
       <Route path="/signout" component={SignOut} />
-      <Route path="/specifics" component={Cycle} />
+      <Route path="/specifics" component={Cycle1} />
       <Route path="/client" component={Client} />
       <Route path="/inventory" component = {Inventory}/>
       <Route exact path = "/" render ={()=><Redirect to = "/main"/>}></Route>

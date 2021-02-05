@@ -14,11 +14,11 @@ const renderClients = props => {
 const DropdownBox = props => {
     return (
        
-            <div className="col-md-12">
-            <label className="col-md-12">{props.label}</label>
+            <div>
+            <label >{props.label}</label>
 
                 <div className="dropdown-container">
-                <div className="col-md-6">
+                <div >
                     <Dropdown>
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         { props.dropdownName || "请选客户" }

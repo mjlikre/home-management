@@ -88,12 +88,10 @@ class Client extends Component {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/signin");
     }else{
-      this.props.getClientList((data)=> {
-        if (data) {
-          this.setState({showRefreshBox: true})
-        }else{
+      this.props.getClientList(()=> {
+        
         this.setState({ clientList: this.props.clientList })
-        }
+        
       })
     }
   }
@@ -103,14 +101,12 @@ class Client extends Component {
       end: this.state.eTime,
       name: this.state.client,
     };
-    this.props.getClient(data, (data) => {
-      if (data) {
-        this.setState({showRefreshBox: true})
-      }else{
+    this.props.getClient(data, () => {
+      
       this.setState({
         data: this.props.client,
       });
-    }
+    
     });
   }
   
@@ -159,10 +155,8 @@ class Client extends Component {
     }
   }
   handleFinalEdit() {
-    this.props.inputClient({client_name: this.state.client}, (data)=> {
-      if (data) {
-        this.setState({showRefreshBox: true})
-      }else{
+    this.props.inputClient({client_name: this.state.client}, ()=> {
+      
       this.props.getClientList(()=> {
         this.setState({
           clientEdit: 0,
@@ -170,7 +164,7 @@ class Client extends Component {
           client: " "
         })
       })
-    }
+    
     })
   }
   cleanData () {
@@ -189,37 +183,21 @@ class Client extends Component {
     if (this.state.clientEdit === 0 && this.state.clientList){
       return (
         <PageHeader>
-              <DropdownBox dropdownName = {this.state.client} dropdownList = {this.state.clientList} handleClick = {this.dropdownClick}></DropdownBox>
-              <div className="row">
-                <div className="col-md-4">
-                  <label className="col-md-12">开始日期</label>
-                  <DatePicker
-                    dateFormat="dd/MM/yyyy"
-                    selected={this.state.startDay}
-                    onChange={this.handleStartDayChange}
-                  />
-                </div>
-                <div className="col-md-4">
-                  <label className="col-md-12">结束日期</label>
-                  <DatePicker
-                    dateFormat="dd/MM/yyyy"
-                    selected={this.state.endDay}
-                    onChange={this.handleEndDayChange}
-                  />
-                </div>
-                <div className="col-md-4">
-                  <div className="col-md-12">
-                    <br></br>{" "}
+             
+                <div className = "row" >
+                  <div className = "col-md-2">
+                <DropdownBox dropdownName = {this.state.client} dropdownList = {this.state.clientList} handleClick = {this.dropdownClick}></DropdownBox>
+
                   </div>
-                  <div className="col-md-12">
-                    <GeneralButton
+                  <div className = "col-md-2" style = {{top: "27px"}}><GeneralButton
                       type="primary"
                       buttonName="寻找"
                       handleClick={this.searchHandle}
-                    />  
+                    /> </div>
+                     
+                  
                   </div>
-                </div>
-              </div>
+             
               <div
                   className="col-lg-12 table-wrapper"
                   

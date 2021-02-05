@@ -179,6 +179,7 @@ export const salesSummary = (callback) => async (dispatch) => {
     dispatch({ type: GET_SALES, payload: res.data });
     callback();
   } catch (error) {
+    console.log(error)
     if (error.response.data) {
       callback(error.response.data.error) 
       
