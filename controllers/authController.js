@@ -4,14 +4,12 @@ const client = require("../models");
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
 const accessTokenSecret = process.env.SECRET_KEY;
+jwt.sign()
 const tokenForUser = async function (id) {
   try {
     let accessToken = jwt.sign(
       { user: { id } },
-      accessTokenSecret,
-      {
-        expiresIn: "3h",
-      }
+      accessTokenSecret
     );
     console.log(accessToken)
     return accessToken;
