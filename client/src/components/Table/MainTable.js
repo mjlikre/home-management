@@ -33,10 +33,18 @@ const MainTable = (props) => {
   return (
     <div style = {{opacity: "0.8"}}>
       <div className="header-grid">
-        <h3>当前周期现有牛黄：{item ? item.data[0][0].quantity : null}克</h3>
+        {!mobile? (
+           <h3>当前周期现有牛黄：{item ? item.data[0][0].quantity : null}克</h3>
+        ) :
+        (
+          <h5>现有：{item ? item.data[0][0].quantity : null}克</h5>
+
+        )}
+        
         <div></div>
         <PopupNewItem />
       </div>
+      
 
       <div className="table-wrapper">
         {!mobile ? (

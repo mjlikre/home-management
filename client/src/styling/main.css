@@ -108,9 +108,10 @@ table {
 }
 
 .table-wrapper {
-    max-height: 600px;
+    max-height: 580px;
     overflow-x: scroll;
-    padding: 20px 5px;
+    padding: 0px 5px;
+    margin-top: 10px;
 }
 
 .login-container {
@@ -158,5 +159,6 @@ table {
 .main-table th{
     border:#333 solid 1px;
     height: 35px;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: 400;
 }
