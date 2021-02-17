@@ -98,6 +98,13 @@
 }
 th.paymentTable {
     width: 150px;
+    position: sticky;
+    top: 0;
+    background: white;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+table {
+    position: relative;
 }
 
 .table-wrapper {
@@ -138,17 +145,15 @@ th.paymentTable {
     opacity: 0.8
 }
 .back-img{
-    /* Full height */
     height: 93.9vh;
   
-    /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .main-table{
-    width: 100%
+    width: 100%;
 }
 .main-table th{
     border:#333 solid 1px;

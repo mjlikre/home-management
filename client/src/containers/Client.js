@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import {  Spinner } from "react-bootstrap";
 import { getClient, getClientList, inputClient } from "./../actions/operations";
 import GeneralButton from "./../components/Button/GeneralButton";
-import DatePicker from "react-datepicker";
 import PageHeader from "./../components/PageHeader"
 import GeneralTable from "./../components/Table";
 import DropdownBox from "./../components/DropdownBox"

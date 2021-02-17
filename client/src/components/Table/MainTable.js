@@ -62,7 +62,7 @@ const MainTable = (props) => {
                         <th>{item.price}</th>
                         <th>{item.amount}</th>
                         <th>
-                          {new Date(item.transaction_date).toLocaleDateString()}
+                          {(new Date(item.transaction_date).getMonth()+1) + "/"+ (new Date(item.transaction_date).getDate()) }
                         </th>
                         <th>
                           <DeleteButton item={item} />
@@ -78,8 +78,10 @@ const MainTable = (props) => {
             <thead className="thead-dark">
               <tr>
                 <th className="paymentTable">客户</th>
-                <th className="paymentTable">金额</th>
+                <th className="paymentTable">价格</th>
+                <th className="paymentTable">克数</th>
                 <th className="paymentTable">日期</th>
+                <th className="paymentTable"></th>
               </tr>
             </thead>
 
@@ -89,9 +91,15 @@ const MainTable = (props) => {
                     return (
                       <tr key={index}>
                         <th>{item.client_name}</th>
-                        <th>{item.amount}</th>
+                        <th>{item.price}</th>
+                        <th>{item.quantity}</th>
                         <th>
-                          {new Date(item.transaction_date).toLocaleDateString()}
+                        {(new Date(item.transaction_date).getMonth()+1) + "/"+ (new Date(item.transaction_date).getDate()) }
+                          
+                          
+                        </th>
+                        <th>
+                          <DeleteButton item={item} />
                         </th>
                       </tr>
                     );
