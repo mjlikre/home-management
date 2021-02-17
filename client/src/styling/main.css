@@ -108,7 +108,7 @@ table {
 }
 
 .table-wrapper {
-    max-height: 580px;
+    max-height: 600px;
     overflow-x: scroll;
     padding: 0px 5px;
     margin-top: 10px;

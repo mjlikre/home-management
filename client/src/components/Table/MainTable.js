@@ -46,7 +46,7 @@ const MainTable = (props) => {
       </div>
       
 
-      <div className="table-wrapper">
+      <div className="table-wrapper" style = {!mobile ? (null) : ({height: "500px"})}>
         {!mobile ? (
           <Table striped bordered>
             <thead className="thead-dark">
