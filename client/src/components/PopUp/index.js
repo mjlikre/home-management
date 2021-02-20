@@ -51,25 +51,33 @@ class PopupNewItem extends Component {
             amount: this.state.amount,
             transaction_date: this.state.timestamp,
           };
-          this.props.inputTransaction(item, (data) => {
-            if (!data){
-              this.setState(
-                {
-                  client: "",
-                  date: "",
-                  quantity: "",
-                  price: "",
-                  amount: "",
-                  timestamp: "",
-                },
-                () => {
-                  this.props.getSummary(()=> {console.log("success")});
-                }
-              );
-            }
-            
-          });
-          done()
+          if (!item.transaction_date) {
+            alert("请输入日期")
+          }else if (!item.quantity) {
+            alert("请输入克数")
+          }else{
+            this.props.inputTransaction(item, (data) => {
+              if (!data){
+                this.setState(
+                  {
+                    client: "",
+                    date: "",
+                    quantity: "",
+                    price: "",
+                    amount: "",
+                    timestamp: "",
+                  },
+                  () => {
+                    this.props.getSummary(()=> {console.log("success")});
+                  }
+                );
+              }
+              
+            });
+            done()
+          }
+          
+          
     }
     handleItemSelect = (item) => {
         let data = {

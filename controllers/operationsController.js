@@ -146,12 +146,13 @@ module.exports = {
   deleteTransaction: async (req, res) => {
     let query = "DELETE FROM cycle_transaction WHERE transaction_id = ?";
     try {
-      client.Client.query(query, [req.body.id], (err, result) => {
+      client.Client.query(query, [req.body.transaction_id], (err, result) => {
         if (err) throw err;
         module.exports.inventoryUpdate(
-          { quantity: -req.body.quantity, amount_spent: -req.body.amount },
+          { quantity: -(req.body.quantity), amount_spent: -(req.body.amount) },
           1
         );
+        module.exports.saveDeleted(req.body)
         res.json({ data: "success" });
       });
     } catch (e) {
@@ -441,5 +442,19 @@ module.exports = {
       res.json({error: error})
     }
     
+  },
+  saveDeleted: async(data) => {
+    let query = "INSERT INTO deleted SET ?"
+    console.log(data)
+    try{
+      client.Client.query(query, data, (err, results) => {
+        if (err) throw err
+        else{
+          console.log("success")
+        }
+      })
+    }catch(error){
+      console.log(error)
+    }
   }
 };

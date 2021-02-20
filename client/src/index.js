@@ -13,6 +13,7 @@ import Sales from "./containers/Sales";
 import Client from "./containers/Client";
 import Main from "./containers/Main";
 import Inventory from "./containers/Inventory"
+import Deleted from "./containers/Deleted"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styling/main.css"
 
@@ -40,6 +41,7 @@ ReactDOM.render(
       <Route path="/specifics" component={Cycle} />
       <Route path="/client" component={Client} />
       <Route path="/inventory" component = {Inventory}/>
+      <Route path="/deleted" component = {Deleted}/>
       <Route exact path = "/" render ={()=><Redirect to = "/main"/>}></Route>
     </Router>
   </Provider>,
