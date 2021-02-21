@@ -16,7 +16,8 @@ import {
   GET_CURRENT_CYCLE,
   GET_SPECIFIC_CYCLE,
   GET_CLIENT_LIST,
-  GET_CLIENT_PRICE
+  GET_CLIENT_PRICE,
+  GET_DELETED
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -37,7 +38,8 @@ const INITIAL_STATE = {
   specificCycle: null,
   cycleError: null,
   clientList: null,
-  client_price: null
+  client_price: null,
+  deleted: null
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -78,6 +80,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, clientList: action.payload };
     case GET_CLIENT_PRICE: 
       return { ...state, client_price: action.payload };
+    case GET_DELETED: 
+      return { ...state, deleted : action.payload};
     default:
       return state;
   }

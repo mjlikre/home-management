@@ -31,6 +31,7 @@ class NavBar extends Component {
                     <Nav.Link href="/sales">出售记录</Nav.Link>
                     <Nav.Link href="/specifics">详细账目</Nav.Link>
                     <Nav.Link href="/client">客户细节</Nav.Link>
+                    <Nav.Link href="/deleted">删除记录</Nav.Link>
                     <Nav.Link href="/signout">退出</Nav.Link>
                     </Nav>
                     

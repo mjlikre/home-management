@@ -18,7 +18,8 @@ import {
   GET_CLIENT_LIST,
   AUTH_USER,
   GET_CLIENT_PRICE,
-  GET_CLIENT_PRICE_ERROR
+  GET_CLIENT_PRICE_ERROR,
+  GET_DELETED
 } from "./types";
 import axios from "axios";
 
@@ -142,6 +143,8 @@ export const getSummary = (callback) => async (dispatch) => {
       { headers: { authorization: localStorage.getItem("token") } }
     );
     dispatch({ type: GET_SUMMARY, payload: res.data });
+    console.log(res.data.data)
+    localStorage.setItem("cycleDate", res.data.data[0][0].start_date);
     callback();
   } catch (error) {
     console.log(error)
@@ -206,22 +209,7 @@ export const insertSales = (data, callback) => async (dispatch) => {
     }
   }
 };
-export const deleteSales = (data, callback) => async (dispatch) => {
-  try {
-    await axios.post("/api/operations/salesdel", data, {
-      headers: { authorization: localStorage.getItem("token") },
-    });
-    callback();
-  } catch (error) {
-    if (error.response.data) {
-      callback(error.response.data.error) 
-      
-      dispatch({ type: AUTH_USER, payload: null,})
-    } else {
-      console.log(error);
-    }
-  }
-};
+
 export const cycles = (callback) => async (dispatch) => {
   try {
     const res = await axios.post(
@@ -345,5 +333,32 @@ export const getClientPrice = (data, callback) => async (dispatch) =>{
     } else {
       dispatch({ type: GET_CLIENT_PRICE_ERROR, payload: error });
     }
+  }
+}
+
+export const getDeleted = (done) => async (dispatch) => {
+  try{
+    const res = await axios.post('/api/operations/getdel', {date: localStorage.getItem("cycleDate")}, {
+      headers: { authorization: localStorage.getItem("token") },
+    });
+    dispatch({type: GET_DELETED, payload: res.data})
+    if (done){ 
+      done()
+    }
+  }catch(error) {
+    console.log(error)
+  }
+}
+
+export const restoreDeleted = (data, done) => async () => {
+  try{
+    await axios.post('/api/operations/delrestore', data, {
+      headers: { authorization: localStorage.getItem("token") },
+    });
+    if (done){
+      done()
+    }
+  }catch(error){
+    console.log(error)
   }
 }

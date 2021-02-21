@@ -23,7 +23,7 @@ const CycleContainer = (props) => {
     const [cleanedData, setCleanedData] = useState(null)
     
     useEffect(()=> {
-      if (!list) {
+      if (!props.cycleList) {
         props.cycles(()=> {
           setList(props.cycleList)
         })
@@ -32,7 +32,7 @@ const CycleContainer = (props) => {
         setData(props.sCycle.data)
         handleSpecificCycle()
       }
-    }, [props.cycleList, props.sCycle])
+    }, [props.sCycle])
 
     const handleSpecificCycle = () => {
       if (props.sCycle){
@@ -172,7 +172,7 @@ const CycleContainer = (props) => {
         {!editData.edit ? 
         (
           <>
-          <CycleSelect list = {list} handleSpecificCycle = {()=>{handleSpecificCycle()}}/>
+          <CycleSelect list = {props.cycleList} handleSpecificCycle = {()=>{handleSpecificCycle()}}/>
           <div
                   className="col-lg-12 table-wrapper"
                 >

@@ -15,7 +15,7 @@ export const signup = (data, callback) => async (dispatch) => {
 
 export const signout = () => async (dispatch) => {
   localStorage.removeItem("token");
-  
+  localStorage.removeItem("cycleDate");
   dispatch({type: AUTH_USER, payload: null});
   return null
 };

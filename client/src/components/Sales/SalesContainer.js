@@ -3,15 +3,14 @@ import { connect } from "react-redux";
 import { compose } from "redux"
 import { Table } from "react-bootstrap"
 import {
-    salesSummary,
-    deleteSales,
+    salesSummary
   } from "../../actions/operations";
 const SalesContainer = (props) => {
     const [data, setData] = useState(null)
     useEffect(()=> {
-        if(!data) {
+        if(!props.sales) {
             props.salesSummary(()=>{
-                setData(props.sales)
+                console.log("hell yeah")
             })
         }else if(data !== props.sales) {
             setData(props.sales)
@@ -19,61 +18,37 @@ const SalesContainer = (props) => {
         
     }, [props.sales])
     const renderSummaryBox = () => {
-        if (data) {
-          return data.data.map((item, index) => {
+        if (props.sales) {
+          return props.sales.data.map((item, index) => {
             return (
               <tr>
                 <th></th>
                 <th>{item.quantity_sold}</th>
                 <th>{item.cash}</th>
                 <th>{new Date(item.date_sold).toLocaleDateString()}</th>
-                <th>
-                  <button
-                    className="cancel-button"
-                    onClick={() => {
-                      handleDelete(item);
-                    }}
-                  >
-                    删除
-                  </button>
-                </th>
               </tr>
             );
           });
         }
       }
       const renderQuantity = () => {
-        if (data) {
+        if (props.sales) {
           let total = 0;
-          data.data.map((item, index) => {
+          props.sales.data.map((item, index) => {
             return total += item.quantity_sold;
           });
           return total;
         }
       }
       const renderAmount = () => {
-        if (data) {
+        if (props.sales) {
           let total = 0;
-          data.data.map((item, index) => {
+          props.sales.data.map((item, index) => {
             return total += item.cash;
           });
           return total;
         }
-      }
-      const handleDelete = (item) => {
-        const data = {
-          id: item.id,
-          amount: item.cash,
-          quantity:item.quantity_sold,
-        };
-        props.deleteSales(data, (data) => {
-          
-          props.salesSummary(() => {
-            setData(props.sales)
-          });
-        
-        });
-      }
+      };
     return (
         <div className="table-wrapper">
                 
@@ -84,7 +59,6 @@ const SalesContainer = (props) => {
                         <th className="paymentTable">克数</th>
                         <th className="paymentTable">金额</th>
                         <th className="paymentTable">日期</th>
-                        <th className="paymentTable"></th>
                       </tr>
                     </thead>
                     <tbody >
@@ -106,4 +80,4 @@ function mapStateToProps(state) {
     };
   }
   
-export default compose(connect(mapStateToProps, {salesSummary, deleteSales})(SalesContainer));
+export default compose(connect(mapStateToProps, {salesSummary})(SalesContainer));

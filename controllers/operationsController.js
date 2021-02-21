@@ -223,7 +223,6 @@ module.exports = {
     }
   },
   mainPageData: async (req, res) => {
-
     let query1 =
       "SELECT * FROM cycle_transaction WHERE transaction_date >= ? ORDER BY transaction_date DESC";
     let query2 = "SELECT * FROM cycles WHERE end_date = ?";
@@ -297,24 +296,6 @@ module.exports = {
       });
     } catch (e) {
       res.json({ error: "err" });
-    }
-  },
-  deleteSales: async (req, res) => {
-    let query = "DELETE FROM sales WHERE id = ?";
-    try {
-      client.Client.query(query, [req.body.id], (err, result) => {
-        if (err) console.log(err);
-        else {
-          module.exports.inventoryUpdate({
-            date: 1,
-            quantity: req.body.quantity,
-            amount_spent: 0,
-          });
-          res.json({ data: "success" });
-        }
-      });
-    } catch (e) {
-      res.json({ data: "error" });
     }
   },
   dataTransfer: async (req, res) => {
@@ -454,6 +435,45 @@ module.exports = {
         }
       })
     }catch(error){
+      console.log(error)
+    }
+  },
+  getDeleted: async(req, res)=> {
+    let query = "SELECT * FROM deleted WHERE transaction_date >= ?"
+    try{
+      client.Client.query(query, [req.body.date], (err, result) => {
+        if (err) throw err;
+        else{
+          res.json({data: result})
+        }
+      })
+    }catch(error) {
+      console.log(error)
+    }
+  },
+  restoreDeleted: async(req, res) => {
+    let query = "DELETE FROM deleted WHERE transaction_id = ?"
+    let query1 = "INSERT INTO cycle_transaction SET ?"
+    try{
+      client.Client.query(query, [req.body.transaction_id], (err, result) => {
+        if (err) throw err;
+        else{
+          client.Client.query(query1, req.body, (err, result) => {
+            if (err) console.log(err)
+            else{
+              res.json({success: true})
+              module.exports.inventoryUpdate(
+                {
+                  quantity: req.body.quantity,
+                  amount_spent: req.body.amount
+                },
+                0
+              )
+            }
+          })
+        }
+      })
+    }catch(error) {
       console.log(error)
     }
   }
