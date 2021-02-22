@@ -19,8 +19,6 @@ class Client extends Component {
       client: null,
       startDay: null,
       endDay: null,
-      sTime: null,
-      eTime: null,
       clientList: null,
       clientEdit: 0
     };
@@ -30,59 +28,7 @@ class Client extends Component {
     this.dropdownClick = this.dropdownClick.bind(this);
   }
   
-  renderLineChart (){
-    
-    if (this.state.data) {
-      const data = []
-      this.state.data.data.map((item, index) => {
-        let temp = {}
-        temp.date = new Date(item.transaction_date).toLocaleDateString();
-        temp.价格= item.price
-        temp.数量 = item.quantity
-        temp.金额 = item.amount
-        return data.unshift(temp)
-      })
-      return(
-        <div>
-          价格浮动表
-          <BarChart width={600} height={400} data={data} >
-        
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
-            <Legend width={100} wrapperStyle={{ top: 40, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <Bar dataKey="价格" fill="#8884d8" barSize={30} />
-          </BarChart>
-          <br/>
-          金额浮动表
-          <BarChart width={600} height={400} data={data} >
-        
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
-            <Legend width={100} wrapperStyle={{ top: 40, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <Bar dataKey="金额" fill="#8884d8" barSize={30} />
-          </BarChart>
-         
-          <br/>
-          克数浮动表
-          <BarChart width={600} height={400} data={data} >
-        
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
-            <Legend width={100} wrapperStyle={{ top: 40, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <Bar dataKey="数量" fill="#8884d8" barSize={30} />
-          </BarChart>
-        </div>
-        
-      )
-    }
-    
-  };
+  
   componentDidMount() {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/signin");
@@ -96,12 +42,9 @@ class Client extends Component {
   }
   searchHandle() {
     let data = {
-      start: this.state.sTime,
-      end: this.state.eTime,
-      name: this.state.client,
+      name: this.state.client
     };
     this.props.getClient(data, () => {
-      
       this.setState({
         data: this.props.client,
       });
@@ -211,9 +154,7 @@ class Client extends Component {
               <div>
                 <GeneralButton type="primary" buttonName="添加客户" handleClick={this.handleEdit}></GeneralButton>
                 </div>
-                <div>
-                {this.renderLineChart()}
-                </div>
+                
                 
                 
               

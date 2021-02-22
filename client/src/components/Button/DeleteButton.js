@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
     deleteTransaction,
     getSummary
-  } from "./../actions/operations";
+  } from "../../actions/operations";
 
 const DeleteButton = (props) => {
 

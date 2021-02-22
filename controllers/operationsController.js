@@ -2,81 +2,7 @@ const uuid = require("uuid");
 const client = require("../models");
 require("dotenv").config();
 
-const timeStamp = Date.now();
-const thedate = new Date(timeStamp);
-
 module.exports = {
-  getThisDaySummary: async (req, res) => {
-    let query =
-      "SELECT * FROM cycle_transaction WHERE transaction_date > ? ORDER BY transaction_date DESC";
-    let dayStart = timeStamp - 3600000 * (thedate.getHours() + 1);
-    try {
-      client.Client.query(query, [dayStart], (err, result) => {
-        if (err) console.log(err);
-        console.log(result);
-        res.json({ data: result });
-      });
-    } catch (e) {
-      console.log(e);
-      res.json({ error: e });
-    }
-  },
-  
-  getThisMonthSummary: async (req, res) => {
-    let query =
-      "SELECT * FROM cycle_transaction WHERE transaction_date > ? ORDER BY transaction_date DESC";
-    let monthStart = timeStamp - 3600000 * 24 * thedate.getDate();
-    try {
-      client.Client.query(query, [monthStart], (err, result) => {
-        if (err) console.log(err);
-        console.log(result);
-        res.json({ data: result });
-      });
-    } catch (e) {
-      console.log(e);
-      res.json({ error: e });
-    }
-  },
-
-  getDailySummary: async (req, res) => {
-    let query =
-      "SELECT * FROM cycle_transaction WHERE transaction_date >= ? AND transaction_date <= ? ORDER BY transaction_date DESC";
-    let query1 =
-      "SELECT * FROM sales WHERE date_sold >= ? AND date_sold <= ? ORDER BY date_sold DESC";
-    let startDay = req.body.start;
-    let endDay = req.body.end;
-    try {
-      client.Client.query(query, [startDay, endDay], (err, result) => {
-        if (err) console.log(err);
-        else {
-          client.Client.query(query1, [startDay, endDay], (err1, result1) => {
-            if (err1) console.log(err1);
-            else {
-              res.json({ data: [result, result1] });
-            }
-          });
-        }
-      });
-    } catch (e) {
-      console.log(e);
-      res.json({ error: e });
-    }
-  },
-  getMonthlySummary: async (req, res) => {
-    let query =
-      "SELECT * FROM cycle_transaction WHERE transaction_date >= ? AND transaction_date <= ? ORDER BY transaction_date DESC";
-    let start = req.body.start;
-    let end = req.body.end;
-    try {
-      client.Client.query(query, [start, end], (err, result) => {
-        if (err) console.log(err);
-        res.json({ date: result });
-      });
-    } catch (e) {
-      console.log(e);
-      res.json({ error: e });
-    }
-  },
   getClientSummary: async (req, res) => {
     let queryFunction = () => {
       if (!req.body.start && !req.body.end) {
@@ -116,7 +42,7 @@ module.exports = {
             query1,
             {
               transaction_id: uuid.v4(),
-              transaction_date: req.body.transaction_date,
+              transaction_date: req.body.transaction_date + 1,
               client_name: req.body.client_name,
               price: req.body.price,
               quantity: req.body.quantity,
@@ -298,21 +224,6 @@ module.exports = {
       res.json({ error: "err" });
     }
   },
-  dataTransfer: async (req, res) => {
-    let query = "update cycles set ? where id = ?";
-    try {
-      client.Client.query(
-        query,
-        [{ end_date: 0, sales_quantity: 0, cycle_number: 1 }, "m4399355"],
-        (err, result) => {
-          console.log(result);
-          res.json({ message: "done" });
-        }
-      );
-    } catch (e) {
-      res.json({ error: e });
-    }
-  },
   getCurrentCycle: async (req, res) => {
     let query = "SELECT * FROM cycles WHERE end_date = ?";
     try {
@@ -411,12 +322,12 @@ module.exports = {
     })
   },
   getClientLatestPrice: async (req, res) => {
-    let query = "SELECT MAX(transaction_date), price FROM cycle_transaction WHERE client_name = ?"
+    let query = "SELECT max(price) FROM cycle_transaction WHERE client_name = ?"
     try{
       client.Client.query(query, [req.body.client], (error, result) => {
       if (error) throw error;
       else{
-        res.json({data: result[0].price})
+        res.json({data: result[0]["max(price)"]})
       }
       })
     }catch(error){
@@ -426,7 +337,6 @@ module.exports = {
   },
   saveDeleted: async(data) => {
     let query = "INSERT INTO deleted SET ?"
-    console.log(data)
     try{
       client.Client.query(query, data, (err, results) => {
         if (err) throw err

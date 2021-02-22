@@ -1,10 +1,6 @@
 import {
   GET_CLIENT,
   GET_CLIENT_ERROR,
-  GET_DAILY,
-  GET_DAILY_ERROR,
-  GET_MONTHLY,
-  GET_MONTHLY_ERROR,
   INPUT_DATA,
   INPUT_DATA_ERROR,
   GET_SUMMARY,
@@ -22,85 +18,6 @@ import {
   GET_DELETED
 } from "./types";
 import axios from "axios";
-
-export const getToday = (callback) => async (dispatch) => {
-  try {
-    const res = await axios.post(
-      "/api/operations/thisday",
-      { status: "getting it" },
-      {
-        headers: { authorization: localStorage.getItem("token") },
-      }
-    );
-    dispatch({ type: GET_DAILY, payload: res.data });
-    callback();
-  } catch (error) {
-    if (error.response.data) {
-      callback(error.response.data.error) 
-      
-      dispatch({ type: AUTH_USER, payload: null,})
-    } else {
-      dispatch({ type: GET_DAILY_ERROR, payload: error });
-    }
-  }
-};
-
-export const getDaily = (data, callback) => async (dispatch) => {
-  try {
-    const res = await axios.post("/api/operations/daily", data, {
-      headers: { authorization: localStorage.getItem("token") },
-    });
-    dispatch({ type: GET_DAILY, payload: res.data });
-    callback();
-  }catch (error) {
-    if (error.response.data) {
-      callback(error.response.data.error) 
-      
-      dispatch({ type: AUTH_USER, payload: null,})
-       
-    } else {
-      dispatch({ type: GET_DAILY_ERROR, payload: error });
-    }
-  }
-};
-
-export const getThisMonth = (callback) => async (dispatch) => {
-  try {
-    const res = await axios.post(
-      "/api/operations/thismonth",
-      { status: "getting it" },
-      { headers: { authorization: localStorage.getItem("token") } }
-    );
-    dispatch({ type: GET_MONTHLY, payload: res.data });
-    callback();
-  } catch (error) {
-    if (error.response.data) {
-      callback(error.response.data.error) 
-      
-      dispatch({ type: AUTH_USER, payload: null,})
-    } else {
-      dispatch({ type: GET_MONTHLY_ERROR, payload: error });
-    }
-  }
-};
-
-export const getMonthly = (data, callback) => async (dispatch) => {
-  try {
-    const res = await axios.post("/api/operations/monthly", data, {
-      headers: { authorization: localStorage.getItem("token") },
-    });
-    dispatch({ type: GET_MONTHLY, payload: res.data });
-    callback();
-  } catch (error) {
-    if (error.response.data) {
-      callback(error.response.data.error) 
-      
-      dispatch({ type: AUTH_USER, payload: null,})
-    } else {
-      dispatch({ type: GET_MONTHLY_ERROR, payload: error });
-    }
-  }
-};
 
 export const getClient = (data, callback) => async (dispatch) => {
   try {

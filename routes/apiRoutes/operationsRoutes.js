@@ -2,14 +2,6 @@ const router = require('express').Router();
 const OperationsController = require("./../../controllers/operationsController")
 const authMiddleware = require('./../../middlewares/authMiddlewares');
 
-router.route("/thisday")
-    .post(authMiddleware.checkAuth, OperationsController.getThisDaySummary)
-router.route("/thismonth")
-    .post(authMiddleware.checkAuth, OperationsController.getThisMonthSummary)
-router.route("/daily")
-    .post(authMiddleware.checkAuth, OperationsController.getDailySummary)
-router.route("/monthly")
-    .post(authMiddleware.checkAuth, OperationsController.getMonthlySummary)
 router.route("/client")
     .post(authMiddleware.checkAuth, OperationsController.getClientSummary)
 router.route("/input")
