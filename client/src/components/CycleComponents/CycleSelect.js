@@ -9,7 +9,7 @@ const handleCycleList = (item, props) => {
     props.specificCycle(
         { start_date: item.start_date, end_date: item.end_date },
         () => {
-          props.handleSpecificCycle()
+          console.log("good")
         }
       );
 }

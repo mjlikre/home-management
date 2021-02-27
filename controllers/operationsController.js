@@ -13,7 +13,6 @@ module.exports = {
         return "SELECT * FROM cycle_transaction WHERE client_name = ? AND transaction_date >= ? AND transaction_date <= ? ORDER BY transaction_date DESC";
       }
     };
-
     let start = req.body.start;
     let end = req.body.end;
     try {

@@ -5,6 +5,7 @@ import PopupNewItem from "../PopUp/index"
 import MasterTable from "./Table"
 import {Table} from "react-bootstrap"
 import { useMediaQuery } from "react-responsive";
+import GeneralTable from "./index"
 import {
     getSummary,
   } from "../../actions/operations";
@@ -46,6 +47,44 @@ const MainTableContainer = (props) => {
         return total;
       }
     };
+    const calculateDetails = (data) => {
+      if (data) {
+        const details = {};
+        const cleaned_data = [];
+        for (let i = 0; i < data.length; i++) {
+          if (!details.hasOwnProperty(data[i].client_name)) {
+            details[data[i].client_name] = {
+              amount: data[i].amount,
+              quantity: data[i].quantity,
+            };
+          } else {
+            details[data[i].client_name].amount += data[
+              i
+            ].amount;
+            details[data[i].client_name].quantity += data[
+              i
+            ].quantity;
+          }
+        }
+        let cleaned = Object.entries(details);
+        cleaned.map((item, index) => {
+          return cleaned_data.push([item[0], item[1].quantity, item[1].amount]);
+        });
+        return cleaned_data;
+      }
+    }
+    const renderDetailsTable = (data) => {
+      if (data) {
+        let cleaned = calculateDetails(data);
+
+        return (
+          <GeneralTable
+            item_name={["客户", "克数", "金额"]}
+            item_list={cleaned}
+          ></GeneralTable>
+        );
+      }
+    }
 
     return (
         <>
@@ -68,6 +107,7 @@ const MainTableContainer = (props) => {
               mobileThead = {["客户","克数","价格","日期"," "]}
               mFirstRow = "client_name" mSecondRow = "quantity" mThirdRow = "price"  
               />
+              {renderDetailsTable(data)}
               {!mobile ? (
         <div>
           <Table className="table table-bordered">

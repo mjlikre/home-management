@@ -28,16 +28,16 @@ const CycleContainer = (props) => {
           setList(props.cycleList)
         })
       }
-      if (!data && props.sCycle) {
+      if (data !== props.sCycle) {
         setData(props.sCycle.data)
-        handleSpecificCycle()
+        handleSpecificCycle(props.sCycle.data)
       }
     }, [props.sCycle])
 
-    const handleSpecificCycle = () => {
-      if (props.sCycle){
+    const handleSpecificCycle = (data) => {
+      if (data){
         let cleaned = [];
-          props.sCycle.data.map((item, index) => {
+        data.map((item, index) => {
             return cleaned.push([
               item.client_name,
               item.quantity,
@@ -46,10 +46,8 @@ const CycleContainer = (props) => {
               new Date(item.transaction_date).toLocaleDateString(),
             ]);
           });
-          setCleanedData(cleaned)
-        } else {
-          console.log("failed");
-        }
+          return cleaned
+        } 
       }
     
     const returnProfit = () => {
@@ -97,10 +95,10 @@ const CycleContainer = (props) => {
         return 0;
       }
     }
-    const calculateDetails = () => {
+    const calculateDetails = (data) => {
       if (data) {
         const details = {};
-        const data = [];
+        const cleaned_data = [];
         for (let i = 0; i < data.length; i++) {
           if (!details.hasOwnProperty(data[i].client_name)) {
             details[data[i].client_name] = {
@@ -118,9 +116,9 @@ const CycleContainer = (props) => {
         }
         let cleaned = Object.entries(details);
         cleaned.map((item, index) => {
-          return data.push([item[0], item[1].quantity, item[1].amount]);
+          return cleaned_data.push([item[0], item[1].quantity, item[1].amount]);
         });
-        return data;
+        return cleaned_data;
       }
     }
     const handleEdit =(data)=> {
@@ -146,13 +144,14 @@ const CycleContainer = (props) => {
         );
       }
     }
-    const renderDetailsTable = () => {
+    const renderDetailsTable = (data) => {
       if (data) {
-        let data = calculateDetails();
+        let cleaned = calculateDetails(data);
+
         return (
           <GeneralTable
             item_name={["客户", "克数", "金额"]}
-            item_list={data}
+            item_list={cleaned}
           ></GeneralTable>
         );
       }
@@ -172,7 +171,7 @@ const CycleContainer = (props) => {
         {!editData.edit ? 
         (
           <>
-          <CycleSelect list = {props.cycleList} handleSpecificCycle = {()=>{handleSpecificCycle()}}/>
+          <CycleSelect list = {props.cycleList} />
           <div
                   className="col-lg-12 table-wrapper"
                 >
@@ -191,11 +190,11 @@ const CycleContainer = (props) => {
               />
               <GeneralTable
                 item_name={["客户", "克数", "价格", "金额", "日期"]}
-                item_list={cleanedData}
+                item_list={handleSpecificCycle(data)}
               >
                 {renderSales()}
               </GeneralTable>
-              {renderDetailsTable()}
+              {renderDetailsTable(data)}
               </div></>
               ) : (
                 <div className="row">
