@@ -6,10 +6,9 @@ const inventoryRoutes = require('./inventory')
 // / api prepended to these routes
 
 router.route('/test')
-  .get(authMiddleware.requireAuth, (req, res) => {
-    console.log(req.user, "i got here")
-    console.log(req.headers)
-    res.send(req.user);
+  .get( (req, res) => {
+    console.log( "i got here")
+    res.send("success");
   });
 
 router.use('/auth', authRoutes);

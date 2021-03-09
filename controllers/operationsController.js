@@ -1,7 +1,7 @@
 const uuid = require("uuid");
 const client = require("../models");
 require("dotenv").config();
-
+let num = 1
 module.exports = {
   getClientSummary: async (req, res) => {
     let queryFunction = () => {
@@ -41,7 +41,7 @@ module.exports = {
             query1,
             {
               transaction_id: uuid.v4(),
-              transaction_date: req.body.transaction_date + 1,
+              transaction_date: req.body.transaction_date + num,
               client_name: req.body.client_name,
               price: req.body.price,
               quantity: req.body.quantity,
@@ -58,6 +58,7 @@ module.exports = {
                 },
                 0
               );
+              num ++
               res.json({ data: "success" });
             }
           );
@@ -213,12 +214,14 @@ module.exports = {
                   },
                   2
                 );
+              
                 res.json({ data: "success" });
               }
             }
           );
         }
       });
+
     } catch (e) {
       res.json({ error: "err" });
     }
