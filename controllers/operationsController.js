@@ -200,7 +200,7 @@ module.exports = {
               id: uuid.v4(),
               quantity_sold: req.body.quantity,
               cash: req.body.amount,
-              date_sold: req.body.timestamp,
+              date_sold: req.body.timestamp + 1000 ,
               cycle_id: result1[0].id,
             },
             (err, result) => {
@@ -266,7 +266,7 @@ module.exports = {
     }
   },
   getAllCycle: async (req, res) => {
-    let query = "SELECT * FROM cycles";
+    let query = "SELECT * FROM cycles ORDER BY cycle_number ASC";
     try {
       client.Client.query(query, (err, result) => {
         if (err) console.log(err);
