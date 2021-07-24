@@ -65,7 +65,7 @@ class SalesPopop extends Component {
         return (
             <>
             <Button variant="primary" onClick={this.handleShow}>
-              添加
+              添加出售记录
             </Button>
       
             <Modal

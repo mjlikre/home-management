@@ -23,7 +23,7 @@ const renderIndividualItems = (item) => {
 };
 const GeneralTable = (props) => {
   return (
-    <div className="row">
+    <div className="row table-wrapper">
       <div className="col-lg-12" >
         <Table striped bordered hover size = "sm">
           <thead className="thead-dark">

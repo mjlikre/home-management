@@ -7,7 +7,7 @@ import MainTableContainer from "../components/Table/MainTableContainer";
 const Main = () => {
   return (
     <PageHeader>
-      <MainTableContainer />
+      <MainTableContainer/>
     </PageHeader>
   );
 };
