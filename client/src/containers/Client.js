@@ -146,7 +146,7 @@ class Client extends Component {
                 handleClick={this.dropdownClick}
               ></DropdownBox>
             </div>
-            <div className="col-md-2" style={{ top: "27px" }}>
+            <div className="col-sm-2" style={{ top: "27px" }}>
               <GeneralButton
                 type="primary"
                 buttonName="寻找"
@@ -163,7 +163,7 @@ class Client extends Component {
               总交易额：{this.state.data ? this.renderAmount() : 0}
             </div>
             <div className="col-md-2" style={{ top: "27px" }}>
-              总交易数量：{this.state.data ? this.renderQuantity() : 0}
+              总交易克数：{this.state.data ? this.renderQuantity() : 0}
             </div>
           </div>
 
@@ -171,12 +171,7 @@ class Client extends Component {
             <GeneralTable
               item_name={[this.state.client, "克数", "价格", "金额", "日期"]}
               item_list={this.cleanData()}
-            >
-              <th>总结</th>
-              <th>{this.renderQuantity()}</th>
-              <th></th>
-              <th>{this.renderAmount()}</th>
-            </GeneralTable>
+            />
           </div>
           <div>
             <GeneralButton
